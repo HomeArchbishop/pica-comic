@@ -1,0 +1,86 @@
+<template>
+  <div class="wrap" id="app">
+    <SideBar/>
+    <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+    </keep-alive>
+    <router-view v-if="!$route.meta.keepAlive"></router-view>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'App',
+  data () {
+    return {
+      isShowDialog: false
+    }
+  },
+  methods: {
+    getDiversionUrlList: async function () {
+      const otherDiversionList = await this.$api.getDiversionUrlList()
+      if (otherDiversionList.error) { return }
+      const fullList = ['http://picaapi.picacomic.com/', ...otherDiversionList]
+      localStorage.diversionUrlList = JSON.stringify(fullList)
+      this.$store.commit('global/updateDiversionUrlList', { newDiversionUrlList: fullList })
+    }
+  },
+  created () {
+    this.getDiversionUrlList()
+  }
+}
+</script>
+
+<style lang="less">
+@import './assets/less/color';
+@font-face {
+  font-family: 'juZhenJF';
+  src: url('./assets/font/FZJuZXFJF.ttf');
+}
+:root {
+  .a-theme {
+    &:link, &:visited, &:hover, &:active {
+      color: @color-theme;
+      text-decoration: none;
+    }
+  }
+  .a-anti-theme {
+    &:link, &:visited, &:hover, &:active {
+      color: @color-anti-theme;
+      text-decoration: none;
+    }
+  }
+  .a-theme-sub {
+    &:link, &:visited, &:hover, &:active {
+      color: @color-theme-sub;
+      text-decoration: none;
+    }
+  }
+}
+body {
+  padding: 0;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  &, * {
+    font-family: 'juZhenJF';
+    box-sizing: border-box!important;
+  }
+}
+.wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+.darkmode-layer, .darkmode-toggle {
+  z-index: 500;
+}
+img {
+  z-index: 999;
+}
+</style>

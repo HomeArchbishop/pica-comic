@@ -1,0 +1,10 @@
+{
+  "name": "pica",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "cd pica-server && npm start"
+  },
+  "author": "拆家大主教",
+  "license": "MIT"
+}

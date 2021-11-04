@@ -1,0 +1,256 @@
+import axios from 'axios'
+
+const baseUrl = '//localhost:1210/apiProxy/'
+
+axios.interceptors.request.use(
+  config => {
+    if (config.method === 'post') {
+      const diversionUrl = JSON.parse(localStorage.diversionUrlList || '[]')[+localStorage.diversionIndex] || 'http://104.20.180.50/'
+      config.data = {
+        ...config.data,
+        diversionUrl
+      }
+    } else if (config.method === 'get') {
+      const diversionUrl = JSON.parse(localStorage.diversionUrlList || '[]')[+localStorage.diversionIndex] || 'http://104.20.180.50/'
+      console.log('get', diversionUrl)
+      config.params = {
+        ...config.params,
+        diversionUrl
+      }
+    }
+    return config
+  },
+  function (err) {
+    return Promise.reject(err)
+  }
+)
+
+const getDiversionUrlList = async function () {
+  const list = (await axios.get(`${baseUrl}/diversionurl`)).data || []
+  list.forEach((ip, index) => {
+    list[index] = `http://${ip}/`
+  })
+  return list
+}
+
+const checkConnect = async function () {
+  const res = await axios.get(`${baseUrl}`)
+  return res
+}
+
+const authorize = async function (username, password) {
+  const token = (await axios.get(`${baseUrl}authorize`, {
+    params: {
+      username,
+      password
+    }
+  })).data
+  return token
+}
+
+const checkToken = async function (token) {
+  const resString = (await axios.get(`${baseUrl}checkToken`, {
+    params: {
+      token
+    }
+  })).data
+  return Boolean(resString)
+}
+
+const categories = async function (token) {
+  const categoryList = (await axios.get(`${baseUrl}categories`, {
+    params: {
+      token
+    }
+  })).data
+  return categoryList
+}
+
+const categoriesSearch = async function (token, categories, page = 1, sort = 'ua') {
+  const searchResultInfo = (await axios.get(`${baseUrl}categoriesSearch`, {
+    params: {
+      token,
+      categories,
+      page,
+      sort
+    }
+  })).data
+  return searchResultInfo
+}
+
+const tagSearch = async function (token, tag, page = 1, sort = 'ua') {
+  const searchResultInfo = (await axios.get(`${baseUrl}tagSearch`, {
+    params: {
+      token,
+      tag,
+      page,
+      sort
+    }
+  })).data
+  return searchResultInfo
+}
+
+const search = async function (token, keyword, page = 1, sort = 'ua') {
+  const searchResultInfo = (await axios.get(`${baseUrl}search`, {
+    params: {
+      token,
+      keyword,
+      page,
+      sort
+    }
+  })).data
+  return searchResultInfo
+}
+
+const keyword = async function (token) {
+  const keywordList = (await axios.get(`${baseUrl}keyword`, {
+    params: {
+      token
+    }
+  })).data
+  return keywordList
+}
+
+// the detail info of one comic
+const info = async function (token, comicId) {
+  const comicDetailObject = (await axios.get(`${baseUrl}info`, {
+    params: {
+      token,
+      comicId
+    }
+  })).data
+  return comicDetailObject
+}
+
+const episodes = async function (token, comicId) {
+  const episodesList = (await axios.get(`${baseUrl}episodes`, {
+    params: {
+      token,
+      comicId
+    }
+  })).data
+  return episodesList
+}
+
+const picture = async function (token, comicId, episodesOrder, page = 1) {
+  const pictureObject = (await axios.get(`${baseUrl}picture`, {
+    params: {
+      token,
+      comicId,
+      episodesOrder,
+      page
+    }
+  })).data
+  return pictureObject
+}
+
+const myFavourite = async function (token, page = 1) {
+  const myFavouriteListObject = (await axios.get(`${baseUrl}myFavourite`, {
+    params: {
+      token,
+      page
+    }
+  })).data
+  return myFavouriteListObject
+}
+
+const like = async function (token, bookId) {
+  const likeAction = (await axios.get(`${baseUrl}like`, {
+    params: {
+      token,
+      bookId
+    }
+  })).data
+  return likeAction
+}
+
+const favourite = async function (token, bookId) {
+  const favouriteAction = (await axios.get(`${baseUrl}favourite`, {
+    params: {
+      token,
+      bookId
+    }
+  })).data
+  return favouriteAction
+}
+
+const collections = async function (token) {
+  const ShenMoTuiJianList = (await axios.get(`${baseUrl}collections`, {
+    params: {
+      token
+    }
+  })).data
+  return ShenMoTuiJianList
+}
+
+const comments = async function (token, bookId, page) {
+  const commentsResults = (await axios.get(`${baseUrl}comments`, {
+    params: {
+      token,
+      bookId,
+      page
+    }
+  })).data
+  return commentsResults
+}
+
+const myComments = async function (token, page) {
+  const commentsResults = (await axios.get(`${baseUrl}mycomments`, {
+    params: {
+      token,
+      page
+    }
+  })).data
+  return commentsResults
+}
+
+const personInfo = async function (token) {
+  const personInfo = (await axios.get(`${baseUrl}personinfo`, {
+    params: {
+      token
+    }
+  })).data
+  return personInfo
+}
+
+const punch = async function (token) {
+  const punchActionRes = (await axios.get(`${baseUrl}punch`, {
+    params: {
+      token
+    }
+  })).data
+  return punchActionRes
+}
+
+const register = async function (registerData) {
+  const registerRes = (await axios.post(`${baseUrl}register`, {
+    registerData: { ...registerData }
+  })).data
+  return registerRes
+}
+
+const commentLike = async function (token, commentId) {
+  const likeAction = (await axios.get(`${baseUrl}commentLike`, {
+    params: {
+      token,
+      commentId
+    }
+  })).data
+  return likeAction
+}
+
+const randomComic = async function (token) {
+  const comicList = (await axios.get(`${baseUrl}randomComic`, {
+    params: {
+      token
+    }
+  })).data
+  return comicList
+}
+
+export {
+  checkConnect, authorize, checkToken, categories, categoriesSearch, search,
+  keyword, info, episodes, picture, myFavourite, like, favourite, collections,
+  comments, personInfo, myComments, punch, register, getDiversionUrlList,
+  tagSearch, commentLike, randomComic
+}

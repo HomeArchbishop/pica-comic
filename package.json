@@ -1,0 +1,15 @@
+{
+  "name": "pica",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "build:web": "cd pica-client && npm run build && cd ../ && sh script/web/pack.sh",
+    "test:production": "cd production/pica-server && npm start"
+  },
+  "author": "拆家大主教",
+  "license": "MIT",
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  }
+}
