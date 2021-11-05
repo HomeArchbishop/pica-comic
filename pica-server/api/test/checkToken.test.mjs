@@ -1,6 +1,6 @@
-import { checkToken } from '../dist/pica.js'
-import token from './token.js'
-import diversionUrl from './diversionUrl.js'
+import { checkToken } from '../pica.ts'
+import token from './data/token.ts'
+import diversionUrl from './data/diversionUrl.ts'
 
 // globalThis.proxy = null
 

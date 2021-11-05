@@ -1,19 +1,18 @@
 import Header from './header'
 import fetch from 'node-fetch'
 
-const defultUrl: string = 'http://104.22.64.159/'
+type method = 'POST' | 'GET' | 'PUT'
 
-type Method = 'POST' | 'GET' | 'PUT'
+// const defultUrl: string = 'http://104.22.64.159/'
 
 // returns parsed json
-async function sendRequest(diversionUrl: string, subUrl: string, method: Method,
+const sendRequest = async function (diversionUrl: string, subUrl: string, method: method,
   body: object | null, auth: string | null) {
 
-  const header = new Header(subUrl, method)
+  const header = new Header(subUrl, method, auth)
   const url = diversionUrl + subUrl
   console.log(url)
 
-  header.setAuth(auth)
   const resp = await fetch(url, {
     headers: header.headers,
     method: method,
@@ -24,19 +23,23 @@ async function sendRequest(diversionUrl: string, subUrl: string, method: Method,
     // throw Error('bad response code')
   // }
   // console.log(resp.headers)
-  return await resp.json()
+  const json = await resp.json()
+  return json
 }
 
-async function sendGet(diversionUrl: string, subUrl: string, auth: string | null) {
-  return await sendRequest(diversionUrl, subUrl, 'GET', null, auth)
+const sendGet = async function (diversionUrl: string, subUrl: string, auth: string | null) {
+  const resp = await sendRequest(diversionUrl, subUrl, 'GET', null, auth)
+  return resp
 }
 
-async function sendPut(diversionUrl: string, subUrl: string, body: object | null, auth: string | null) {
-  return await sendRequest(diversionUrl, subUrl, 'PUT', body, auth)
+const sendPut = async function (diversionUrl: string, subUrl: string, body: object | null, auth: string | null) {
+  const resp = await sendRequest(diversionUrl, subUrl, 'PUT', body, auth)
+  return resp
 }
 
-async function sendPost(diversionUrl: string, subUrl: string, body: object | null, auth: string | null) {
-  return await sendRequest(diversionUrl, subUrl, 'POST', body, auth)
+const sendPost = async function (diversionUrl: string, subUrl: string, body: object | null, auth: string | null) {
+  const resp = await sendRequest(diversionUrl, subUrl, 'POST', body, auth)
+  return resp
 }
 
 export { sendGet, sendPost, sendPut }

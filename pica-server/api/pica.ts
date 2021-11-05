@@ -1,5 +1,3 @@
-'use strict';
-
 import * as P from './type/pica'
 
 import { sendGet, sendPost, sendPut } from './request'
@@ -21,9 +19,9 @@ async function androidInfo(diversionUrl: string, token: string): Promise<string>
 }
 
 // 验证token
-async function checkToken(diversionUrl: string, token: string): Promise<boolean> {
+async function checkToken(diversionUrl: string, token: string): Promise<any> {
   const json = await sendGet(diversionUrl, 'keywords', token)
-  return json.message !== 'unauthorized'
+  return json //.message !== 'unauthorized'
 }
 
 // 登录并返回token
@@ -245,7 +243,7 @@ async function knightRank(diversionUrl: string, token: string): Promise<P.Creato
 }
 
 // 设置头衔
-async function setTitle(diversionUrl: string, token: string, userId: string, title: string): Promise<null> {
+async function setTitle(diversionUrl: string, token: string, userId: string, title: string): Promise<any> {
   const url = `users/${userId}/title`
   const body = { title }
   const json = await sendPut(diversionUrl, url, body, token)
@@ -270,7 +268,7 @@ async function register(diversionUrl: string, registerData: P.RegisterData): Pro
   const url = `auth/register`
   const body = { ...registerData }
   const json = await sendPost(diversionUrl, url, body, null)
-  return json
+  return json.data
 }
 
 // 评论点赞
