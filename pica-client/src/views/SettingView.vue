@@ -56,7 +56,7 @@ export default {
       const _this = this
       this.$dialog({
         title: '您正准备清除缓存。',
-        context: '登录记录、最近观看、外观设置等将重置。',
+        content: '登录记录、最近观看、外观设置等将重置。',
         cancelBtn: true,
         confirm () {
           localStorage.clear()
