@@ -4,14 +4,16 @@
       <div class="display-card">
         <div class="title">小程序</div>
         <div class="program-area">
-          <ItemSmall v-for="item in categoryList" :key="item._id" :item="item" v-show="item.isWeb"
+          <ItemSmall v-for="item in webList" :key="item._id + item.title" :item="item"
             :link="`/link/${$util.transferOutURL(item.link)}`"/>
+          <ItemSmall v-for="item in appList" :key="item._id + item.title" :item="item"
+            :link="`/${item.path}`"/>
         </div>
       </div>
       <div class="display-card">
         <div class="title">分类</div>
         <div class="list-area">
-          <ItemSmall v-for="item in categoryList" :key="item._id" :item="item" v-show="!item.isWeb"
+          <ItemSmall v-for="item in cateList" :key="item._id + item.title" :item="item"
             :link="`/category/${item.title}`"/>
         </div>
       </div>
@@ -25,7 +27,10 @@ export default {
   data () {
     return {
       token: localStorage.token,
-      categoryList: this.$store.state.global.categoryList || []
+      categoryList: this.$store.state.global.categoryList || [], // contain web & app & cate.
+      appList: [],
+      webList: [],
+      cateList: []
     }
   },
   methods: {
@@ -33,7 +38,18 @@ export default {
       const categoryList = await this.$api.categories(this.token)
       this.$set(this, 'categoryList', categoryList)
       console.log(this.categoryList)
-      console.log('aaa', await this.$api.categoriesSearch(this.token, '妹妹系', 1, 'ua'))
+      // set values in each data.
+      this.categoryList.forEach(item => {
+        if (item.isWeb) {
+          this.webList.push(item)
+          return
+        }
+        if (item.isApp) {
+          this.appList.push(item)
+          return
+        }
+        this.cateList.push(item)
+      })
       // change vuex.
       this.$store.commit('global/updateCategoryList', { newCategoryList: categoryList })
     }

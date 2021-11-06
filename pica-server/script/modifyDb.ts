@@ -8,8 +8,9 @@ const extraCategories = [
     active: true,
     isWeb: false,
     isApp: true,
+    path: 'random',
     thumb: {
-      fileServer: 'x',
+      fileServer: '#',
       originalName: 'x',
       path: 'every-see.jpg',
     },
