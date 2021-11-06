@@ -1,6 +1,8 @@
 export default {
   formatImgUrl: function (fileServer = '', path = '') {
-    return `https://storage1.picacomic.com/static/${path}`
+    return fileServer.slice(0, 1) === '#'
+      ? `${fileServer.slice(1)}${path}`
+      : `https://storage1.picacomic.com/static/${path}`
     /*
     if (!fileServer || !path) {
       return null
