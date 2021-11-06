@@ -15,7 +15,7 @@ class Header {
 
   // url: request url without https://picaapi.picacomic.com/
   // method: choose one from methods[] array
-  constructor(url: string, method: method, auth: string) {
+  constructor(url: string, method: method, auth: string | null) {
     const time = (Date.now() / 1000).toFixed(0)
     const nonce = uuid.v4().replace(/-/g, '')
     this.headers = {
