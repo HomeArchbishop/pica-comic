@@ -13,6 +13,9 @@
             <CheckRadio valueStr="0|1|2" textStr="分流一(需要VPN)|分流二|分流三" :checkedValue="String(diversionIndex)"
               @checkChange="setDiversion" style="width: 400px; font-size: 1em"/>
           </div>
+          <div class="row">
+            <div class="btn" @click.stop="clearCashes()">清除缓存</div>
+          </div>
         </div>
         <div class="user-setting-area">
         </div>
@@ -48,6 +51,18 @@ export default {
       }
       localStorage.diversionIndex = _newVal
       this.$set(this, 'diversionIndex', _newVal)
+    },
+    clearCashes: async function () {
+      const _this = this
+      this.$dialog({
+        title: '您正准备清除缓存。',
+        context: '登录记录、最近观看、外观设置等将重置。',
+        cancelBtn: true,
+        confirm () {
+          localStorage.clear()
+          _this.$router.push({ path: '/' })
+        }
+      })
     }
   }
 }
@@ -86,7 +101,7 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    min-height: 220px;
+    // min-height: 220px;
     padding: 10px;
     margin-top: 10px;
     border: 1px solid @color-theme;
@@ -100,6 +115,16 @@ export default {
       margin-top: 10px;
       &:first-child {
         margin-top: 0;
+      }
+      .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        width: 100px;
+        height: 26px;
+        border: 1px solid @color-theme;
+        cursor: pointer;
       }
     }
   }
