@@ -3,7 +3,7 @@
     <div class="main">
       <div class="display-card">
         <span class="title">最近观看</span>
-        <div class="list-area">
+        <div class="list-area" v-if="recentComicsList.length">
           <ItemLarge v-for="item in recentComicsList" :key="item._id" :item="item"
             :link="`../comicdetail/${item._id}`"/>
         </div>
@@ -117,7 +117,6 @@ export default {
     align-items: center;
     width: 100%;
     padding-top: 10px;
-    border-top: 1px solid black;
     .tip-note {
       padding-top: 10px;
       cursor: pointer;
