@@ -2,9 +2,13 @@
 
 import express from 'express'
 import axios from 'axios'
+import levelup from 'levelup'
+import leveldown from 'leveldown'
 
 import * as api from '../api/pica'
 import { Sorts } from '../util/transform'
+
+const staticDb = levelup(leveldown('./db/static'))
 
 const router = express.Router()
 
@@ -48,7 +52,12 @@ router
       diversionUrl: String(req.query.diversionUrl),
       token: String(req.query.token)
     }
-    const apiRes = await api.categories(args.diversionUrl, args.token)
+    const extraCategoriesListBuf = await staticDb.get('extraCategories')
+    const extraCategoriesList = JSON.parse(extraCategoriesListBuf.toString())
+    const apiRes = [
+      ...extraCategoriesList,
+      ...await api.categories(args.diversionUrl, args.token)
+    ]
     res.json(apiRes)
   })
   // /categoriesSearch?token={_}&categories={_}&page={1}&sort={ua}
