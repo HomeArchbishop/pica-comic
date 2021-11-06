@@ -21,7 +21,7 @@ async function androidInfo(diversionUrl: string, token: string): Promise<string>
 // 验证token
 async function checkToken(diversionUrl: string, token: string): Promise<any> {
   const json = await sendGet(diversionUrl, 'keywords', token)
-  return json //.message !== 'unauthorized'
+  return json.message !== 'unauthorized'
 }
 
 // 登录并返回token
