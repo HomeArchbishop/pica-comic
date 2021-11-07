@@ -1,6 +1,8 @@
 import axios from 'axios'
 
-const baseUrl = '//localhost:1210/apiProxy/'
+import serverConfig from '../../../pica-server/config/default'
+
+const baseUrl = `//localhost:${serverConfig.port}/apiProxy/`
 
 axios.interceptors.request.use(
   config => {
@@ -248,9 +250,25 @@ const randomComic = async function (token) {
   return comicList
 }
 
+const download = async function (token, comicId, episodesOrder) {
+  const downloadRes = (await axios.get(`${baseUrl}download`, {
+    params: {
+      token,
+      comicId,
+      episodesOrder
+    }
+  })).data
+  return downloadRes
+}
+
+const downloadInfo = async function () {
+  const downloadInfo = (await axios.get(`${baseUrl}downloadInfo`)).data
+  return downloadInfo
+}
+
 export {
   checkConnect, authorize, checkToken, categories, categoriesSearch, search,
   keyword, info, episodes, picture, myFavourite, like, favourite, collections,
   comments, personInfo, myComments, punch, register, getDiversionUrlList,
-  tagSearch, commentLike, randomComic
+  tagSearch, commentLike, randomComic, download, downloadInfo
 }

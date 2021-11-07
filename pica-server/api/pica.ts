@@ -63,7 +63,7 @@ async function episodes(diversionUrl: string, token: string, bookId: string, pag
 }
 
 // 返回漫画本体（某一话的某一分页面所有图片）
-async function picture(diversionUrl: string, token: string, bookId: string, epsOrder: number, page: number = 1): Promise<P.Pictures> {
+async function picture(diversionUrl: string, token: string, bookId: string, epsOrder: string, page: number = 1): Promise<P.Pictures> {
   const url = `comics/${bookId}/order/${epsOrder}/pages?page=${page}`
   const json = await sendGet(diversionUrl, url, token)
   return json.data || json

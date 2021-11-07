@@ -4,9 +4,12 @@ import express from 'express'
 import axios from 'axios'
 import levelup from 'levelup'
 import leveldown from 'leveldown'
+import fs from 'fs'
 
 import * as api from '../api/pica'
-import { Sorts } from '../util/transform'
+import { Sorts } from '../static/util/transform'
+import download from '../static/ts/download'
+import downloadInfo from '../static/ts/downloadInfo'
 
 const staticDb = levelup(leveldown('./db/static'))
 
@@ -141,9 +144,21 @@ router
       diversionUrl: String(req.query.diversionUrl),
       token: String(req.query.token),
       comicId: String(req.query.comicId),
-      episodesOrder: Number(req.query.episodesOrder || 1),
+      episodesOrder: String(req.query.episodesOrder || 1),
       page: Number(req.query.page || 1)
     }
+    // check if is downloaded.
+    // (1) has downloaded.
+    const downloadFlagPath = `./static/download/${args.comicId}/${args.episodesOrder}/FLAG`
+    console.log(downloadFlagPath, fs.existsSync(downloadFlagPath))
+    if (fs.existsSync(downloadFlagPath)) {
+      console.log('downloaded')
+      const downloadIndexPath = `./static/download/${args.comicId}/${args.episodesOrder}/info.json`
+      const apiRes = JSON.parse(fs.readFileSync(downloadIndexPath).toString())
+      res.json(apiRes)
+      return
+    }
+    // (2) has not downloaded.
     const apiRes = await api.picture(args.diversionUrl, args.token, args.comicId, args.episodesOrder, args.page)
     res.json(apiRes)
   })
@@ -284,6 +299,24 @@ router
     }
     const apiRes = await api.randomComic(args.diversionUrl, args.token)
     res.json(apiRes)
+  })
+  // /download?token={_}&comicId={_}&episodesOrder={_}
+  // data: 'succeed' | 'fail'
+  .get('/download', async function (req, res) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      token: String(req.query.token),
+      comicId: String(req.query.comicId),
+      episodesOrder: String(req.query.episodesOrder || 1)
+    }
+    const resp = await download({ ...args })
+    res.end(resp)
+  })
+  // /downloadInfo?token={_}&comicId={_}&episodesOrder={_}
+  // data: downloadInfo
+  .get('/downloadInfo', async function (req, res) {
+    const resp = await downloadInfo()
+    res.json(resp)
   })
 
 export default router

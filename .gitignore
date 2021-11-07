@@ -2,4 +2,7 @@
 **/dist/
 **/.vscode
 **/db/user/
+
 production/
+
+pica-server/static/download/*

@@ -27,10 +27,34 @@
           <div class="like-btn" :class="{active: isLiked, loading: isRequestingLike}" @click.stop="toggleLike()">
             <i class="gg-heart"></i>
           </div>
+          <div class="download-btn" @click.stop="toggleDownload()">
+            <i class="gg-arrow-down"></i>
+          </div>
         </div>
       </div>
-      <div class="episodes-list" v-if="!isRequestingDetail">
-        <router-link class="episodes-item a-theme" v-for="item in episodesList.docs" :key="item.order" :to="`../comic/${comicId}/${item.order}`">{{ item.title }}</router-link>
+      <div class="episodes-list" v-if="!isRequestingDetail && !isChoosingDownLoad">
+        <router-link class="episodes-item a-theme" v-for="item in episodesList.docs" :key="item.order"
+          :to="`../comic/${comicId}/${item.order}`">{{ item.title }}</router-link>
+      </div>
+      <div class="download-episodes-area" v-if="!isRequestingDetail && isChoosingDownLoad">
+        <div class="tip">请选择要下载的章节</div>
+        <div class="tip sub">（由于官方接口的问题，不能保证下载的成功与完整）</div>
+        <div class="download-episodes-list">
+          <div class="download-episodes-item" v-for="item in episodesList.docs" :key="item.order"
+            :class="{
+              chosen: episodesDownloadChosenList.includes(String(item.order)) &&
+                !episodesDownloadedList.includes(String(item.order)),
+              downloaded: episodesDownloadedList.includes(String(item.order))
+            }"
+            @click.stop="toggleDownloadChosenList(item.order)">{{ item.title }}</div>
+        </div>
+        <div class="btn-div">
+          <div class="btn" @click.stop="toggleDownload()">取消</div>
+          <div class="btn" @click.stop="download()"
+            :class="{
+              disable: !episodesDownloadChosenList.length
+            }">下载</div>
+        </div>
       </div>
     </div>
   </div>
@@ -44,11 +68,14 @@ export default {
       token: localStorage.token,
       comicDetailObject: {},
       episodesList: [],
+      episodesDownloadChosenList: [],
+      episodesDownloadedList: [],
       isFavourite: false,
       isLiked: false,
       isRequestingDetail: true,
       isRequestingFavourite: false,
-      isRequestingLike: false
+      isRequestingLike: false,
+      isChoosingDownLoad: false
     }
   },
   computed: {
@@ -95,11 +122,40 @@ export default {
       this.$set(this, 'isLiked', LikeAction === 'like')
       // change state.
       this.$set(this, 'isRequestingLike', false)
+    },
+    toggleDownload: async function () {
+      this.$set(this, 'isChoosingDownLoad', !this.isChoosingDownLoad)
+    },
+    toggleDownloadChosenList: async function (orderNum) {
+      const order = String(orderNum)
+      if (this.episodesDownloadedList.includes(String(order))) { return }
+      const chosenSet = new Set(this.episodesDownloadChosenList)
+      chosenSet.has(order)
+        ? chosenSet.delete(order)
+        : chosenSet.add(order)
+      this.$set(this, 'episodesDownloadChosenList', Array.from(chosenSet))
+    },
+    download: async function () {
+      this.toggleDownload()
+      this.episodesDownloadChosenList.forEach(episodesOrder => {
+        this.$api.download(this.token, this.comicId, episodesOrder)
+          .then(downloadRes => {
+            console.log('download', episodesOrder, downloadRes)
+            this.getDownloadedList()
+          })
+      })
+    },
+    getDownloadedList: async function () {
+      const downloadInfo = await this.$api.downloadInfo()
+      console.log(downloadInfo)
+      const episodesDownloadedList = downloadInfo[this.comicId] || []
+      this.$set(this, 'episodesDownloadedList', [ ...episodesDownloadedList ])
     }
   },
   created () {
     this.getComicDetail()
     this.getEpisodesList()
+    this.getDownloadedList()
   }
 }
 </script>
@@ -200,7 +256,8 @@ export default {
     width: 40px;
     margin-left: 20px;
     .favourite-btn,
-    .like-btn {
+    .like-btn,
+    .download-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -235,6 +292,9 @@ export default {
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  ::selection {
+    text-decoration: none;
+  }
   .episodes-item {
     display: flex;
     border: 1px solid @color-theme;
@@ -246,6 +306,93 @@ export default {
     line-height: 16px;
     &:last-child {
       margin-right: 0;
+    }
+  }
+}
+.download-episodes-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  border: 1px solid @color-theme;
+  padding: 10px;
+  margin-top: 20px;
+  *::selection {
+    text-decoration: none;
+  }
+  .tip {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    &.sub {
+      color: @color-theme-sub;
+    }
+  }
+  .download-episodes-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    .download-episodes-item {
+      display: flex;
+      border: 1px solid @color-anti-theme-sub;
+      margin-right: 5px;
+      margin-top: 10px;
+      padding: 5px;
+      height: 26px;
+      font-size: 16px;
+      line-height: 16px;
+      color: @color-theme-sub;
+      position: relative;
+      cursor: pointer;
+      &:last-child {
+        margin-right: 0;
+      }
+      &.chosen {
+        border-color: @color-theme;
+        background-color: @color-anti-theme-sub;
+      }
+      &.downloaded {
+        border-color: @color-theme;
+        cursor: default;
+        &::after {
+          display: flex;
+          width: 12px;
+          height: 12px;
+          border-radius: 6px;
+          content: '';
+          background-color: green;
+          position: absolute;
+          right: -4px;
+          bottom: -4px;
+        }
+      }
+    }
+  }
+  .btn-div {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    margin-top: 10px;
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      height: 26px;
+      border: 1px solid @color-theme;
+      cursor: pointer;
+      margin-right: 10px;
+      &:last-child {
+        margin-right: 0;
+      }
+      &.disable {
+        border-color: @color-theme-sub;
+        color: @color-theme-sub;
+      }
     }
   }
 }

@@ -81,6 +81,6 @@ body {
   z-index: 500;
 }
 img {
-  z-index: 999;
+  z-index: 501;
 }
 </style>

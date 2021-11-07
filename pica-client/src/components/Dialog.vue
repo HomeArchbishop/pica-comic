@@ -76,6 +76,7 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
+  z-index: 550
 }
 .dialog-card {
   display: flex;
