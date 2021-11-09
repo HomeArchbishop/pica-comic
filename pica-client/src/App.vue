@@ -2,7 +2,7 @@
   <div class="wrap" id="app">
     <SideBar/>
     <keep-alive>
-        <router-view v-if="$route.meta.keepAlive"></router-view>
+      <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
   </div>
@@ -11,11 +11,6 @@
 <script>
 export default {
   name: 'App',
-  data () {
-    return {
-      isShowDialog: false
-    }
-  },
   methods: {
     getDiversionUrlList: async function () {
       const otherDiversionList = await this.$api.getDiversionUrlList()
