@@ -25,10 +25,11 @@ async function checkToken(diversionUrl: string, token: string): Promise<any> {
 }
 
 // 登录并返回token
-async function authorize(diversionUrl: string, username: string, password: string): Promise<string> {
+async function authorize(diversionUrl: string, username: string, password: string): Promise<string | any> {
   const url = `auth/sign-in`
   const body = { 'email': username, 'password': password }
   const json = await sendPost(diversionUrl, url, body, null)
+  // console.log(json.data?.token || json)
   return json.data?.token || json
 }
 

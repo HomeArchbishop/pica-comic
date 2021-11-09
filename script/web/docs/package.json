@@ -1,7 +1,7 @@
 {
   "name": "pica",
   "version": "0.1.0-alpha",
-  "description": "",
+  "description": "A pica comic client.",
   "scripts": {
     "start": "cd pica-server && npm start"
   },

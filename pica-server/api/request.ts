@@ -15,7 +15,7 @@ const sendRequest = async function (diversionUrl: string, subUrl: string, method
 
   const resp = await fetch(url, {
     headers: header.headers,
-    method: method,
+    method,
     body: method === 'POST' ? JSON.stringify(body || {}) : undefined,
   })
   // if (resp.status !== 200) {

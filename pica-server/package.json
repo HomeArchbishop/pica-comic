@@ -3,9 +3,8 @@
   "version": "1.0.0",
   "description": "A simple node proxy server for pica",
   "scripts": {
-    "start": "npx ts-node app.ts",
-    "build:server": "tsc",
-    "build:api-test": "tsc --outDir ./api/dist api/pica"
+    "start": "node app.js",
+    "dev": "npx ts-node app.ts"
   },
   "author": "拆家大主教",
   "license": "MIT",
