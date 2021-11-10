@@ -3,6 +3,7 @@
     <div class="main">
       <div class="display-card">
         <div class="title">设置</div>
+        <div class="sub-title">视图设置</div>
         <div class="view-setting-area">
           <div class="row">
             <label>深色模式</label>
@@ -13,11 +14,21 @@
             <CheckRadio valueStr="0|1|2" textStr="分流一(需要VPN)|分流二|分流三" :checkedValue="String(diversionIndex)"
               @checkChange="setDiversion" style="width: 400px; font-size: 1em"/>
           </div>
+        </div>
+        <div class="sub-title">用户设置</div>
+        <div class="user-setting-area">
+          <div class="row">
+            <div class="btn" @click.stop="clearCashes()">退出登录</div>
+          </div>
+        </div>
+        <div class="sub-title">其他</div>
+        <div class="other-setting-area">
           <div class="row">
             <div class="btn" @click.stop="clearCashes()">清除缓存</div>
           </div>
-        </div>
-        <div class="user-setting-area">
+          <div class="row">
+            <router-link class="btn a-theme" to="/about">关于</router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -95,8 +106,24 @@ export default {
     font-size: 25px;
     border-bottom: 1px solid @color-theme;
   }
+  .sub-title {
+    display: flex;
+    width: fit-content;
+    min-width: 4em;
+    margin-top: 10px;
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 900;
+    margin-bottom: -4px;
+    border-bottom: 3px solid @color-anti-theme-sub;
+    &::before {
+      content: '>';
+      margin-right: 4px;
+    }
+  }
   .view-setting-area,
-  .user-setting-area {
+  .user-setting-area,
+  .other-setting-area {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -104,7 +131,7 @@ export default {
     // min-height: 220px;
     padding: 10px;
     margin-top: 10px;
-    border: 1px solid @color-theme;
+    // border: 1px solid @color-theme;
     .row {
       display: flex;
       flex-direction: row;
@@ -120,11 +147,11 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        flex: 1;
-        width: 100px;
-        height: 26px;
+        width: 100%;
+        height: 28px;
         border: 1px solid @color-theme;
         cursor: pointer;
+        margin-top: 10px;
       }
     }
   }

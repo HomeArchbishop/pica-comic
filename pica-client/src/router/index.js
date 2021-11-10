@@ -20,6 +20,7 @@ import LinkView from '@/views/LinkView'
 import HideView from '@/views/HideView'
 import SettingView from '@/views/SettingView'
 import RandomView from '@/views/RandomView'
+import AboutView from '@/views/AboutView'
 
 import auth from './middleware/auth'
 import historyState from './middleware/historyState'
@@ -204,6 +205,15 @@ const router = new Router({
       component: RandomView,
       meta: {
         title: '随机',
+        keepAlive: true
+      }
+    },
+    {
+      path: '/about',
+      name: 'AboutView',
+      component: AboutView,
+      meta: {
+        title: '关于',
         keepAlive: true
       }
     }
