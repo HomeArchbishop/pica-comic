@@ -266,9 +266,18 @@ const downloadInfo = async function () {
   return downloadInfo
 }
 
+const knightRank = async function (token) {
+  const knightRank = (await axios.get(`${baseUrl}knightRank`, {
+    params: {
+      token
+    }
+  })).data
+  return knightRank
+}
+
 export {
   checkConnect, authorize, checkToken, categories, categoriesSearch, search,
   keyword, info, episodes, picture, myFavourite, like, favourite, collections,
   comments, personInfo, myComments, punch, register, getDiversionUrlList,
-  tagSearch, commentLike, randomComic, download, downloadInfo
+  tagSearch, commentLike, randomComic, download, downloadInfo, knightRank
 }

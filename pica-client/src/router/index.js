@@ -21,6 +21,7 @@ import HideView from '@/views/HideView'
 import SettingView from '@/views/SettingView'
 import RandomView from '@/views/RandomView'
 import AboutView from '@/views/AboutView'
+import KnightView from '@/views/KnightView'
 
 import auth from './middleware/auth'
 import historyState from './middleware/historyState'
@@ -215,6 +216,15 @@ const router = new Router({
       meta: {
         title: '关于',
         keepAlive: true
+      }
+    },
+    {
+      path: '/knight',
+      name: 'KnightView',
+      component: KnightView,
+      meta: {
+        title: '骑士榜',
+        keepAlive: false
       }
     }
   ]

@@ -318,5 +318,24 @@ router
     const resp = await downloadInfo()
     res.json(resp)
   })
-
+  // /knightRank?token={_}
+  // data: Creator[]
+  .get('/knightRank', async function (req, res) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      token: String(req.query.token)
+    }
+    const apiRes = await api.knightRank(args.diversionUrl, args.token)
+    res.json(apiRes)
+  })
+  // /appList?token={_}
+  // data: App[]
+  .get('/appList', async function (req, res) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      token: String(req.query.token)
+    }
+    const apiRes = await api.appList(args.diversionUrl, args.token)
+    res.json(apiRes)
+  })
 export default router
