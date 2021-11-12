@@ -28,7 +28,7 @@ axios.interceptors.request.use(
 )
 
 const getDiversionUrlList = async function () {
-  const list = (await axios.get(`${baseUrl}/diversionurl`)).data || []
+  const list = (await axios.get(`${baseUrl}diversionurl`)).data || []
   list.forEach((ip, index) => {
     list[index] = `http://${ip}/`
   })
