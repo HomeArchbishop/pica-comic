@@ -275,9 +275,20 @@ const knightRank = async function (token) {
   return knightRank
 }
 
+const recommend = async function (token, comicId) { // 「大家都在看」数组
+  const recommend = (await axios.get(`${baseUrl}knightRank`, {
+    params: {
+      token,
+      comicId
+    }
+  })).data
+  return recommend
+}
+
 export {
   checkConnect, authorize, checkToken, categories, categoriesSearch, search,
   keyword, info, episodes, picture, myFavourite, like, favourite, collections,
   comments, personInfo, myComments, punch, register, getDiversionUrlList,
-  tagSearch, commentLike, randomComic, download, downloadInfo, knightRank
+  tagSearch, commentLike, randomComic, download, downloadInfo, knightRank,
+  recommend
 }

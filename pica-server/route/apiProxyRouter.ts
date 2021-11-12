@@ -338,4 +338,15 @@ router
     const apiRes = await api.appList(args.diversionUrl, args.token)
     res.json(apiRes)
   })
+  // /recommend?token={_}&comicId={_}
+  // data: []
+  .get('/recommend', async function (req, res) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      comicId: String(req.query.comicId),
+      token: String(req.query.token)
+    }
+    const apiRes = await api.recommend(args.diversionUrl, args.token, args.comicId)
+    res.json(apiRes)
+  })
 export default router
