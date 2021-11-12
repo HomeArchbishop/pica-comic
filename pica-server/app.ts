@@ -28,4 +28,5 @@ app.use('/apiProxy', apiRouter)
 
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`)
+  log.info(`[process] start server at port:${port}`)
 })
