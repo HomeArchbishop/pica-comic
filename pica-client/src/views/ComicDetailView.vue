@@ -117,9 +117,11 @@ export default {
       // change state.
       this.$set(this, 'isRequestingLike', true)
       // call api.
-      const LikeAction = await this.$api.like(this.token, this.comicId)
-      console.log(LikeAction)
-      this.$set(this, 'isLiked', LikeAction === 'like')
+      const likeAction = await this.$api.like(this.token, this.comicId)
+      console.log(likeAction)
+      this.$set(this, 'isLiked', likeAction === 'like')
+      this.$set(this.comicDetailObject, 'likesCount',
+        this.comicDetailObject.likesCount + (likeAction === 'like' ? 1 : -1))
       // change state.
       this.$set(this, 'isRequestingLike', false)
     },
@@ -185,7 +187,7 @@ export default {
   .img-div {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     width: 140px;
     height: 180px;
     overflow: hidden;

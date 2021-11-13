@@ -27,19 +27,20 @@ export default {
   display: flex;
   flex-direction: column;
   width: 140px;
-  min-height: 100px;
-  margin-left: 5px;
+  height: 198px;
+  margin-left: 6px;
   .img-div {
     display: flex;
     flex-direction: column;
     justify-content: center;
     width: 140px;
-    height: 180px;
+    height: 140px;
     overflow: hidden;
     cursor: pointer;
     img {
-      width: 100%;
-      max-height: 180px;
+      flex: 1;
+      height: 140px;
+      object-fit: cover;
       border: none;
     }
   }

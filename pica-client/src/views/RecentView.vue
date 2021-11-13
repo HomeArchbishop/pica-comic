@@ -64,7 +64,7 @@ export default {
       })
       // update isAll and currentPage.
       this.$set(this, 'isAll', (this.currentPage + 1) * 20 >= this.recentComicsIdList.length)
-      this.$set(this, 'currentPage', this.currentPage + !!this.isAll)
+      this.$set(this, 'currentPage', this.currentPage + !this.isAll)
       // change state.
       this.$set(this, 'isSearching', false)
     }

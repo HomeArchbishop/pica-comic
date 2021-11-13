@@ -27,6 +27,18 @@ const extraCategories = [
       path: 'img/knight.jpg',
     },
     title: '骑士榜'
+  },
+  {
+    active: true,
+    isWeb: false,
+    isApp: true,
+    path: 'game',
+    thumb: {
+      fileServer: '@',
+      originalName: 'x',
+      path: 'img/game.jpg',
+    },
+    title: '游戏区'
   }
 ]
 

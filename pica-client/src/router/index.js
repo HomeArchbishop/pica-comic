@@ -23,6 +23,9 @@ import RandomView from '@/views/RandomView'
 import AboutView from '@/views/AboutView'
 import KnightView from '@/views/KnightView'
 import RankView from '@/views/RankView'
+import GameView from '@/views/GameView'
+import GameDetailView from '@/views/GameDetailView'
+import GameCommentsView from '@/views/GameCommentsView'
 
 import auth from './middleware/auth'
 import historyState from './middleware/historyState'
@@ -234,6 +237,31 @@ const router = new Router({
       meta: {
         title: '排行榜',
         keepAlive: true
+      }
+    },
+    {
+      path: '/game',
+      name: 'GameView',
+      component: GameView,
+      meta: {
+        title: '游戏区',
+        keepAlive: true
+      }
+    },
+    {
+      path: '/game/:id',
+      name: 'GameDetailView',
+      component: GameDetailView,
+      meta: {
+        title: '游戏'
+      }
+    },
+    {
+      path: '/game/comments/:id',
+      name: 'GameCommentsView',
+      component: GameCommentsView,
+      meta: {
+        title: '游戏评论'
       }
     }
   ]

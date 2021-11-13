@@ -52,8 +52,8 @@ export default {
   },
   computed: {
     avatarImg () {
-      const fileServer = this.item._user && this.item._user.avatar.fileServer
-      const path = this.item._user && this.item._user.avatar.path
+      const fileServer = this.item._user.avatar && this.item._user.avatar.fileServer
+      const path = this.item._user.avatar && this.item._user.avatar.path
       return this.$util.formatImgUrl(fileServer, path) || '../../static/img/black.jpeg'
     },
     createdTime () {

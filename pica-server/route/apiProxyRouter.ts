@@ -248,26 +248,6 @@ router
     const apiRes = await api.punch(args.diversionUrl, args.token)
     res.json(apiRes)
   })
-  // /randomComic?token={_}
-  // data: Comic[]
-  .get('/punch', async function (req, res) {
-    const args = {
-      diversionUrl: String(req.query.diversionUrl),
-      token: String(req.query.token)
-    }
-    const apiRes = await api.punch(args.diversionUrl, args.token)
-    res.json(apiRes)
-  })
-  // /randomComic?token={_}
-  // data: Comic[]
-  .get('/punch', async function (req, res) {
-    const args = {
-      diversionUrl: String(req.query.diversionUrl),
-      token: String(req.query.token)
-    }
-    const apiRes = await api.punch(args.diversionUrl, args.token)
-    res.json(apiRes)
-  })
   // /register
   // POST body: RegisterData
   // data: RegisterRes
@@ -349,7 +329,7 @@ router
     const apiRes = await api.recommend(args.diversionUrl, args.token, args.comicId)
     res.json(apiRes)
   })
-    // /rank?token={_}&comicId={_}
+  // /rank?token={_}&comicId={_}
   // data: Comic[]
   .get('/rank', async function (req, res) {
     const args = {
@@ -358,6 +338,51 @@ router
       tt: Tt(req.query.tt)
     }
     const apiRes = await api.rank(args.diversionUrl, args.token, args.tt)
+    res.json(apiRes)
+  })
+  // /gameList?token={_}&page={1}
+  // data: Comic[]
+  .get('/gameList', async function (req, res) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      token: String(req.query.token),
+      page: Number(req.query.page)
+    }
+    const apiRes = await api.gameList(args.diversionUrl, args.token, args.page)
+    res.json(apiRes)
+  })
+  // /gameInfo?token={_}&gameId={_}
+  // data: Comic[]
+  .get('/gameInfo', async function (req, res) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      token: String(req.query.token),
+      gameId: String(req.query.gameId)
+    }
+    const apiRes = await api.gameInfo(args.diversionUrl, args.token, args.gameId)
+    res.json(apiRes)
+  })
+  // /gameLike?token={_}&gameId={_}
+  // data: 'like' | 'unlike'
+  .get('/gameLike', async function (req, res) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      token: String(req.query.token),
+      gameId: String(req.query.gameId)
+    }
+    const apiRes = await api.gameLike(args.diversionUrl, args.token, args.gameId)
+    res.json(apiRes)
+  })
+  // /gameComments?token={_}&gameId={_}&page={_}
+  // data: CommentList
+  .get('/gameComments', async function (req, res) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      token: String(req.query.token),
+      gameId: String(req.query.gameId),
+      page: Number(req.query.page)
+    }
+    const apiRes = await api.gameComments(args.diversionUrl, args.token, args.gameId, args.page)
     res.json(apiRes)
   })
 

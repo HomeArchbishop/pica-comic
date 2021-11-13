@@ -186,17 +186,17 @@ async function appList(diversionUrl: string, token: string): Promise<P.App[]> {
 }
 
 // 获取game列表
-async function gameList(diversionUrl: string, token: string, page: number = 1): Promise<null> {
+async function gameList(diversionUrl: string, token: string, page: number = 1): Promise<P.GameList> {
   const url = `games?page=${page}`
   const json = await sendGet(diversionUrl, url, token)
   return json.data?.games || json
 }
 
 // 获取某个game详情
-async function gameInfo(diversionUrl: string, token: string, gameId: string): Promise<null> {
+async function gameInfo(diversionUrl: string, token: string, gameId: string): Promise<P.GameDetail> {
   const url = `games/${gameId}`
   const json = await sendGet(diversionUrl, url, token)
-  return json.data || json
+  return json.data?.game || json
 }
 
 // 获取某个game评论

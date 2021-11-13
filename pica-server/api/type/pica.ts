@@ -94,8 +94,8 @@ export class ComicDetail {
 export class EpsItem {
   _id!: string
   title!: string
-  order!: number // eps id, used for getting ep info
-      // eps id, used for getting ep info
+  order!: number // eps id used for getting ep info
+      // eps id used for getting ep info
   updated_at!: string // timestamp string
  // timestamp string
   id!: string
@@ -184,4 +184,48 @@ export class RegisterRes {
   code!: number
   error?: string
   message!: string
+}
+
+export class Game {
+  _id!: string
+  title!: string
+  version!: string
+  publisher!: string
+  suggest!: boolean
+  adult!: boolean
+  android!: boolean
+  ios!: boolean
+  icon!: Img
+}
+
+export class GameList {
+  docs!: Game[]
+  total!: number
+  limit!: number
+  page!: number
+  pages!: number
+}
+
+export class GameDetail {
+  _id!: string
+  title!: string
+  description!: string
+  version!: string
+  icon!: Img
+  publisher!: string
+  ios!: boolean
+  iosLinks!: string[]
+  android!: boolean
+  androidLinks!: string[]
+  adult!: boolean
+  suggest!: boolean
+  downloadsCount!: number
+  screenshots!: Img[]
+  androidSize!: number
+  iosSize!: number
+  updated_at!: string
+  created_at!: string
+  likesCount!: number
+  isLiked!: boolean
+  commentsCount!: number
 }

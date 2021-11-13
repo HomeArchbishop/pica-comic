@@ -285,14 +285,55 @@ const recommend = async function (token, comicId) { // 「大家都在看」数�
   return recommend
 }
 
-const rank = async function (token, tt = 'H24') { // 「大家都在看」数组
-  const recommend = (await axios.get(`${baseUrl}rank`, {
+const rank = async function (token, tt = 'H24') {
+  const rank = (await axios.get(`${baseUrl}rank`, {
     params: {
       token,
       tt
     }
   })).data
-  return recommend
+  return rank
+}
+
+const gameList = async function (token, page = 1) {
+  const gameList = (await axios.get(`${baseUrl}gameList`, {
+    params: {
+      token,
+      page
+    }
+  })).data
+  return gameList
+}
+
+const gameInfo = async function (token, gameId) {
+  const gameInfo = (await axios.get(`${baseUrl}gameInfo`, {
+    params: {
+      token,
+      gameId
+    }
+  })).data
+  return gameInfo
+}
+
+const gameLike = async function (token, gameId) {
+  const gameLike = (await axios.get(`${baseUrl}gameLike`, {
+    params: {
+      token,
+      gameId
+    }
+  })).data
+  return gameLike
+}
+
+const gameComments = async function (token, gameId, page) {
+  const gameCommentsList = (await axios.get(`${baseUrl}gameComments`, {
+    params: {
+      token,
+      gameId,
+      page
+    }
+  })).data
+  return gameCommentsList
 }
 
 export {
@@ -300,5 +341,5 @@ export {
   keyword, info, episodes, picture, myFavourite, like, favourite, collections,
   comments, personInfo, myComments, punch, register, getDiversionUrlList,
   tagSearch, commentLike, randomComic, download, downloadInfo, knightRank,
-  recommend, rank
+  recommend, rank, gameList, gameInfo, gameLike, gameComments
 }
