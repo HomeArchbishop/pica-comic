@@ -215,10 +215,10 @@ async function gameLike(diversionUrl: string, token: string, gameId: string): Pr
 }
 
 // 聊天频道
-async function chat(diversionUrl: string, token: string): Promise<null> {
+async function chat(diversionUrl: string, token: string): Promise<P.ChatRoom[]> {
   const url = `chat`
   const json = await sendGet(diversionUrl, url, token)
-  return json.data || json
+  return json.data?.chatList || json
 }
 
 // 发送评论

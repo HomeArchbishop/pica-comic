@@ -385,5 +385,15 @@ router
     const apiRes = await api.gameComments(args.diversionUrl, args.token, args.gameId, args.page)
     res.json(apiRes)
   })
+  // /chat?token={_}
+  // data: ChatRoom[]
+  .get('/chat', async function (req, res) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      token: String(req.query.token)
+    }
+    const apiRes = await api.chat(args.diversionUrl, args.token)
+    res.json(apiRes)
+  })
 
 export default router

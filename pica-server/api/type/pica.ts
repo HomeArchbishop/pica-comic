@@ -229,3 +229,10 @@ export class GameDetail {
   isLiked!: boolean
   commentsCount!: number
 }
+
+export class ChatRoom {
+  title!: string
+  description!: string
+  url!: string
+  avatar!: string
+}

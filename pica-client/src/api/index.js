@@ -336,10 +336,19 @@ const gameComments = async function (token, gameId, page) {
   return gameCommentsList
 }
 
+const chatRoomList = async function (token) {
+  const chatRoomList = (await axios.get(`${baseUrl}chat`, {
+    params: {
+      token
+    }
+  })).data
+  return chatRoomList
+}
+
 export {
   checkConnect, authorize, checkToken, categories, categoriesSearch, search,
   keyword, info, episodes, picture, myFavourite, like, favourite, collections,
   comments, personInfo, myComments, punch, register, getDiversionUrlList,
   tagSearch, commentLike, randomComic, download, downloadInfo, knightRank,
-  recommend, rank, gameList, gameInfo, gameLike, gameComments
+  recommend, rank, gameList, gameInfo, gameLike, gameComments, chatRoomList
 }
