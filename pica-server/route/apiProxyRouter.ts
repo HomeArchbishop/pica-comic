@@ -7,7 +7,7 @@ import leveldown from 'leveldown'
 import fs from 'fs'
 
 import * as api from '../api/pica'
-import { Sorts } from '../static/util/transform'
+import { Sorts, Tt } from '../static/util/transform'
 import download from '../static/ts/download'
 import downloadInfo from '../static/ts/downloadInfo'
 
@@ -349,4 +349,16 @@ router
     const apiRes = await api.recommend(args.diversionUrl, args.token, args.comicId)
     res.json(apiRes)
   })
+    // /rank?token={_}&comicId={_}
+  // data: Comic[]
+  .get('/rank', async function (req, res) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      token: String(req.query.token),
+      tt: Tt(req.query.tt)
+    }
+    const apiRes = await api.rank(args.diversionUrl, args.token, args.tt)
+    res.json(apiRes)
+  })
+
 export default router

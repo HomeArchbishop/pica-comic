@@ -22,6 +22,7 @@ import SettingView from '@/views/SettingView'
 import RandomView from '@/views/RandomView'
 import AboutView from '@/views/AboutView'
 import KnightView from '@/views/KnightView'
+import RankView from '@/views/RankView'
 
 import auth from './middleware/auth'
 import historyState from './middleware/historyState'
@@ -223,8 +224,16 @@ const router = new Router({
       name: 'KnightView',
       component: KnightView,
       meta: {
-        title: '骑士榜',
-        keepAlive: false
+        title: '骑士榜'
+      }
+    },
+    {
+      path: '/rank',
+      name: 'RankView',
+      component: RankView,
+      meta: {
+        title: '排行榜',
+        keepAlive: true
       }
     }
   ]

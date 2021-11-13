@@ -285,10 +285,20 @@ const recommend = async function (token, comicId) { // 「大家都在看」数�
   return recommend
 }
 
+const rank = async function (token, tt = 'H24') { // 「大家都在看」数组
+  const recommend = (await axios.get(`${baseUrl}rank`, {
+    params: {
+      token,
+      tt
+    }
+  })).data
+  return recommend
+}
+
 export {
   checkConnect, authorize, checkToken, categories, categoriesSearch, search,
   keyword, info, episodes, picture, myFavourite, like, favourite, collections,
   comments, personInfo, myComments, punch, register, getDiversionUrlList,
   tagSearch, commentLike, randomComic, download, downloadInfo, knightRank,
-  recommend
+  recommend, rank
 }
