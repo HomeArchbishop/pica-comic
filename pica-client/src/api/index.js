@@ -345,10 +345,22 @@ const chatRoomList = async function (token) {
   return chatRoomList
 }
 
+const sendComments = async function (token, comicId, content) {
+  const sendState = (await axios.get(`${baseUrl}sendComments`, {
+    params: {
+      token,
+      comicId,
+      content
+    }
+  })).data
+  return sendState
+}
+
 export {
   checkConnect, authorize, checkToken, categories, categoriesSearch, search,
   keyword, info, episodes, picture, myFavourite, like, favourite, collections,
   comments, personInfo, myComments, punch, register, getDiversionUrlList,
   tagSearch, commentLike, randomComic, download, downloadInfo, knightRank,
-  recommend, rank, gameList, gameInfo, gameLike, gameComments, chatRoomList
+  recommend, rank, gameList, gameInfo, gameLike, gameComments, chatRoomList,
+  sendComments
 }

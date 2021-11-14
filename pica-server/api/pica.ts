@@ -222,11 +222,12 @@ async function chat(diversionUrl: string, token: string): Promise<P.ChatRoom[]> 
 }
 
 // 发送评论
-async function sendComments(diversionUrl: string, token: string, bookId: string, content: string = ''): Promise<null> {
+async function sendComments(diversionUrl: string, token: string, bookId: string, content: string = ''): Promise<'success' | string> {
   const url = `comics/${bookId}/comments`
   const body = { content }
   const json = await sendPost(diversionUrl, url, body, token)
-  return json.data || json
+  return json.message
+  // json { code: 200, message:'success' | string, error?: number }
 }
 
 // 排行榜

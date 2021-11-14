@@ -395,5 +395,17 @@ router
     const apiRes = await api.chat(args.diversionUrl, args.token)
     res.json(apiRes)
   })
+  // /sendComments?token={_}
+  // data: 'success' | string
+  .get('/sendComments', async function (req, res) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      token: String(req.query.token),
+      comicId: String(req.query.comicId),
+      content: String(req.query.content)
+    }
+    const apiRes = await api.sendComments(args.diversionUrl, args.token, args.comicId, args.content)
+    res.json(apiRes)
+  })
 
 export default router
