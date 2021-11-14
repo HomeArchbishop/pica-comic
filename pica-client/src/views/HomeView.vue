@@ -61,6 +61,7 @@ export default {
 
 <style lang="less" scoped>
 @import '../assets/less/color';
+@import '../assets/less/var';
 .home-container {
   display: flex;
   flex: 1;
@@ -84,10 +85,15 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-height: 288px;
   margin-top: 20px;
+  // box-shadow: 0px 0 3px 0 @color-anti-theme-sub inset;
+  // border-radius: @card-radius-default;
+  padding: 20px;
   .title {
     font-weight: 800;
     font-size: 25px;
+    border-bottom: 1px solid black;
   }
   .list-area {
     display: flex;
@@ -95,8 +101,7 @@ export default {
     align-items: flex-start;
     width: 100%;
     min-height: 50px;
-    padding-top: 10px;
-    border-top: 1px solid black;
+    margin-top: 0;
     .tip-note {
       padding-top: 10px;
       cursor: pointer;

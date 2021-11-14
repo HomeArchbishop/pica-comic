@@ -3,8 +3,8 @@
     <div class="main">
       <div class="display-card">
         <div class="title">设置</div>
-        <div class="sub-title">视图设置</div>
         <div class="view-setting-area">
+          <div class="sub-title">视图设置</div>
           <div class="row">
             <label>深色模式</label>
             <Toggle :isChecked="isDarkMode" @click.native="toggleDarkMode()"/>
@@ -15,14 +15,14 @@
               @checkChange="setDiversion" style="width: 400px; font-size: 1em"/>
           </div>
         </div>
-        <div class="sub-title">用户设置</div>
         <div class="user-setting-area">
+          <div class="sub-title">用户设置</div>
           <div class="row">
             <div class="btn" @click.stop="clearCashes()">退出登录</div>
           </div>
         </div>
-        <div class="sub-title">其他</div>
         <div class="other-setting-area">
+          <div class="sub-title">其他</div>
           <div class="row">
             <div class="btn" @click.stop="clearCashes()">清除缓存</div>
           </div>
@@ -81,6 +81,7 @@ export default {
 
 <style lang="less" scoped>
 @import '../assets/less/color';
+@import '../assets/less/var';
 .setting-container {
   display: flex;
   flex: 1;
@@ -106,21 +107,6 @@ export default {
     font-size: 25px;
     border-bottom: 1px solid @color-theme;
   }
-  .sub-title {
-    display: flex;
-    width: fit-content;
-    min-width: 4em;
-    margin-top: 10px;
-    margin-top: 20px;
-    font-size: 20px;
-    font-weight: 900;
-    margin-bottom: -4px;
-    border-bottom: 3px solid @color-anti-theme-sub;
-    &::before {
-      content: '>';
-      margin-right: 4px;
-    }
-  }
   .view-setting-area,
   .user-setting-area,
   .other-setting-area {
@@ -128,10 +114,30 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    // min-height: 220px;
-    padding: 10px;
-    margin-top: 10px;
-    // border: 1px solid @color-theme;
+    padding: 16px;
+    margin-top: 14px;
+    box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+    &.view-setting-area {
+      border-top-right-radius: @card-radius-default;
+      border-top-left-radius: @card-radius-default;
+    }
+    &.other-setting-area {
+      border-bottom-right-radius: @card-radius-default;
+      border-bottom-left-radius: @card-radius-default;
+    }
+    .sub-title {
+      display: flex;
+      width: fit-content;
+      min-width: 4em;
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: -4px;
+      border-bottom: 3px solid @color-anti-theme-sub;
+      &::before {
+        content: '>';
+        margin-right: 4px;
+      }
+    }
     .row {
       display: flex;
       flex-direction: row;

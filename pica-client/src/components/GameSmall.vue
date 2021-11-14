@@ -27,6 +27,7 @@ export default {
 <style lang="less" scoped>
 @import 'https://css.gg/css';
 @import '../assets/less/color';
+@import '../assets/less/var';
 .game-item {
   &:first-child {
     margin-left: 0;
@@ -35,7 +36,11 @@ export default {
   flex-direction: column;
   width: 140px;
   min-height: 210px;
-  margin-left: 6px;
+  margin-right: 10px;
+  margin-top: 10px;
+  box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+  border-radius: @card-radius-default;
+  overflow: hidden;
   .img-div {
     display: flex;
     flex-direction: column;
@@ -53,6 +58,7 @@ export default {
   }
   .info-div {
     margin-top: 4px;
+    padding: 0 6px;
     .title {
       display: inline;
       font-weight: 800;
@@ -60,13 +66,6 @@ export default {
     }
     .suggested {
       color: @color-active-highlight-5;
-    }
-    .description {
-      font-size: 13px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      word-break: break-all;
     }
   }
 }

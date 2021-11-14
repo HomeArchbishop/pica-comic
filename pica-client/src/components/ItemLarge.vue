@@ -31,6 +31,7 @@ export default {
 <style lang="less" scoped>
 @import 'https://css.gg/css';
 @import '../assets/less/color';
+@import '../assets/less/var';
 .recommend-item {
   &:first-child {
     margin-top: 0;
@@ -42,7 +43,8 @@ export default {
   min-height: 200px;
   margin-top: 10px;
   padding: 10px;
-  border: 1px solid black;
+  box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+  border-radius: @card-radius-default;
   .img-div {
     display: flex;
     flex-direction: column;

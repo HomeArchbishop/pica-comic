@@ -7,7 +7,17 @@
         </div>
         <div class="content-div">
           <div class="title">{{ comicDetailObject.title }}</div>
-          <div class="description">{{ comicDetailObject.description }}</div>
+          <div class="description">
+            <span class="preview" v-if="isDescriptionPreview">
+              {{ comicDetailObject.description.slice(0, 30) }}...
+            </span>
+            <span class="all" v-if="!isDescriptionPreview">
+              {{ comicDetailObject.description }}
+            </span>
+            <u class="toggle-btn" @click.stop="toggleDescriptionPreview()">
+              {{ isDescriptionPreview ? '展开&gt;' : '&lt;收起' }}
+            </u>
+          </div>
           <div class="author">作者：{{ comicDetailObject.author }}</div>
           <div class="chineseTeam">汉化：{{ comicDetailObject.chineseTeam }}</div>
           <div class="tag-div">
@@ -32,9 +42,12 @@
           </div>
         </div>
       </div>
-      <div class="episodes-list" v-if="!isRequestingDetail && !isChoosingDownLoad">
-        <router-link class="episodes-item a-theme" v-for="item in episodesList.docs" :key="item.order"
-          :to="`../comic/${comicId}/${item.order}`">{{ item.title }}</router-link>
+      <div class="episodes-area" v-if="!isRequestingDetail && !isChoosingDownLoad">
+        <div class="title">章节列表</div>
+        <div class="episodes-list">
+          <router-link class="episodes-item a-theme" v-for="item in episodesList.docs" :key="item.order"
+            :to="`../comic/${comicId}/${item.order}`">{{ item.title }}</router-link>
+        </div>
       </div>
       <div class="download-episodes-area" v-if="!isRequestingDetail && isChoosingDownLoad">
         <div class="tip">请选择要下载的章节</div>
@@ -75,7 +88,8 @@ export default {
       isRequestingDetail: true,
       isRequestingFavourite: false,
       isRequestingLike: false,
-      isChoosingDownLoad: false
+      isChoosingDownLoad: false,
+      isDescriptionPreview: false
     }
   },
   computed: {
@@ -91,10 +105,12 @@ export default {
       // change state.
       this.$set(this, 'isRequestingDetail', true)
       // call api.
-      this.$set(this, 'comicDetailObject', await this.$api.info(this.token, this.comicId))
+      const comicDetailObject = await this.$api.info(this.token, this.comicId)
+      this.$set(this, 'comicDetailObject', { ...comicDetailObject })
       this.$set(this, 'isFavourite', this.comicDetailObject.isFavourite)
       this.$set(this, 'isLiked', this.comicDetailObject.isLiked)
-      console.log(this.comicDetailObject)
+      this.$set(this, 'isDescriptionPreview', String(this.comicDetailObject.description).length > 30)
+      console.log(comicDetailObject)
       // change state.
       this.$set(this, 'isRequestingDetail', false)
     },
@@ -152,6 +168,9 @@ export default {
       console.log(downloadInfo)
       const episodesDownloadedList = downloadInfo[this.comicId] || []
       this.$set(this, 'episodesDownloadedList', [ ...episodesDownloadedList ])
+    },
+    toggleDescriptionPreview: async function () {
+      this.$set(this, 'isDescriptionPreview', !this.isDescriptionPreview)
     }
   },
   created () {
@@ -165,6 +184,7 @@ export default {
 <style lang="less" scoped>
 @import 'https://css.gg/css';
 @import '../assets/less/color';
+@import '../assets/less/var';
 .detail-container {
   display: flex;
   flex: 1;
@@ -213,6 +233,10 @@ export default {
     }
     .description {
       color: @color-theme-sub;
+      .toggle-btn {
+        display: inline-block;
+        cursor: pointer;
+      }
     }
     .tag-div {
       display: flex;
@@ -289,25 +313,48 @@ export default {
     }
   }
 }
-.episodes-list {
+.episodes-area {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
   width: 100%;
-  ::selection {
-    text-decoration: none;
-  }
-  .episodes-item {
+  box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+  border-radius: @card-radius-default;
+  margin-top: 20px;
+  padding: 0 14px 14px 14px;
+  .title {
     display: flex;
-    border: 1px solid @color-theme;
-    margin-right: 5px;
-    margin-top: 10px;
-    padding: 5px;
-    height: 26px;
-    font-size: 16px;
-    line-height: 16px;
-    &:last-child {
-      margin-right: 0;
+    width: fit-content;
+    min-width: 4em;
+    margin-top: 14px;
+    font-size: 20px;
+    font-weight: 900;
+    margin-bottom: -4px;
+    border-bottom: 3px solid @color-anti-theme-sub;
+    &::before {
+      content: '>';
+      margin-right: 4px;
+    }
+  }
+  .episodes-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 4px;
+    ::selection {
+      text-decoration: none;
+    }
+    .episodes-item {
+      display: flex;
+      border: 1px solid @color-theme;
+      margin-right: 5px;
+      margin-top: 10px;
+      padding: 5px;
+      height: 26px;
+      font-size: 16px;
+      line-height: 16px;
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 }
@@ -316,7 +363,8 @@ export default {
   flex-direction: column;
   align-items: flex-end;
   width: 100%;
-  border: 1px solid @color-theme;
+  box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+  border-radius: @card-radius-default;
   padding: 10px;
   margin-top: 20px;
   *::selection {

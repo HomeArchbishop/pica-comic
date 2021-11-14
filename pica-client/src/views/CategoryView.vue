@@ -82,6 +82,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-height: 300px;
   margin-top: 20px;
   &:last-child {
     margin-bottom: 20px;

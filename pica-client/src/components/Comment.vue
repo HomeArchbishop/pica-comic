@@ -96,6 +96,7 @@ export default {
 <style lang="less" scoped>
 @import 'https://css.gg/css';
 @import '../assets/less/color';
+@import '../assets/less/var';
 .comment-item {
   &:first-child {
     margin-top: 0;
@@ -107,8 +108,10 @@ export default {
   min-height: 100px;
   margin-top: 10px;
   padding: 10px;
-  border: 1px solid @color-theme;
+  box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+  border-radius: @card-radius-default;
   position: relative;
+  overflow: hidden;
   .top-tag {
     width: 60px;
     height: 60px;

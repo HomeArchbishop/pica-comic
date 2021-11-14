@@ -132,6 +132,7 @@ export default {
 <style lang="less" scoped>
 @import 'https://css.gg/css';
 @import '../assets/less/color';
+@import '../assets/less/var';
 .detail-container {
   display: flex;
   flex: 1;
@@ -294,12 +295,13 @@ export default {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+  border-radius: @card-radius-default;
   .title {
     display: flex;
     width: fit-content;
     min-width: 4em;
-    margin-top: 10px;
-    margin-top: 20px;
     font-size: 20px;
     font-weight: 900;
     margin-bottom: -4px;
@@ -323,6 +325,7 @@ export default {
       box-sizing: content-box;
       img {
         width: 100%;
+        background: @color-theme-sub;
       }
     }
   }
@@ -330,14 +333,15 @@ export default {
 .download-card {
   display: flex;
   flex-direction: column;
-  // margin-top: 20px;
   margin-bottom: 100px;
+  margin-top: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+  border-radius: @card-radius-default;
   .title {
     display: flex;
     width: fit-content;
     min-width: 4em;
-    margin-top: 10px;
-    margin-top: 20px;
     font-size: 20px;
     font-weight: 900;
     margin-bottom: -4px;
@@ -351,7 +355,7 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 16px;
     img {
       width: 30px;
       height: 30px;
@@ -359,6 +363,7 @@ export default {
     .link {
       cursor: pointer;
       color: @color-theme-sub;
+      margin-left: .6em;
       &:hover {
         text-decoration-line: underline;
       }
