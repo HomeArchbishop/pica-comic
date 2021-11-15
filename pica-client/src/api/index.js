@@ -2,7 +2,7 @@ import axios from 'axios'
 
 import serverConfig from '../../../pica-server/config/default'
 
-const baseUrl = `//localhost:${serverConfig.port}/apiProxy/`
+const baseUrl = `//localhost:${serverConfig.port}/api/`
 
 axios.interceptors.request.use(
   config => {
@@ -22,7 +22,7 @@ axios.interceptors.request.use(
     }
     return config
   },
-  function (err) {
+  err => {
     return Promise.reject(err)
   }
 )

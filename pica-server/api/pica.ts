@@ -14,29 +14,28 @@ type sorts = 'ua' | 'dd' | 'da' | 'ld' | 'vd'
 // android 信息
 async function androidInfo(diversionUrl: string, token: string): Promise<string> {
   const url = `init?platform=android`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data
 }
 
 // 验证token
 async function checkToken(diversionUrl: string, token: string): Promise<any> {
-  const json = await sendGet(diversionUrl, 'keywords', token)
-  return json.message !== 'unauthorized'
+  const respData = await sendGet(diversionUrl, 'keywords', token, [401])
+  return respData.message !== 'unauthorized'
 }
 
 // 登录并返回token
 async function authorize(diversionUrl: string, username: string, password: string): Promise<string | any> {
   const url = `auth/sign-in`
   const body = { 'email': username, 'password': password }
-  const json = await sendPost(diversionUrl, url, body, null)
-  // console.log(json.data?.token || json)
-  return json.data?.token || json
+  const respData = await sendPost(diversionUrl, url, body, null)
+  return respData.data.token
 }
 
 // 返回分类页目录
 async function categories(diversionUrl: string, token: string): Promise<P.Category[]> {
-  const json = await sendGet(diversionUrl, 'categories', token)
-  return json.data?.categories || json
+  const respData = await sendGet(diversionUrl, 'categories', token)
+  return respData.data.categories
 }
 
 // 根据分类（cate）和标签返回漫画列表
@@ -45,57 +44,57 @@ async function comics(diversionUrl: string, token: string, page: number = 1,
   const titleEscaped = escape(title)
   const tagEscaped = escape(tag)
   const url = `comics?page=${page}&c=${titleEscaped}&t=${tagEscaped}&s=${sort}`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data?.comics || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data.comics
 }
 
 // 返回某一本漫画详细信息
 async function info(diversionUrl: string, token: string, bookId: string): Promise<P.ComicDetail> {
   const url = `comics/${bookId}`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data?.comic || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data.comic
 }
 
 // 返回某一本漫画的分化话
 async function episodes(diversionUrl: string, token: string, bookId: string, page: number = 1): Promise<P.Eps> {
   const url = `comics/${bookId}/eps?page=${page}`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data?.eps || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data.eps
 }
 
 // 返回漫画本体（某一话的某一分页面所有图片）
 async function picture(diversionUrl: string, token: string, bookId: string, epsOrder: string, page: number = 1): Promise<P.Pictures> {
   const url = `comics/${bookId}/order/${epsOrder}/pages?page=${page}`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data
 }
 
 // 返回「看了這本子的人也在看」数组
 async function recommend(diversionUrl: string, token: string, bookId: string): Promise<P.ComicDetail[]> {
   const url = `comics/${bookId}/recommendation`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data?.comics || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data.comics
 }
 
 // 返回「大家都在搜」关键词数组
 async function keyword(diversionUrl: string, token: string): Promise<string[]> {
   const url = `keywords`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data?.keywords || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data.keywords
 }
 
 // 分类搜索
 async function categoriesSearch(diversionUrl: string, token: string, categories: string, page: number = 1, sort: sorts = 'ua'): Promise<P.ComicList> {
   const url = `comics?page=${page}&c=${encodeURI(categories)}&s=${sort}`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data?.comics || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data.comics
 }
 
 // 标签搜索
 async function tagSearch(diversionUrl: string, token: string, tag: string, page: number = 1, sort: sorts = 'ua'): Promise<P.ComicList> {
   const url = `comics?page=${page}&t=${encodeURI(tag)}&s=${sort}`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data?.comics || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data.comics
 }
 
 // 搜索
@@ -106,23 +105,23 @@ async function search(diversionUrl: string, token: string, keyword: string, page
     "keyword": keyword,
     "sort": sort
   }
-  const json = await sendPost(diversionUrl, url, body, token)
-  return json.data?.comics || json
+  const respData = await sendPost(diversionUrl, url, body, token)
+  return respData.data.comics
 }
 
 // toggle like or unlike 标记(不)喜欢此漫画
 async function like(diversionUrl: string, token: string, bookId: string): Promise<P.likeAction> {
   const url = `comics/${bookId}/like`
   const body = { bookId }
-  const json = await sendPost(diversionUrl, url, body, token)
-  return json.data?.action || json
+  const respData = await sendPost(diversionUrl, url, body, token)
+  return respData.data.action
 }
 
 // 返回某一本漫画的评论
 async function comments(diversionUrl: string, token: string, bookId: string, page: number = 1): Promise<P.CommentList> {
   const url = `comics/${bookId}/comments?page=${page}`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data
 }
 
 // toggle favourite 标记(不)收藏此漫画
@@ -130,22 +129,22 @@ type favouriteAction = 'favourite' | 'un_favourite'
 async function favourite(diversionUrl: string, token: string, bookId: string): Promise<favouriteAction> {
   const url = `comics/${bookId}/favourite`
   const body = { bookId }
-  const json = await sendPost(diversionUrl, url, body, token)
-  return json.data?.action || json
+  const respData = await sendPost(diversionUrl, url, body, token)
+  return respData.data.action
 }
 
 // 返回 person Info 个人信息
 async function personInfo(diversionUrl: string, token: string): Promise<P.Creator> {
   const url = `users/profile`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data?.user || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data.user
 }
 
 // 返回 favourite 已收藏漫画
 async function myFavourite(diversionUrl: string, token: string, page: number = 1): Promise<P.ComicList> {
   const url = `users/favourite?s=dd&page=${page}`
-  const json = await sendGet(diversionUrl, url, token)
-  return json.data?.comics || json
+  const respData = await sendGet(diversionUrl, url, token)
+  return respData.data.comics
 }
 
 // 返回 我发表的评论

@@ -2,11 +2,13 @@
 
 import express from 'express'
 import cors from 'cors'
-import apiRouter from './route/apiProxyRouter'
+import apiRouter from './route/apiRouter'
 
 import config from './config/default.json'
 
-import log from './static/ts/log'
+import log from './assets/ts/log'
+
+import apiProxyErrorHandler from './assets/middleware/apiProxyErrorHandler'
 
 const app = express()
 app.use(cors())
@@ -17,16 +19,20 @@ const port: number = config.port
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-app.use('/apiProxy', (req, res, next) => {
-  log.info(`[api] ${req.path}`)
-  next()
-})
-
 app.use('/', express.static('../pica-client'))
 app.use('/static', express.static('./static'))
-app.use('/apiProxy', apiRouter)
+app.use('/api', apiRouter)
 
+// error handle.
+app.use(apiProxyErrorHandler)
+
+// start server.
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`)
-  log.info(`[process] start server at port:${port}`)
+  log.info('process', { process: 'start', port })
+})
+
+// catch uncaught error.
+process.on('uncaughtException', err => {
+  console.log('uncaughtException', err)
 })
