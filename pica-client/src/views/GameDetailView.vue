@@ -14,7 +14,7 @@
             <span class="all" v-if="!isDescriptionPreview">
               {{ gameDetailObject.description }}
             </span>
-            <u class="toggle-btn" @click.stop="toggleDescriptionPreview()">
+            <u class="toggle-btn" @click.stop="toggleDescriptionPreview()" v-if="isDescriptionShouldPreview">
               {{ isDescriptionPreview ? '展开&gt;' : '&lt;收起' }}
             </u>
           </div>
@@ -92,6 +92,11 @@ export default {
     },
     gameId () {
       return this.$route.params.id
+    },
+    isDescriptionShouldPreview () {
+      return this.comicDetailObject.description
+        ? this.comicDetailObject.description.length > 30
+        : false
     }
   },
   methods: {
