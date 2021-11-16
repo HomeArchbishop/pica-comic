@@ -7,7 +7,7 @@ const apiKey: string = 'C69BAF41DA5ABD1FFEDC6D2FEA56B'
 const shaKey: string = '~d}$Q7$eIni=V)9\\RK/P.RM4;9[7|@/CA}b~OW!3?EV`:<>M7pddUBL5n|0/*Cn'
 
 class Header {
-  createSignature(url: string, time: string, nonce: string, method: method) {
+  createSignature (url: string, time: string, nonce: string, method: method) {
     const tmp = url + time + nonce + method + apiKey
     const tmpLower = tmp.toLowerCase()
     return crypto.createHmac('SHA256', shaKey).update(tmpLower).digest('hex')
@@ -15,7 +15,7 @@ class Header {
 
   // url: request url without https://picaapi.picacomic.com/
   // method: choose one from methods[] array
-  constructor(url: string, method: method, auth: string | null) {
+  constructor (url: string, method: method, auth: string | null) {
     const time = (Date.now() / 1000).toFixed(0)
     const nonce = uuid.v4().replace(/-/g, '')
     this.headers = {

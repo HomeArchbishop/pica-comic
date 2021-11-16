@@ -2,8 +2,6 @@
 
 import express from 'express'
 import axios from 'axios'
-import levelup from 'levelup'
-import leveldown from 'leveldown'
 import fs from 'fs'
 
 import * as api from '../api/pica'
@@ -11,8 +9,9 @@ import { Sorts, Tt } from '../assets/util/transform'
 import download from '../assets/ts/download'
 import downloadInfo from '../assets/ts/downloadInfo'
 import log from '../assets/ts/log'
+import LightDb from '../assets/lightDb'
 
-const staticDb = levelup(leveldown('./db/static'))
+const staticDb = new LightDb(__dirname, '../db/static')
 
 const router = express.Router()
 
@@ -68,8 +67,7 @@ router
       token: String(req.query.token)
     }
     try {
-      const extraCategoriesListBuf = await staticDb.get('extraCategories')
-      const extraCategoriesList = JSON.parse(extraCategoriesListBuf.toString())
+      const extraCategoriesList = await staticDb.get('extraCategories')
       const apiData = [
         ...extraCategoriesList,
         ...await api.categories(args.diversionUrl, args.token)
