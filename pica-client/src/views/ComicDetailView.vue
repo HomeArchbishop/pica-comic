@@ -45,7 +45,7 @@
       <div class="episodes-area" v-if="!isRequestingDetail && !isChoosingDownLoad">
         <div class="title">章节列表</div>
         <div class="episodes-list">
-          <router-link class="episodes-item a-theme" v-for="item in episodesList.docs" :key="item.order"
+          <router-link class="episodes-item a-theme" v-for="item in episodesList" :key="item.order"
             :to="`../comic/${comicId}/${item.order}`">{{ item.title }}</router-link>
         </div>
       </div>
@@ -53,7 +53,7 @@
         <div class="tip">请选择要下载的章节</div>
         <div class="tip sub">（由于官方接口的问题，不能保证下载的成功与完整）</div>
         <div class="download-episodes-list">
-          <div class="download-episodes-item" v-for="item in episodesList.docs" :key="item.order"
+          <div class="download-episodes-item" v-for="item in episodesList" :key="item.order"
             :class="{
               chosen: episodesDownloadChosenList.includes(String(item.order)) &&
                 !episodesDownloadedList.includes(String(item.order)),
@@ -115,7 +115,9 @@ export default {
       this.$set(this, 'isRequestingDetail', false)
     },
     getEpisodesList: async function () {
-      this.$set(this, 'episodesList', await this.$api.episodes(this.token, this.comicId))
+      const episodesObject = await this.$api.episodes(this.token, this.comicId)
+      const episodesList = [ ...episodesObject.docs ] || []
+      this.$set(this, 'episodesList', [ ...episodesList ])
       console.log(this.episodesList)
     },
     toggleFavourite: async function () {

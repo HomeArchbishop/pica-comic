@@ -1,27 +1,17 @@
 <template>
-  <div class="widget-div" @click="toggleDarkMode()" ref="widget">
+  <div class="widget-div" ref="widget">
     <div class="label">
-      {{ labelWord }}</div>
+      <slot></slot>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'DarkmodeWidget',
+  name: 'Widget',
   props: [
     'sort'
   ],
-  data () {
-    return {
-      labelWord: this.$darkmode.isActivated() ? '白' : '深'
-    }
-  },
-  methods: {
-    toggleDarkMode: async function () {
-      this.$darkmode.toggle()
-      this.$set(this, 'labelWord', this.$darkmode.isActivated() ? '白' : '深')
-    }
-  },
   mounted () {
     this.$refs.widget.style.bottom = `${32 + (+this.sort - 1) * 60}px`
   }

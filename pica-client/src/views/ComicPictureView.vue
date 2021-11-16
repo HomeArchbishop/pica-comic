@@ -1,25 +1,36 @@
 <template>
-  <div class="picture-container">
+  <div class="picture-container" ref="container">
     <div class="main">
       <div class="display-card">
-        <img v-for="item in pictureListDocsList" :key="item._id" :src="$util.formatImgUrl(item.media.fileServer, item.media.path)">
-        <div class="more-btn-area" v-if="pictureListDocsList.length">
-          <div class="more-btn" @click="updateNewPicturePage()" v-if="!isUpdating && !isAll">加载更多</div>
-          <div class="end-btn" v-else-if="isAll">本章结束</div>
+        <img v-for="item in pictureListDocsList" :key="item._id"
+          :src="$util.formatImgUrl(item.media.fileServer, item.media.path)">
+        <div class="more-btn-area" v-if="pictureListDocsList.length"
+          @click="nextAction()">
+          <div class="more-btn" v-if="!isUpdating && !isAll">加载更多</div>
+          <div class="end-btn" v-else-if="isAll && episodesList.length">
+            <span>看到底了</span>
+            <span class="next-action-btn">
+              {{ currentEpisodeIndex ? '下一章节' : '回到目录' }}
+            </span>
+          </div>
           <div class="loading-btn" v-else>正在加载，请等待</div>
         </div>
       </div>
     </div>
-    <DarkmodeWidget/>
+    <Widget @click.native="scrollToTop()" sort="3">顶</Widget>
+    <Widget @click.native="scrollToBottom()" sort="2">底</Widget>
+    <DarkmodeWidget sort="1"/>
   </div>
 </template>
 
 <script>
 import DarkmodeWidget from '../components/DarkmodeWidget'
+import Widget from '../components/Widget'
 export default {
   name: 'ComicPictureView',
   components: {
-    DarkmodeWidget
+    DarkmodeWidget,
+    Widget
   },
   data () {
     return {
@@ -27,9 +38,16 @@ export default {
       comicId: this.$route.params.id,
       comicOrder: this.$route.params.order,
       pictureListDocsList: [],
+      episodesList: [],
       currentPage: 1,
       isAll: false,
       isUpdating: false
+    }
+  },
+  computed: {
+    currentEpisodeIndex () {
+      return this.episodesList.findIndex((item = {}) =>
+        `${item.order}` === `${this.comicOrder}`)
     }
   },
   methods: {
@@ -37,7 +55,8 @@ export default {
       // change states.
       this.$set(this, 'isUpdating', true)
       // call api to update
-      const pictureObjectResults = await this.$api.picture(this.token, this.comicId, this.comicOrder, this.currentPage)
+      const pictureObjectResults = await this.$api.picture(this.token,
+        this.comicId, this.comicOrder, this.currentPage)
       this.pictureListDocsList.push(...pictureObjectResults.pages.docs)
       if (pictureObjectResults.pages.page === pictureObjectResults.pages.pages) {
         this.$set(this, 'isAll', true)
@@ -53,11 +72,73 @@ export default {
       newRecentComicsSet.delete(this.comicId)
       newRecentComicsSet.add(this.comicId)
       localStorage.recentComicsIdList = JSON.stringify(Array.from(newRecentComicsSet))
+    },
+    getEpisodesList: async function () {
+      const episodesObject = await this.$api.episodes(this.token, this.comicId)
+      const episodesList = [ ...episodesObject.docs ]
+      this.$set(this, 'episodesList', [ ...episodesList ])
+      console.log(episodesList)
+    },
+    nextEpisodes: async function () {
+      const nextEpisodeOrder = this.episodesList[+this.currentEpisodeIndex - 1].order
+      this.$router.push({ path: `/comic/${this.comicId}/${nextEpisodeOrder}` })
+    },
+    backToDetail: async function () {
+      this.$router.push({ path: `/comicdetail/${this.comicId}` })
+    },
+    nextAction: async function () {
+      if (!this.isUpdating && !this.isAll) {
+        this.updateNewPicturePage()
+      } else if (this.isAll && this.episodesList.length) {
+        console.log('here')
+        if (this.episodesList.length && this.currentEpisodeIndex) {
+          this.nextEpisodes()
+        } else {
+          this.backToDetail()
+        }
+      }
+    },
+    scrollToTop: async function () {
+      const container = this.$refs.container
+      container.scrollTop = Math.min(1000, container.scrollTop)
+      const scrollToptimer = setInterval(function () {
+        const top = container.scrollTop
+        const speed = top / 3
+        if (container.scrollTop !== 0) {
+          container.scrollTop -= speed
+        }
+        if (top <= 0) {
+          clearInterval(scrollToptimer)
+        }
+      }, 10)
+      // this.$refs.container.scrollTo(0, 0)
+    },
+    scrollToBottom: async function () {
+      const container = this.$refs.container
+      container.scrollTo(0, container.scrollHeight)
+    }
+  },
+  watch: {
+    $route () {
+      // init result data.
+      this.$set(this, 'comicId', this.$route.params.id)
+      this.$set(this, 'comicOrder', this.$route.params.order)
+      this.$set(this, 'pictureListDocsList', [])
+      this.$set(this, 'episodesList', [])
+      this.$set(this, 'currentPage', 1)
+      this.$set(this, 'isAll', false)
+      this.$set(this, 'isUpdating', false)
+      // call for new data.
+      this.updateRecentStorage()
+      this.updateNewPicturePage()
+      this.getEpisodesList()
+      console.log('route_update_watch')
     }
   },
   created () {
     this.updateRecentStorage()
     this.updateNewPicturePage()
+    this.getEpisodesList()
   }
 }
 </script>
@@ -95,11 +176,29 @@ export default {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding-top: 10px;
+    color: @color-anti-theme-sub;
     margin-bottom: 10px;
+    cursor: pointer;
+    user-select: none;
     .loading-btn,
     .more-btn {
-      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      height: 100px;
+      background-color: @color-theme-sub;
+    }
+    .end-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+      height: 100px;
+      background-color: @color-theme-sub;
+      .next-action-btn{
+        margin-left: 1em;
+      }
     }
   }
 }
