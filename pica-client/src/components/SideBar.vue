@@ -52,6 +52,8 @@ export default {
   background: @color-theme;
   color: @color-anti-theme;
   overflow-y: scroll;
+  box-shadow: -4px 0 8px 0 @color-anti-theme-sub;
+  z-index: 502;
 }
 .upwards-btn {
   display: flex;

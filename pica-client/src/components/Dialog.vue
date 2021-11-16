@@ -64,6 +64,7 @@ export default {
 
 <style lang="less" scoped>
 @import '../assets/less/color';
+@import '../assets/less/var';
 .dialog-wrap {
   display: flex;
   flex-direction: column;
@@ -76,7 +77,7 @@ export default {
   position: fixed;
   top: 0;
   right: 0;
-  z-index: 550
+  z-index: 550;
 }
 .dialog-card {
   display: flex;
@@ -86,6 +87,7 @@ export default {
   max-width: 450px;
   padding: 10px;
   background-color: @color-anti-theme;
+  box-shadow: 0 0 8px 0 @color-theme-sub;
   @media (max-width: 768px) {
     width: 80%;
   }

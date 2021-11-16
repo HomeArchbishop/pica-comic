@@ -36,9 +36,14 @@ export default {
   height: 198px;
   margin-right: 10px;
   margin-top: 10px;
-  box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+  box-shadow: 0 0 8px 2px @color-anti-theme-sub;
   border-radius: @card-radius-default;
   overflow: hidden;
+  &:hover {
+    .img-div img {
+      height: 150px
+    }
+  }
   .img-div {
     display: flex;
     flex-direction: column;
@@ -52,6 +57,7 @@ export default {
       height: 140px;
       object-fit: cover;
       border: none;
+      transition: 500ms;
     }
   }
   .title {

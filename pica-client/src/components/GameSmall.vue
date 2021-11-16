@@ -38,7 +38,7 @@ export default {
   min-height: 210px;
   margin-right: 10px;
   margin-top: 10px;
-  box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+  box-shadow: 0 0 8px 2px @color-anti-theme-sub;
   border-radius: @card-radius-default;
   overflow: hidden;
   .img-div {

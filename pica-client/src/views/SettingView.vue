@@ -116,7 +116,7 @@ export default {
     width: 100%;
     padding: 16px;
     margin-top: 14px;
-    box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+    box-shadow: 0 0 8px 2px @color-anti-theme-sub;
     &.view-setting-area {
       border-top-right-radius: @card-radius-default;
       border-top-left-radius: @card-radius-default;
