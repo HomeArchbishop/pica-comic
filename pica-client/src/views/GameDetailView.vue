@@ -94,8 +94,8 @@ export default {
       return this.$route.params.id
     },
     isDescriptionShouldPreview () {
-      return this.comicDetailObject.description
-        ? this.comicDetailObject.description.length > 30
+      return this.gameDetailObject.description
+        ? this.gameDetailObject.description.length > 30
         : false
     }
   },
