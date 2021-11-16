@@ -35,8 +35,6 @@ export default {
   data () {
     return {
       token: localStorage.token,
-      comicId: this.$route.params.id,
-      comicOrder: this.$route.params.order,
       pictureListDocsList: [],
       episodesList: [],
       currentPage: 1,
@@ -48,6 +46,12 @@ export default {
     currentEpisodeIndex () {
       return this.episodesList.findIndex((item = {}) =>
         `${item.order}` === `${this.comicOrder}`)
+    },
+    comicId () {
+      return this.$route.params.id
+    },
+    comicOrder () {
+      return this.$route.params.order
     }
   },
   methods: {
@@ -121,13 +125,7 @@ export default {
   watch: {
     $route () {
       // init result data.
-      this.$set(this, 'comicId', this.$route.params.id)
-      this.$set(this, 'comicOrder', this.$route.params.order)
-      this.$set(this, 'pictureListDocsList', [])
-      this.$set(this, 'episodesList', [])
-      this.$set(this, 'currentPage', 1)
-      this.$set(this, 'isAll', false)
-      this.$set(this, 'isUpdating', false)
+      Object.assign(this.$data, this.$options.data())
       // call for new data.
       this.updateRecentStorage()
       this.updateNewPicturePage()

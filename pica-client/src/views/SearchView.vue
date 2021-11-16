@@ -35,14 +35,26 @@ export default {
     return {
       token: localStorage.token,
       inputKeyword: this.keyword || '',
-      keyword: this.$route.params.kw || '',
       isAll: false,
       isFoundAny: true,
       isSearching: false,
       searchResultList: [],
       currentPage: 1,
-      sort: 'ld',
-      keywordList: [...this.$store.state.global.keywordList] || [] // 热词列表 string[]
+      sort: 'ld'
+    }
+  },
+  computed: {
+    keyword: {
+      set () {},
+      get () {
+        return this.$route.params.kw
+      }
+    },
+    keywordList: {
+      set () {},
+      get () {
+        return [...this.$store.state.global.keywordList] || [] // 热词列表 string[]
+      }
     }
   },
   methods: {
@@ -85,23 +97,18 @@ export default {
   },
   watch: {
     $route () {
-      // init result data.
-      this.$set(this, 'isAll', false)
-      this.$set(this, 'isFoundAny', true)
-      this.$set(this, 'keyword', this.$route.params.kw)
+      // init $data.
+      Object.assign(this.$data, this.$options.data())
       this.$set(this, 'inputKeyword', this.keyword)
-      this.$set(this, 'currentPage', 1)
-      this.$set(this, 'searchResultList', [])
       // call for new data.
       this.updatePage()
-      console.log('route_update_watch')
+      // console.log('route_update_watch')
     }
   },
   created () {
     if (!this.$store.state.global.keywordList.length) {
       this.getKeywordList()
     }
-    this.$set(this, 'keyword', this.$route.params.kw)
     this.$set(this, 'inputKeyword', this.keyword)
     this.keyword && this.updatePage()
   }
