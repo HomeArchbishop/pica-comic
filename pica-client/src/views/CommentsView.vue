@@ -49,22 +49,17 @@ export default {
       // call api to search.
       const resultInfo = await this.$api.comments(this.token, this.comicId, this.currentPage)
       const commentsInfo = resultInfo.comments
-      const topCommentsList = resultInfo.topComments
-      this.topCommentList.push(...topCommentsList)
       this.commentList.push(...commentsInfo.docs)
+      if (+commentsInfo.page === 1) {
+        const topCommentsList = resultInfo.topComments
+        this.topCommentList.push(...topCommentsList)
+      }
       console.log(resultInfo)
+      this.$set(this, 'isAll', +commentsInfo.page === +commentsInfo.pages)
+      this.$set(this, 'currentPage', this.currentPage + !this.isAll)
+      this.$set(this, 'isFoundAny', !!commentsInfo.pages)
       // change state.
       this.$set(this, 'isUpdating', false)
-      // judge if empty.
-      if (!commentsInfo.pages) {
-        this.$set(this, 'isFoundAny', false)
-      }
-      // judge if is all, if not, then pageCount++.
-      if (+commentsInfo.page === +commentsInfo.pages) {
-        this.$set(this, 'isAll', true)
-      } else {
-        this.$set(this, 'currentPage', this.currentPage + 1)
-      }
     },
     sendComments: async function () {
       if (!this.commentInput) {

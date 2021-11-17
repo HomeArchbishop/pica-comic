@@ -42,19 +42,17 @@ export default {
       // call api to search.
       const resultInfo = await this.$api.gameComments(this.token, this.gameId, this.currentPage)
       const commentsInfo = resultInfo.comments
-      const topCommentsList = resultInfo.topComments
-      this.topCommentList.push(...topCommentsList)
       this.commentList.push(...commentsInfo.docs)
-      console.log(commentsInfo)
-      // change state.
-      this.$set(this, 'isUpdating', false)
-      // judge if empty.
-      if (!commentsInfo.pages) {
-        this.$set(this, 'isFoundAny', false)
+      if (+commentsInfo.page === 1) {
+        const topCommentsList = resultInfo.topComments
+        this.topCommentList.push(...topCommentsList)
       }
-      // judge if is all, if not, then pageCount++.
+      console.log(commentsInfo)
+      this.$set(this, 'isFoundAny', !!commentsInfo.pages)
       this.$set(this, 'isAll', +commentsInfo.page === +commentsInfo.pages)
       this.$set(this, 'currentPage', this.currentPage + !this.isAll)
+      // change state.
+      this.$set(this, 'isUpdating', false)
     }
   },
   created () {
