@@ -13,6 +13,12 @@
       </div>
       <div class="display-card" v-if="keyword">
         <div class="title">搜索结果</div>
+        <div class="menu-area">
+          <div class="sort-list">
+            <div class="sort-item" @click.stop="changeSort(item.code)" :class="{ current: sort === item.code }"
+              v-for="item in $store.state.global.sortList" :key="item.code">{{ item.name }}</div>
+          </div>
+        </div>
         <div class="list-area" v-if="isFoundAny">
           <ItemLarge v-for="item in searchResultList" :key="item._id" :item="item" :link="`../comicdetail/${item._id}`"/>
           <div class="tip-note" v-if="isSearching">正在加载，请等待</div>
@@ -39,22 +45,26 @@ export default {
       isFoundAny: true,
       isSearching: false,
       searchResultList: [],
-      currentPage: 1,
-      sort: 'ld'
+      currentPage: 1
     }
   },
   computed: {
-    keyword: {
-      set () {},
-      get () {
-        return this.$route.params.kw
-      }
+    keyword () {
+      const keyword = this.$route.params.kw
+      this.$set(this, 'inputKeyword', keyword)
+      return keyword
     },
     keywordList: {
       set () {},
       get () {
         return [...this.$store.state.global.keywordList] || [] // 热词列表 string[]
       }
+    },
+    sort () {
+      const sort = this.$route.query.s || localStorage.sort || 'ua'
+      // auto update localStorage.
+      localStorage.sort = sort
+      return sort
     }
   },
   methods: {
@@ -93,13 +103,16 @@ export default {
       console.log(keywordList)
       // update Vuex.
       this.$store.commit('global/updateKeywordList', { newKeywordList: [...keywordList] })
+    },
+    changeSort: async function (sortCode) {
+      if (this.sort === sortCode) { return }
+      this.$router.push({ path: `./${this.keyword}`, query: {s: sortCode} })
     }
   },
   watch: {
     $route () {
       // init $data.
       Object.assign(this.$data, this.$options.data())
-      this.$set(this, 'inputKeyword', this.keyword)
       // call for new data.
       this.updatePage()
       // console.log('route_update_watch')
@@ -117,6 +130,7 @@ export default {
 
 <style lang="less" scoped>
 @import '../assets/less/color';
+@import '../assets/less/var';
 .search-container {
   display: flex;
   flex: 1;
@@ -158,7 +172,6 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
-    margin-top: 4px;
     .keyword-tag {
       display: flex;
       align-items: center;
@@ -166,6 +179,7 @@ export default {
       color: @color-theme;
       border: 1px solid @color-theme;
       margin-right: 4px;
+      margin-top: 4px;
       cursor: pointer;
       &:hover {
         background-color: @color-anti-theme-sub;
@@ -185,6 +199,40 @@ export default {
   .title {
     font-weight: 800;
     font-size: 25px;
+    border-bottom: 1px solid @color-theme;
+  }
+  .menu-area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    padding: 10px;
+    box-shadow: 0 0 8px 2px @color-anti-theme-sub;
+    border-radius: @card-radius-default;
+    .sort-list {
+      display: flex;
+      overflow-x: scroll;
+      width: 50%;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .sort-item{
+        display: flex;
+        min-width: 2em;
+        cursor: pointer;
+        color: @color-theme-sub;
+        &:not(:first-child) {
+          margin-left: 10px;
+        }
+        &.current {
+          cursor: default;
+          color: @color-theme;
+          font-weight: bold;
+        }
+      }
+    }
   }
   .list-area,
   .empty-area {
@@ -193,7 +241,6 @@ export default {
     align-items: center;
     width: 100%;
     padding-top: 10px;
-    border-top: 1px solid black;
     .tip-note {
       padding-top: 10px;
       cursor: pointer;

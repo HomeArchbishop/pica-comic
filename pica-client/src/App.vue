@@ -18,10 +18,17 @@ export default {
       const fullList = ['http://picaapi.picacomic.com/', ...otherDiversionList]
       localStorage.diversionUrlList = JSON.stringify(fullList)
       this.$store.commit('global/updateDiversionUrlList', { newDiversionUrlList: fullList })
+    },
+    initLocalStorage: async function () {
+      localStorage.sort = localStorage.sort || 'ua' // 默认
+      if (!['ua', 'da', 'dd', 'ld', 'vd'].includes(localStorage.sort)) {
+        localStorage.sort = 'ua'
+      }
     }
   },
   created () {
     this.getDiversionUrlList()
+    this.initLocalStorage()
   }
 }
 </script>

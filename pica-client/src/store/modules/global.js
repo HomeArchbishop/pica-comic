@@ -1,7 +1,14 @@
 const state = () => ({
   keywordList: [],
   categoryList: [],
-  diversionUrlList: []
+  diversionUrlList: [],
+  sortList: [
+    {code: 'ua', name: '默认'},
+    {code: 'dd', name: '最新'},
+    {code: 'da', name: '最旧'},
+    {code: 'ld', name: '最爱'},
+    {code: 'vd', name: '最多'}
+  ]
 })
 
 const mutations = {
