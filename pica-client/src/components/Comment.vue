@@ -9,7 +9,7 @@
         <img :src="avatarImg" @click.prevent>
         <div class="info-div">
           <div class="name">
-            {{ item._user.name }}
+            {{ item._user.name.substr(0, 20) + (item._user.name.slice(20) ? '...' : '') }}
             <i class="gg"
               :class="{
                 'gg-gender-male': item._user.gender === 'm',
@@ -124,7 +124,7 @@ export default {
     toggleChildrenComments: async function () {
       this.$set(this, 'isShowChildrenComment', !this.isShowChildrenComment)
       // init first time we call for children comments.
-      this.childrenCommentList.list || this.updateChildrenComments()
+      !this.childrenCommentList.length && !this.isRequestingChildrenComment && this.updateChildrenComments()
     }
   },
   created () {
@@ -143,9 +143,6 @@ export default {
   align-items: flex-end;
   width: 100%;
   margin-top: 10px;
-  &:first-child {
-    margin-top: 0;
-  }
   .comment-main {
     display: flex;
     flex-direction: column;

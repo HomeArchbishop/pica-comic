@@ -261,6 +261,7 @@ export default {
         height: 18px;
         font-size: 14px;
         line-height: 14px;
+        cursor: pointer;
         &:last-child {
           margin-right: 0;
         }

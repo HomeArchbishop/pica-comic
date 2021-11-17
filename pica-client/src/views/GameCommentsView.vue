@@ -6,14 +6,11 @@
         <div class="list-area" v-if="isFoundAny">
           <Comment v-for="item in topCommentList" :key="item._id" :item="item"/>
           <Comment v-for="item in commentList" :key="item._id" :item="item"/>
-          <div class="tip-note" v-if="isUpdating">正在加载，请等待</div>
         </div>
-        <div class="empty-area" v-else>
-          <div class="empty-tips">什么都没有</div>
-        </div>
-        <div class="more-btn-area" v-if="commentList.length && !isAll && !isUpdating">
-          <div class="more-btn" @click="updatePage()">加载更多</div>
-        </div>
+        <LoadingRow v-if="isFoundAny && isUpdating"/>
+        <TipRow v-if="!isFoundAny">什么都没有</TipRow>
+        <TipRowBtn v-if="commentList.length && !isAll && !isUpdating" @click.native="updatePage()">加载更多</TipRowBtn>
+        <TipRow v-if="isFoundAny && isAll">没有更多了</TipRow>
       </div>
     </div>
   </div>
@@ -109,30 +106,13 @@ export default {
   .title {
     font-weight: 800;
     font-size: 25px;
+    border-bottom: 1px solid @color-theme;
   }
-  .list-area,
-  .empty-area {
+  .list-area {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding-top: 10px;
-    border-top: 1px solid black;
-    .tip-note {
-      padding-top: 10px;
-      cursor: pointer;
-    }
-  }
-  .more-btn-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-top: 10px;
-    margin-bottom: 10px;
-    .more-btn {
-      cursor: pointer;
-    }
   }
 }
 </style>

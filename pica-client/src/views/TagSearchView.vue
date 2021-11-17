@@ -3,7 +3,7 @@
     <div class="main">
       <div class="display-card">
         <div class="title">标签：{{ tag }}</div>
-        <div class="menu-area">
+        <div class="menu-area" v-if="isFoundAny || isSearching">
           <div class="sort-list">
             <div class="sort-item" @click.stop="changeSort(item.code)" :class="{ current: sort === item.code }"
               v-for="item in $store.state.global.sortList" :key="item.code">{{ item.name }}</div>
@@ -11,14 +11,11 @@
         </div>
         <div class="list-area" v-if="isFoundAny">
           <ItemLarge v-for="item in searchResultList" :key="item._id" :item="item" :link="`../comicdetail/${item._id}`"/>
-          <div class="tip-note" v-if="isSearching">正在加载，请等待</div>
         </div>
-        <div class="empty-area" v-else>
-          <div class="empty-tips">什么都没有</div>
-        </div>
-        <div class="more-btn-area" v-if="searchResultList.length && !isAll && !isSearching">
-          <div class="more-btn" @click="updatePage()">加载更多</div>
-        </div>
+        <LoadingRow v-if="isFoundAny && isSearching"/>
+        <TipRow v-if="!isFoundAny">什么都没有</TipRow>
+        <TipRowBtn v-if="searchResultList.length && !isAll && !isSearching" @click.native="updatePage()">加载更多</TipRowBtn>
+        <TipRow v-if="isFoundAny && isAll">没有更多了</TipRow>
       </div>
     </div>
   </div>
@@ -144,28 +141,11 @@ export default {
       }
     }
   }
-  .list-area,
-  .empty-area {
+  .list-area {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding-top: 10px;
-    .tip-note {
-      padding-top: 10px;
-      cursor: pointer;
-    }
-  }
-  .more-btn-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-top: 10px;
-    margin-bottom: 10px;
-    .more-btn {
-      cursor: pointer;
-    }
   }
 }
 </style>

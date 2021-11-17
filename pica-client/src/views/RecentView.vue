@@ -7,12 +7,10 @@
           <ItemLarge v-for="item in recentComicsList" :key="item._id" :item="item"
             :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
         </div>
-        <div class="empty-area" v-if="!recentComicsList.length && !isSearching">
-          <div class="empty-tips">什么都没有</div>
-        </div>
-        <div class="more-btn-area" v-if="recentComicsList.length && !isAll && !isSearching">
-          <div class="more-btn" @click="updatePage()">加载更多</div>
-        </div>
+        <LoadingRow v-if="recentComicsList.length && isSearching"/>
+        <TipRow v-if="!recentComicsList.length">什么都没有</TipRow>
+        <TipRowBtn v-if="recentComicsList.length && !isAll && !isSearching" @click.native="updatePage()">加载更多</TipRowBtn>
+        <TipRow v-if="recentComicsList.length && isAll">没有更多了</TipRow>
       </div>
     </div>
   </div>
@@ -109,30 +107,6 @@ export default {
     align-items: center;
     width: 100%;
     min-height: 220px;
-    padding-top: 10px;
-    border-top: 1px solid black;
-  }
-  .empty-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-top: 10px;
-    .tip-note {
-      padding-top: 10px;
-      cursor: pointer;
-    }
-  }
-  .more-btn-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-top: 10px;
-    margin-bottom: 10px;
-    .more-btn {
-      cursor: pointer;
-    }
   }
 }
 </style>

@@ -6,11 +6,9 @@
         <div class="list-area">
           <ItemLarge v-for="item in searchResultList" :key="item._id" :item="item"
             :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
-          <div class="tip-note" v-if="isSearching">正在加载，请等待</div>
         </div>
-        <div class="more-btn-area" v-if="searchResultList.length && !isSearching">
-          <div class="more-btn" @click="updatePage()">刷新</div>
-        </div>
+        <LoadingRow v-if="isSearching"/>
+        <TipRowBtn v-if="searchResultList.length && !isSearching" @click.native="updatePage()">刷新</TipRowBtn>
       </div>
     </div>
   </div>
@@ -69,29 +67,13 @@ export default {
   .title {
     font-weight: 800;
     font-size: 25px;
+    border-top: 1px solid @color-theme;
   }
   .list-area {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding-top: 10px;
-    border-top: 1px solid black;
-    .tip-note {
-      padding-top: 10px;
-      cursor: pointer;
-    }
-  }
-  .more-btn-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-top: 10px;
-    margin-bottom: 10px;
-    .more-btn {
-      cursor: pointer;
-    }
   }
 }
 </style>

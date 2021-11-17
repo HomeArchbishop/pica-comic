@@ -34,9 +34,6 @@ export default {
 @import '../assets/less/color';
 @import '../assets/less/var';
 .recommend-item {
-  &:first-child {
-    margin-top: 0;
-  }
   display: flex;
   flex-direction: row;
   align-items: center;

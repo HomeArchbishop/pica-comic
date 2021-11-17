@@ -27,9 +27,6 @@ export default {
 @import '../assets/less/color';
 @import '../assets/less/var';
 .recommend-item {
-  &:last-child {
-    margin-right: 0;
-  }
   display: flex;
   flex-direction: column;
   width: 140px;

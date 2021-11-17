@@ -3,15 +3,19 @@
     <div class="main">
       <div class="display-card">
         <span class="title">神推荐</span>
+        <div class="list-area" v-if="isRequesting">
+          <LoadingItemSmall v-for="i in 4" :key="i"/>
+        </div>
         <div class="list-area">
-          <div class="tip-note" v-if="isRequesting">正在加载，请等待</div>
           <ItemSmall v-for="item in shenTuiJianList" :item="item" :key="item._id" :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
         </div>
       </div>
       <div class="display-card">
         <span class="title">魔推荐</span>
+        <div class="list-area" v-if="isRequesting">
+          <LoadingItemSmall v-for="i in 4" :key="i"/>
+        </div>
         <div class="list-area">
-          <div class="tip-note" v-if="isRequesting">正在加载，请等待</div>
           <ItemSmall v-for="item in moTuiJianList" :item="item" :key="item._id" :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
         </div>
       </div>
@@ -21,8 +25,12 @@
 </template>
 
 <script>
+import LoadingItemSmall from '@/components/LoadingItemSmall'
 export default {
   name: 'HomeView',
+  components: {
+    LoadingItemSmall
+  },
   data () {
     return {
       token: localStorage.token,

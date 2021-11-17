@@ -27,7 +27,7 @@
             <div class="comic-count">{{ item.comicsUploaded }}</div>
           </div>
         </div>
-        <div class="tip-note" v-if="isSearching">正在加载，请等待</div>
+        <LoadingRow v-if="isSearching"/>
       </div>
     </div>
   </div>
@@ -205,10 +205,6 @@ export default {
         color: @color-theme-sub;
       }
     }
-  }
-  .tip-note {
-    padding-top: 10px;
-    cursor: pointer;
   }
 }
 </style>

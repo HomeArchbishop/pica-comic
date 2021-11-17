@@ -59,15 +59,16 @@
           <div class="exp-badge">{{ personInfo.exp % 300 }}/300</div>
         </div>
       </div>
-      <div class="tip-note" v-if="isRequestingPersonInfo || isRequestingMyComments">正在加载，请等待</div>
-      <div class="my-comments-card" v-if="!isRequestingMyComments">
+      <LoadingRow v-if="isRequestingPersonInfo"/>
+      <div class="my-comments-card" v-if="!isRequestingPersonInfo || (isRequestingPersonInfo && !isRequestingMyComments)">
         <div class="title">
           <div class="main-title">我的伟论</div>
           <div class="btn" @click.stop="refreshMyComments()">刷新</div>
         </div>
-        <div class="comments-div">
+        <div class="comments-div" v-if="!isRequestingMyComments">
           <Comment v-for="item in myCommentsList" :key="item._id" :item="item" :_user="personInfo"/>
         </div>
+        <LoadingRow v-if="isRequestingPersonInfo || isRequestingMyComments"/>
       </div>
     </div>
   </div>
@@ -178,10 +179,6 @@ export default {
   flex-direction: column;
   flex: 1;
   width: 90%;
-  .tip-note {
-    padding-top: 20px;
-    cursor: pointer;
-  }
 }
 .display-card {
   display: flex;
@@ -338,6 +335,7 @@ export default {
   flex-direction: column;
   width: 100%;
   margin-top: 20px;
+  margin-bottom: 50px;
   .title {
     display: flex;
     flex-direction: row;

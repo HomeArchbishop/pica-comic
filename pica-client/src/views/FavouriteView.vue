@@ -5,14 +5,11 @@
         <span class="title">我的收藏</span>
         <div class="list-area" v-if="isFoundAny">
           <ItemLarge v-for="item in myFavouriteList" :key="item._id" :item="item" :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
-          <div class="tip-note" v-if="isUpdating">正在加载，请等待</div>
         </div>
-        <div class="empty-area" v-else>
-          <div class="empty-tips">暂无收藏</div>
-        </div>
-        <div class="more-btn-area" v-if="myFavouriteList.length && !isAll && !isUpdating">
-          <div class="more-btn" @click="updateNewPage()">加载更多</div>
-        </div>
+        <LoadingRow v-if="myFavouriteList.length && isUpdating"/>
+        <TipRow v-if="!myFavouriteList.length && isAll">什么都没有</TipRow>
+        <TipRowBtn v-if="myFavouriteList.length && !isAll && !isUpdating" @click.native="updatePage()">加载更多</TipRowBtn>
+        <TipRow v-if="myFavouriteList.length && isAll">没有更多了</TipRow>
       </div>
     </div>
   </div>
@@ -32,7 +29,7 @@ export default {
     }
   },
   methods: {
-    updateNewPage: async function () {
+    updatePage: async function () {
       // change states.
       this.$set(this, 'isUpdating', true)
       // call api to update.
@@ -51,7 +48,7 @@ export default {
     }
   },
   created () {
-    this.updateNewPage()
+    this.updatePage()
   }
 }
 </script>
@@ -81,30 +78,13 @@ export default {
   .title {
     font-weight: 800;
     font-size: 25px;
+    border-bottom: 1px solid @color-theme;
   }
-  .list-area,
-  .empty-area {
+  .list-area {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-    padding-top: 10px;
-    border-top: 1px solid @color-theme;
-    .tip-note {
-      padding-top: 10px;
-      cursor: pointer;
-    }
-  }
-  .more-btn-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    padding-top: 10px;
-    margin-bottom: 10px;
-    .more-btn {
-      cursor: pointer;
-    }
   }
 }
 </style>

@@ -142,7 +142,7 @@ async function personInfo (diversionUrl: string, token: string): Promise<P.Creat
 
 // 返回 favourite 已收藏漫画
 async function myFavourite (diversionUrl: string, token: string, page: number = 1): Promise<P.ComicList> {
-  const url = `users/favourite?s=dd&page=${page}`
+  const url = `users/favourite?s=ua&page=${page}`
   const respData = await sendGet(diversionUrl, url, token)
   return respData.data.comics
 }
