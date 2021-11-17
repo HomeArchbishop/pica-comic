@@ -4,7 +4,7 @@
       <div class="display-card">
         <span class="title">游戏区</span>
         <div class="list-area" v-if="gameList.length">
-          <GameSmall v-for="item in gameList" :key="item._id" :link="`game/${item._id}`" :item="item"/>
+          <GameSmall v-for="item in gameList" :key="item._id" :link="{ name: 'GameDetailView', params: {id: item._id} }" :item="item"/>
         </div>
         <div class="tip-note" v-if="isSearching">正在加载，请等待</div>
         <div class="more-btn-area" v-if="gameList.length && !isAll && !isSearching">

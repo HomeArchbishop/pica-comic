@@ -10,7 +10,8 @@
           </div>
         </div>
         <div class="list-area" v-if="isFoundAny">
-          <ItemLarge v-for="item in searchResultList" :key="item._id" :item="item" :link="`../comicdetail/${item._id}`"/>
+          <ItemLarge v-for="item in searchResultList" :key="item._id" :item="item"
+            :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
           <div class="tip-note" v-if="isSearching">正在加载，请等待</div>
         </div>
         <div class="empty-area" v-else>
@@ -65,7 +66,7 @@ export default {
     },
     changeSort: async function (sortCode) {
       if (this.sort === sortCode) { return }
-      this.$router.push({ path: `./${this.category}`, query: {s: sortCode} })
+      this.$router.push({ name: 'CategorySearchView', params: {c: this.category}, query: {s: sortCode} })
     }
   },
   watch: {

@@ -27,7 +27,7 @@
             <div class="btn" @click.stop="clearCashes()">清除缓存</div>
           </div>
           <div class="row">
-            <router-link class="btn a-theme" to="/about">关于</router-link>
+            <router-link class="btn" to="/about" tag="div">关于</router-link>
           </div>
         </div>
       </div>

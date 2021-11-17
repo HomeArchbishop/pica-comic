@@ -65,7 +65,7 @@ export default {
     },
     changeSort: async function (sortCode) {
       if (this.sort === sortCode) { return }
-      this.$router.push({ path: `./${this.tag}`, query: {s: sortCode} })
+      this.$router.push({ path: `./`, params: {t: this.tag}, query: {s: sortCode} })
     }
   },
   watch: {

@@ -5,7 +5,7 @@
         <span class="title">下载</span>
         <div class="list-area" v-if="downloadComicsList.length">
           <ItemLarge v-for="item in downloadComicsList" :key="item._id" :item="item"
-            :link="`../comicdetail/${item._id}`"/>
+            :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
         </div>
         <div class="empty-area" v-if="!downloadComicsList.length && !isSearching">
           <div class="empty-tips">什么都没有</div>

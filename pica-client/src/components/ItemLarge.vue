@@ -9,7 +9,8 @@
       <div class="author">作者：{{ item.author }}</div>
       <div class="chineseTeam">汉化：{{ item.chineseTeam }}</div>
       <div class="tag-div">
-        <router-link :to="`/tag/${tagName}`" class="tag a-theme" v-for="tagName in item.tags" :key="tagName">{{ tagName }}</router-link>
+        <router-link :to="{ name: 'TagSearchView', params: {t: tagName} }"
+          class="tag a-theme" v-for="tagName in item.tags" :key="tagName">{{ tagName }}</router-link>
       </div>
       <div class="detail-div">
         <div class="likeCount">{{ item.totalViews }}喜欢</div>

@@ -71,15 +71,5 @@ export default {
     const formerTime = new Date(timeStr)
     const todayTimeLeft = 3600 * (24 - 8) * 1000 - nowTime.getTime() % (3600 * 24 * 1000)
     return ~~((nowTime.getTime() - formerTime.getTime() + todayTimeLeft) / (24 * 3600 * 1000))
-  },
-  transferOutURL: function (url = 'undifined') {
-    return url
-      .replace(/%/g, '%25')
-      .replace(/\//g, '%2F')
-      .replace(/\?/g, '%3F')
-      .replace(/#/g, '%23')
-      .replace(/&/g, '%26')
-      .replace(/=/g, '%3D')
-      .replace(/!/g, '%21')
   }
 }

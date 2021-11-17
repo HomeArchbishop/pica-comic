@@ -5,7 +5,7 @@
         <span class="title">最近观看</span>
         <div class="list-area" v-if="recentComicsList.length">
           <ItemLarge v-for="item in recentComicsList" :key="item._id" :item="item"
-            :link="`../comicdetail/${item._id}`"/>
+            :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
         </div>
         <div class="empty-area" v-if="!recentComicsList.length && !isSearching">
           <div class="empty-tips">什么都没有</div>

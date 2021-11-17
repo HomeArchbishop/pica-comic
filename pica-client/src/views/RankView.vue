@@ -15,7 +15,8 @@
           </div>
         </div>
         <div class="list-area">
-          <ItemLarge v-for="item in rankList" :key="item._id" :item="item" :link="`../comicdetail/${item._id}`"/>
+          <ItemLarge v-for="item in rankList" :key="item._id" :item="item"
+            :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
           <div class="tip-note" v-if="isSearching">正在加载，请等待</div>
         </div>
         <div class="more-btn-area" v-if="rankList.length && !isSearching">

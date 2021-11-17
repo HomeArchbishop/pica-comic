@@ -5,7 +5,7 @@
         <div class="title">小程序</div>
         <div class="program-area">
           <ItemSmall v-for="item in webList" :key="item._id + item.title" :item="item"
-            :link="`/link/${$util.transferOutURL(item.link)}`"/>
+            :link="{ name: 'LinkView', params: {link: item.link} }"/>
           <ItemSmall v-for="item in appList" :key="item._id + item.title" :item="item"
             :link="`/${item.path}`"/>
         </div>

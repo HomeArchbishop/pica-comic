@@ -21,7 +21,8 @@
           <div class="author">作者：{{ comicDetailObject.author }}</div>
           <div class="chineseTeam">汉化：{{ comicDetailObject.chineseTeam }}</div>
           <div class="tag-div">
-            <router-link :to="`/tag/${tagName}`" class="tag a-theme" v-for="tagName in comicDetailObject.tags" :key="tagName">{{ tagName }}</router-link>
+            <router-link :to="{ name: 'TagSearchView', params: {t: tagName} }" class="tag a-theme"
+              v-for="tagName in comicDetailObject.tags" :key="tagName">{{ tagName }}</router-link>
           </div>
           <div class="detail-div">
             <div class="like-count">{{ comicDetailObject.likesCount }}&ensp;<i class="gg-heart"></i>&ensp;|&ensp;</div>

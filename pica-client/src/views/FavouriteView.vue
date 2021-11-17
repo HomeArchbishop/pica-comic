@@ -4,7 +4,7 @@
       <div class="display-card">
         <span class="title">我的收藏</span>
         <div class="list-area" v-if="isFoundAny">
-          <ItemLarge v-for="item in myFavouriteList" :key="item._id" :item="item" :link="`../comicdetail/${item._id}`"/>
+          <ItemLarge v-for="item in myFavouriteList" :key="item._id" :item="item" :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
           <div class="tip-note" v-if="isUpdating">正在加载，请等待</div>
         </div>
         <div class="empty-area" v-else>

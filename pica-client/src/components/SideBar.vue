@@ -3,7 +3,7 @@
     <router-link :to="`/user`" class="upwards-btn a-anti-theme">
       我
     </router-link>
-    <router-link :to="`/%E5%A2%A8%E5%AD%90`" class="upwards-btn a-anti-theme">
+    <router-link :to="{ name: 'HideView' }" class="upwards-btn a-anti-theme">
       隐
     </router-link>
     <router-link :to="`/setting`" class="upwards-btn a-anti-theme">

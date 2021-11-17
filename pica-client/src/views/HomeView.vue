@@ -5,14 +5,14 @@
         <span class="title">神推荐</span>
         <div class="list-area">
           <div class="tip-note" v-if="isRequesting">正在加载，请等待</div>
-          <ItemSmall v-for="item in shenTuiJianList" :item="item" :key="item._id" :link="`../comicdetail/${item._id}`"/>
+          <ItemSmall v-for="item in shenTuiJianList" :item="item" :key="item._id" :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
         </div>
       </div>
       <div class="display-card">
         <span class="title">魔推荐</span>
         <div class="list-area">
           <div class="tip-note" v-if="isRequesting">正在加载，请等待</div>
-          <ItemSmall v-for="item in moTuiJianList" :item="item" :key="item._id" :link="`../comicdetail/${item._id}`"/>
+          <ItemSmall v-for="item in moTuiJianList" :item="item" :key="item._id" :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
         </div>
       </div>
       <div class="tips" v-if="shenTuiJianList.concat(moTuiJianList).length !== 8 && !isRequesting">※个别推荐不满四个，这是哔咔官方算法问题，与客户端无关</div>

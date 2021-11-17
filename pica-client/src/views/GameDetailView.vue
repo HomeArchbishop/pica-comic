@@ -57,14 +57,14 @@
         <div class="row" v-if="gameDetailObject.android">
           <img class="android" src="../../static/svg/android.svg"/>
           <router-link class="link" tag="div"
-            :to="`/link/${this.$util.transferOutURL(gameDetailObject.androidLinks[0])}`">
+            :to="{ name: 'LinkView', params: {link: gameDetailObject.androidLinks[0]} }">
             下载（{{ gameDetailObject.androidSize }}MB）
           </router-link>
         </div>
         <div class="row" v-if="gameDetailObject.android">
           <img class="android" src="../../static/svg/ios.svg"/>
           <router-link class="link" v-if="gameDetailObject.ios" tag="div"
-            :to="`/link/${this.$util.transferOutURL(gameDetailObject.iosLinks[0])}`">
+            :to="{ name: 'LinkView', params: {link: gameDetailObject.iosLinks[0]} }">
             下载（{{ gameDetailObject.iosSize }}MB）
           </router-link>
         </div>
