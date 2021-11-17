@@ -22,18 +22,20 @@
           <div class="updateTime">最近更新：{{ $util.regTime(gameDetailObject.updated_at) }}</div>
           <div class="detail-div">
             <div class="like-count">{{ gameDetailObject.likesCount }}&ensp;<i class="gg-heart"></i></div>
-            <router-link class="comments-count a-theme" :to="`/game/comments/${gameId}`">{{ gameDetailObject.commentsCount }}&ensp;<i class="gg-comment"></i></router-link>
+            <router-link class="comments-count" :to="`/game/comments/${gameId}`" tag="div">
+              {{ gameDetailObject.commentsCount }}&ensp;<i class="gg-comment"></i>
+            </router-link>
           </div>
           <div class="icon-div">
             <div class="icon" v-if="gameDetailObject.adult">
               <img class="r18" src="../../static/svg/adult.svg"/>
             </div>
             <router-link class="icon" v-if="gameDetailObject.android" tag="div"
-              :to="`/link/${this.$util.transferOutURL(gameDetailObject.androidLinks[0])}`">
+              :to="{ name: 'LinkView', params: {link: gameDetailObject.androidLinks[0]} }">
               <img class="android" src="../../static/svg/android.svg"/>
             </router-link>
             <router-link class="icon" v-if="gameDetailObject.ios" tag="div"
-              :to="`/link/${this.$util.transferOutURL(gameDetailObject.iosLinks[0])}`">
+              :to="{ name: 'LinkView', params: {link: gameDetailObject.iosLinks[0]} }">
               <img class="ios" src="../../static/svg/ios.svg"/>
             </router-link>
           </div>
@@ -222,6 +224,7 @@ export default {
         height: 18px;
         font-size: 14px;
         line-height: 14px;
+        cursor: pointer;
         &:first-child {
           margin-left: 0;
         }

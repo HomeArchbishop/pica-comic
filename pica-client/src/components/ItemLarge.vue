@@ -1,5 +1,5 @@
 <template>
-  <router-link class="recommend-item a-theme" :to="link">
+  <router-link class="recommend-item" :to="link" tag="div">
     <div class="img-div">
       <img :src="$util.formatImgUrl(item.thumb.fileServer, item.thumb.path)" @click.prevent alt="加载失败">
     </div>
@@ -9,8 +9,8 @@
       <div class="author">作者：{{ item.author }}</div>
       <div class="chineseTeam">汉化：{{ item.chineseTeam }}</div>
       <div class="tag-div">
-        <router-link :to="{ name: 'TagSearchView', params: {t: tagName} }"
-          class="tag a-theme" v-for="tagName in item.tags" :key="tagName">{{ tagName }}</router-link>
+        <router-link :to="{ name: 'TagSearchView', params: {t: tagName} }" tag="div"
+          class="tag" v-for="tagName in item.tags" :key="tagName">{{ tagName }}</router-link>
       </div>
       <div class="detail-div">
         <div class="likeCount">{{ item.totalViews }}喜欢</div>
@@ -46,6 +46,7 @@ export default {
   padding: 10px;
   box-shadow: 0 0 8px 2px @color-anti-theme-sub;
   border-radius: @card-radius-default;
+  cursor: pointer;
   .img-div {
     display: flex;
     flex-direction: column;

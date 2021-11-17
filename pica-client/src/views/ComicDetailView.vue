@@ -21,13 +21,15 @@
           <div class="author">作者：{{ comicDetailObject.author }}</div>
           <div class="chineseTeam">汉化：{{ comicDetailObject.chineseTeam }}</div>
           <div class="tag-div">
-            <router-link :to="{ name: 'TagSearchView', params: {t: tagName} }" class="tag a-theme"
+            <router-link :to="{ name: 'TagSearchView', params: {t: tagName} }" class="tag" tag="div"
               v-for="tagName in comicDetailObject.tags" :key="tagName">{{ tagName }}</router-link>
           </div>
           <div class="detail-div">
             <div class="like-count">{{ comicDetailObject.likesCount }}&ensp;<i class="gg-heart"></i>&ensp;|&ensp;</div>
             <div class="view-count">{{ comicDetailObject.viewsCount }}&ensp;<i class="gg-eye"></i>&ensp;|&ensp;</div>
-            <router-link class="comments-count a-theme" :to="`/comments/${comicId}`">{{ comicDetailObject.commentsCount }}&ensp;<i class="gg-comment"></i></router-link>
+            <router-link class="comments-count" tag="div" :to="`/comments/${comicId}`">
+              {{ comicDetailObject.commentsCount }}&ensp;
+            <i class="gg-comment"></i></router-link>
           </div>
         </div>
         <div class="like-favourite-div">
@@ -46,7 +48,7 @@
       <div class="episodes-area" v-if="!isRequestingDetail && !isChoosingDownLoad">
         <div class="title">章节列表</div>
         <div class="episodes-list">
-          <router-link class="episodes-item a-theme" v-for="item in episodesList" :key="item.order"
+          <router-link class="episodes-item" v-for="item in episodesList" :key="item.order" tag="div"
             :to="`../comic/${comicId}/${item.order}`">{{ item.title }}</router-link>
         </div>
       </div>
@@ -278,6 +280,7 @@ export default {
         height: 18px;
         font-size: 14px;
         line-height: 14px;
+        cursor: pointer;
         &:first-child {
           margin-left: 0;
         }
@@ -360,6 +363,7 @@ export default {
       height: 26px;
       font-size: 16px;
       line-height: 16px;
+      cursor: pointer;
       &:last-child {
         margin-right: 0;
       }

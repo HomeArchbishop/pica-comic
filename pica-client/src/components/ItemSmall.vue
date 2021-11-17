@@ -1,5 +1,5 @@
 <template>
-  <router-link class="recommend-item a-theme" :to="link">
+  <router-link class="recommend-item" :to="link" tag="div">
     <div class="img-div">
       <img :src="$util.formatImgUrl(item.thumb.fileServer, item.thumb.path)">
     </div>
@@ -39,6 +39,7 @@ export default {
   box-shadow: 0 0 8px 2px @color-anti-theme-sub;
   border-radius: @card-radius-default;
   overflow: hidden;
+  cursor: pointer;
   &:hover {
     .img-div img {
       height: 150px

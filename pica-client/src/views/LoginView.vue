@@ -15,7 +15,7 @@
           <input class="submit-btn" type="submit" value="登录">
         </form>
       </div>
-      <router-link :to="'/register'" class="sub-link a-theme-sub">去注册</router-link>
+      <router-link :to="'/register'" class="sub-link" tag="div">去注册</router-link>
     </div>
   </div>
 </template>
@@ -66,6 +66,8 @@ export default {
 .sub-link {
   font-size: 16px;
   margin-top: 8px;
+  color: @color-theme-sub;
+  cursor: pointer;
 }
 .form-box {
   display: flex;

@@ -1,5 +1,5 @@
 <template>
-  <router-link class="game-item a-theme" :to="link">
+  <router-link class="game-item" :to="link" tag="div">
     <div class="img-div">
       <img :src="$util.formatImgUrl(item.icon.fileServer, item.icon.path)">
     </div>
@@ -41,6 +41,7 @@ export default {
   box-shadow: 0 0 8px 2px @color-anti-theme-sub;
   border-radius: @card-radius-default;
   overflow: hidden;
+  cursor: pointer;
   .img-div {
     display: flex;
     flex-direction: column;

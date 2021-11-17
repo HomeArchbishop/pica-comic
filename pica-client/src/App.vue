@@ -39,26 +39,6 @@ export default {
   font-family: 'juZhenJF';
   src: url('./assets/font/FZJuZXFJF.ttf');
 }
-:root {
-  .a-theme {
-    &:link, &:visited, &:hover, &:active {
-      color: @color-theme;
-      text-decoration: none;
-    }
-  }
-  .a-anti-theme {
-    &:link, &:visited, &:hover, &:active {
-      color: @color-anti-theme;
-      text-decoration: none;
-    }
-  }
-  .a-theme-sub {
-    &:link, &:visited, &:hover, &:active {
-      color: @color-theme-sub;
-      text-decoration: none;
-    }
-  }
-}
 body {
   padding: 0;
   margin: 0;

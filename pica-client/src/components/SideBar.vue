@@ -1,33 +1,33 @@
 <template>
   <div class="side-bar">
-    <router-link :to="`/user`" class="upwards-btn a-anti-theme">
+    <router-link :to="`/user`" class="upwards-btn" tag="div">
       我
     </router-link>
-    <router-link :to="{ name: 'HideView' }" class="upwards-btn a-anti-theme">
+    <router-link :to="{ name: 'HideView' }" class="upwards-btn" tag="div">
       隐
     </router-link>
-    <router-link :to="`/setting`" class="upwards-btn a-anti-theme">
+    <router-link :to="`/setting`" class="upwards-btn" tag="div">
       设
     </router-link>
     <div class="option-box">
-      <router-link class="option-btn a-anti-theme" :to="'/home'">
+      <router-link class="option-btn" :to="'/home'" tag="div">
         <i class="gg-home"></i>
       </router-link>
       <br>
-      <router-link class="option-btn a-anti-theme" :to="`/search`">
+      <router-link class="option-btn" :to="`/search`" tag="div">
         <i class="gg-search"></i>
       </router-link>
-      <router-link class="option-btn a-anti-theme" :to="'/category'">
+      <router-link class="option-btn" :to="'/category'" tag="div">
         <i class="gg-album"></i>
       </router-link>
       <br>
-      <router-link class="option-btn a-anti-theme" :to="'/download'">
+      <router-link class="option-btn" :to="'/download'" tag="div">
         <i class="gg-arrow-down"></i>
       </router-link>
-      <router-link class="option-btn a-anti-theme" :to="'/favourite'">
+      <router-link class="option-btn" :to="'/favourite'" tag="div">
         <i class="gg-heart"></i>
       </router-link>
-      <router-link class="option-btn a-anti-theme" :to="'/recent'">
+      <router-link class="option-btn" :to="'/recent'" tag="div">
         <i class="gg-eye"></i>
       </router-link>
     </div>
@@ -66,6 +66,7 @@ export default {
   min-height: 40px;
   max-height: 40px;
   overflow: hidden;
+  cursor: pointer;
 }
 .option-box {
   display: flex;
