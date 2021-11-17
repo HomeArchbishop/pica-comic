@@ -28,6 +28,18 @@
       "active": true,
       "isWeb": false,
       "isApp": true,
+      "path": "rank",
+      "thumb": {
+        "fileServer": "@",
+        "originalName": "x",
+        "path": "img/rank.jpg"
+      },
+      "title": "排行榜"
+    },
+    {
+      "active": true,
+      "isWeb": false,
+      "isApp": true,
       "path": "game",
       "thumb": {
         "fileServer": "@",
