@@ -482,5 +482,19 @@ router
       res.json(apiData)
     } catch (err) { next(err) }
   })
+  // /childrenComments?token={_}&commentId={_}&page={1}
+  // data: 'success' | string
+  .get('/childrenComments', async function (req, res, next) {
+    const args = {
+      diversionUrl: String(req.query.diversionUrl),
+      token: String(req.query.token),
+      commentId: String(req.query.commentId),
+      page: Number(req.query.page || 1)
+    }
+    try {
+      const apiData = await api.childrenComments(args.diversionUrl, args.token, args.commentId, args.page)
+      res.json(apiData)
+    } catch (err) { next(err) }
+  })
 
 export default router

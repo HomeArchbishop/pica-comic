@@ -356,11 +356,22 @@ const sendComments = async function (token, comicId, content) {
   return sendState
 }
 
+const childrenComments = async function (token, commentId, page) {
+  const comment = (await axios.get(`${baseUrl}childrenComments`, {
+    params: {
+      token,
+      commentId,
+      page
+    }
+  })).data
+  return comment
+}
+
 export {
   checkConnect, authorize, checkToken, categories, categoriesSearch, search,
   keyword, info, episodes, picture, myFavourite, like, favourite, collections,
   comments, personInfo, myComments, punch, register, getDiversionUrlList,
   tagSearch, commentLike, randomComic, download, downloadInfo, knightRank,
   recommend, rank, gameList, gameInfo, gameLike, gameComments, chatRoomList,
-  sendComments
+  sendComments, childrenComments
 }

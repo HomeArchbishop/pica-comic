@@ -4,7 +4,7 @@
       <div class="display-card">
         <span class="title">伟论</span>
         <div class="list-area" v-if="isFoundAny">
-          <Comment v-for="item in topCommentList" :key="item._id" :item="item" :isTop="true"/>
+          <Comment v-for="item in topCommentList" :key="item._id" :item="item"/>
           <Comment v-for="item in commentList" :key="item._id" :item="item"/>
           <div class="tip-note" v-if="isUpdating">正在加载，请等待</div>
         </div>

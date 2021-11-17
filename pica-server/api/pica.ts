@@ -279,10 +279,17 @@ async function commentLike (diversionUrl: string, token: string, commentId: stri
   return json.data?.action || json
 }
 
+// 获得子评论
+async function childrenComments (diversionUrl: string, token: string, commentId: string, page: number = 1): Promise<P.CommentList['comments']> {
+  const url = `comments/${commentId}/childrens?page=${page}`
+  const json = await sendGet(diversionUrl, url, token)
+  return json.data.comments
+}
+
 export {
   androidInfo, checkToken, authorize, categories, comics, info, episodes, picture,
   recommend, keyword, categoriesSearch, tagSearch, search, like, comments, favourite,
   personInfo, myFavourite, myComments, collections, punch, randomComic, appList,
   gameList, gameInfo, gameComments, gameLike, chat, sendComments, rank, knightRank,
-  setTitle, register, commentLike
+  setTitle, register, commentLike, childrenComments
 }
