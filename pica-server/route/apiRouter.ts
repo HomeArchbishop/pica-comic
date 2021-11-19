@@ -24,7 +24,7 @@ router
   // /
   // data: null
   .get('/', async function (req, res, next) {
-    res.end()
+    res.end('connected')
   })
   // /
   // data: null

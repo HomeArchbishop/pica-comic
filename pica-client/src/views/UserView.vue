@@ -2,7 +2,7 @@
   <div class="user-container">
     <div class="main">
       <div class="display-card" v-if="!isRequestingPersonInfo">
-        <img src="avatarSrc" :alt="personInfo.name" v-if="avatarSrc">
+        <img :src="avatarSrc" :alt="personInfo.name" v-if="avatarSrc">
         <div class="info-div">
           <div class="title">
             <div class="name-div">

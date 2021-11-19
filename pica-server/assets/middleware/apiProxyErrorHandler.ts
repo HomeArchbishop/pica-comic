@@ -14,7 +14,8 @@ export default (err: Error, req: Request, res: Response, next: NextFunction) => 
   // log.
   log.error('apiProxy', {
     code: errObj.code,
-    proxyTo: errApiUrl
+    proxyTo: errApiUrl,
+    resData: errObj
   })
   // handle err.
   res.status(errObj.code).json(errObj)

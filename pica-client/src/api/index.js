@@ -1,31 +1,13 @@
 import axios from 'axios'
 
 import serverConfig from '../../../pica-server/config/default'
+import { config as reqConfig, error as reqError } from './middleware/request'
+import { response as resResponse, error as resError } from './middleware/response'
 
 const baseUrl = `//localhost:${serverConfig.port}/api/`
 
-axios.interceptors.request.use(
-  config => {
-    if (config.method === 'post') {
-      const diversionUrl = JSON.parse(localStorage.diversionUrlList || '[]')[+localStorage.diversionIndex] || 'http://104.20.180.50/'
-      config.data = {
-        ...config.data,
-        diversionUrl
-      }
-    } else if (config.method === 'get') {
-      const diversionUrl = JSON.parse(localStorage.diversionUrlList || '[]')[+localStorage.diversionIndex] || 'http://104.20.180.50/'
-      console.log('get', diversionUrl)
-      config.params = {
-        ...config.params,
-        diversionUrl
-      }
-    }
-    return config
-  },
-  err => {
-    return Promise.reject(err)
-  }
-)
+axios.interceptors.request.use(reqConfig, reqError)
+axios.interceptors.response.use(resResponse, resError)
 
 const getDiversionUrlList = async function () {
   const list = (await axios.get(`${baseUrl}diversionurl`)).data || []
@@ -36,8 +18,8 @@ const getDiversionUrlList = async function () {
 }
 
 const checkConnect = async function () {
-  const res = await axios.get(`${baseUrl}`)
-  return res
+  const connectWord = (await axios.get(`${baseUrl}`)).data
+  return connectWord // 'connected' || undefined
 }
 
 const authorize = async function (username, password) {
