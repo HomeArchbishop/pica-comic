@@ -75,8 +75,8 @@ export default {
     }
   },
   created: async function () {
-    await this.initEmptyList()
     await this.getDownloadedList()
+    await this.initEmptyList()
     this.updatePage()
   }
 }
