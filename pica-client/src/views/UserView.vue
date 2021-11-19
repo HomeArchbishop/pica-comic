@@ -2,7 +2,7 @@
   <div class="user-container">
     <div class="main">
       <div class="display-card" v-if="!isRequestingPersonInfo">
-        <img :src="avatarSrc" :alt="personInfo.name" v-if="avatarSrc">
+        <img src="avatarSrc" :alt="personInfo.name" v-if="avatarSrc">
         <div class="info-div">
           <div class="title">
             <div class="name-div">
@@ -192,7 +192,7 @@ export default {
     max-height: 180px;
     border: none;
     border-radius: 90px;
-    background: #333;
+    background: @color-theme-sub;
   }
   .info-div {
     display: flex;
@@ -267,7 +267,7 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid @color-theme;
     .main-title {
       display: flex;
       font-size: 18px;

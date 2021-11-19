@@ -85,8 +85,9 @@ export default {
   min-height: 100px;
   width: 70%;
   max-width: 450px;
-  padding: 10px;
+  padding: 20px;
   background-color: @color-anti-theme;
+  border-radius: @card-radius-default;
   box-shadow: 0 0 8px 0 @color-theme-sub;
   @media (max-width: 768px) {
     width: 80%;
