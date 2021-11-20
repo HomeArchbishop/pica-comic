@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog-wrap" id="dialog" @click.self.stop="close()">
+  <div class="dialog-wrap" :id="domId" @click.self.stop="close()">
     <div class="dialog-card">
       <div class="dialog-content-div">
         <div class="title" v-html="title"></div>
@@ -17,7 +17,6 @@
 export default {
   data () {
     return {
-      isShowDialog: true, // 通过这个属性，控制是否移除dom元素
       title: '', // 顶部标题
       content: '', // 内容
       cancelBtn: false, // 取消按钮
@@ -25,27 +24,30 @@ export default {
       timer: 0
     }
   },
+  computed: {
+    domId () {
+      return `dialog-${Math.random().toString()}`
+    }
+  },
   methods: {
+    removeDialog: async function () {
+      const dialogDom = document.getElementById(this.domId)
+      dialogDom.parentNode.removeChild(dialogDom)
+    },
     close: async function () {
       this._close && await this._close()
-      this.$set(this, 'isShowDialog', false)
+      this.removeDialog()
     },
     confirm: async function () {
       this._confirm && await this._confirm()
-      this.$set(this, 'isShowDialog', false)
+      this.removeDialog()
     },
     cancel: async function () {
       this._cancel && await this._cancel()
-      this.$set(this, 'isShowDialog', false)
+      this.removeDialog()
     }
   },
   watch: {
-    isShowDialog (cur, old) {
-      if (!cur) {
-        let dialogDom = document.getElementById('dialog')
-        dialogDom.parentNode.removeChild(dialogDom)
-      }
-    },
     autoClose (cur, old) {
       if (cur) {
         setTimeout(() => {
