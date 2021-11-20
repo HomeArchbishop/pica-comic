@@ -154,7 +154,7 @@ export default {
       border: none;
       border-bottom: 1px solid @color-anti-theme-sub;
       font-size: 18px;
-      transition: border-bottom-color 400ms;
+      transition: 400ms;
       &:focus {
         border-bottom-color: @color-theme;
         & + input[type=button] {
@@ -170,7 +170,7 @@ export default {
       color: @color-anti-theme;
       font-size: 18px;
       margin-left: 0;
-      transition: background-color 400ms;
+      transition: 400ms;
       cursor: pointer;
     }
   }
