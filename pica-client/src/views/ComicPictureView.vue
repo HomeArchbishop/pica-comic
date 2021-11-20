@@ -104,18 +104,7 @@ export default {
     },
     scrollToTop: async function () {
       const container = this.$refs.container
-      container.scrollTop = Math.min(1000, container.scrollTop)
-      const scrollToptimer = setInterval(function () {
-        const top = container.scrollTop
-        const speed = top / 3
-        if (container.scrollTop !== 0) {
-          container.scrollTop -= speed
-        }
-        if (top <= 0) {
-          clearInterval(scrollToptimer)
-        }
-      }, 10)
-      // this.$refs.container.scrollTo(0, 0)
+      container.scrollTo(0, 0)
     },
     scrollToBottom: async function () {
       const container = this.$refs.container
@@ -150,6 +139,7 @@ export default {
   align-items: center;
   height: 100%;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 .main {
   display: flex;
