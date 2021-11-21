@@ -37,7 +37,11 @@ export default {
 @import './assets/less/color';
 @font-face {
   font-family: 'juZhenJF';
-  src: url('./assets/font/FZJuZXFJF.ttf');
+  src: url('../static/font/FZJuZXFJF.ttf');
+}
+@font-face {
+  font-family: 'ZillaSlab';
+  src: url('../static/font/ZillaSlab.ttf');
 }
 body {
   padding: 0;
@@ -46,7 +50,7 @@ body {
   height: 100vh;
   overflow: hidden;
   &, * {
-    font-family: 'juZhenJF';
+    font-family: ZillaSlab, juZhenJF, Apple Color Emoji, Segoe UI Emoji, system-ui, sans-serif;
     box-sizing: border-box!important;
   }
 }

@@ -26,6 +26,7 @@ import RankView from '@/views/RankView'
 import GameView from '@/views/GameView'
 import GameDetailView from '@/views/GameDetailView'
 import GameCommentsView from '@/views/GameCommentsView'
+import CoffeeView from '@/views/CoffeeView'
 
 import auth from './middleware/auth'
 import historyState from './middleware/historyState'
@@ -262,6 +263,16 @@ const router = new Router({
       component: GameCommentsView,
       meta: {
         title: '游戏评论'
+      }
+    },
+    {
+      path: '/coffee',
+      alias: ['/vip', '/cafe', '/levelup'],
+      name: 'CoffeeView',
+      component: CoffeeView,
+      meta: {
+        title: '升级',
+        keepAlive: true
       }
     }
   ]
