@@ -1,6 +1,11 @@
 <template>
   <div class="picture-container" ref="container">
-    <div class="main">
+    <div class="top-menu" :class="{ hidden: !isShowTopMenu }">
+      <router-link class="back-btn" tag="div"
+        :to="{ name: 'ComicDetailView', params: {id: comicId} }">&lt;返回</router-link>
+      <div class="episodes-title">{{ episodesTitle }}</div>
+    </div>
+    <div class="main" @mousemove="mouseMove">
       <div class="display-card">
         <img v-for="item in pictureListDocsList" :key="item._id"
           :src="$util.formatImgUrl(item.media.fileServer, item.media.path)">
@@ -37,9 +42,11 @@ export default {
       token: localStorage.token,
       pictureListDocsList: [],
       episodesList: [],
+      episodesTitle: '加载中...',
       currentPage: 1,
       isAll: false,
-      isUpdating: false
+      isUpdating: false,
+      isShowTopMenu: false
     }
   },
   computed: {
@@ -62,6 +69,7 @@ export default {
       const pictureObjectResults = await this.$api.picture(this.token,
         this.comicId, this.comicOrder, this.currentPage)
       this.pictureListDocsList.push(...pictureObjectResults.pages.docs)
+      this.$set(this, 'episodesTitle', pictureObjectResults.ep.title)
       if (pictureObjectResults.pages.page === pictureObjectResults.pages.pages) {
         this.$set(this, 'isAll', true)
       } else {
@@ -109,6 +117,10 @@ export default {
     scrollToBottom: async function () {
       const container = this.$refs.container
       container.scrollTo(0, container.scrollHeight)
+    },
+    mouseMove (e) {
+      const clientY = e.clientY
+      this.$set(this, 'isShowTopMenu', clientY < 80)
     }
   },
   watch: {
@@ -140,6 +152,35 @@ export default {
   height: 100%;
   overflow-y: scroll;
   scroll-behavior: smooth;
+}
+.top-menu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  height: 60px;
+  width: 100%;
+  background-color: @color-anti-theme;
+  box-shadow: 0 0 14px 1px @color-anti-theme-sub;
+  z-index: 502;
+  padding: 20px;
+  transition: 400ms;
+  &.hidden {
+    display: none;
+  }
+  &:not(.hidden) + .main {
+    margin-top: -60px
+  }
+  .back-btn {
+    cursor: pointer;
+    font-size: 16px;
+    position: absolute;
+    left: 10px;
+  }
+  .episodes-title {
+    font-size: 20px;
+  }
 }
 .main {
   display: flex;
