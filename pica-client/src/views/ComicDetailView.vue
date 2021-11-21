@@ -18,8 +18,10 @@
               {{ isDescriptionPreview ? '展开&gt;' : '&lt;收起' }}
             </u>
           </div>
-          <div class="author">作者：{{ comicDetailObject.author }}</div>
-          <div class="chineseTeam">汉化：{{ comicDetailObject.chineseTeam }}</div>
+          <router-link class="author" tag="div"
+            :to="{ name: 'SearchView', params: {kw: comicDetailObject.author} }">作者：{{ comicDetailObject.author }}</router-link>
+          <router-link class="chineseTeam" tag="div"
+            :to="{ name: 'SearchView', params: {kw: comicDetailObject.chineseTeam} }">汉化：{{ comicDetailObject.chineseTeam }}</router-link>
           <div class="tag-div">
             <router-link :to="{ name: 'TagSearchView', params: {t: tagName} }" class="tag" tag="div"
               v-for="tagName in comicDetailObject.tags" :key="tagName">{{ tagName }}</router-link>
@@ -246,6 +248,15 @@ export default {
       .toggle-btn {
         display: inline-block;
         cursor: pointer;
+      }
+    }
+    .author, .chineseTeam {
+      font-weight: bolder;
+      color: @color-theme-sub;
+      cursor: pointer;
+      transition: 200ms;
+      &:hover {
+        color: @color-theme-sub-dark;
       }
     }
     .tag-div {
