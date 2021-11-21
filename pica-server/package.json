@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "A simple node proxy server for pica",
   "scripts": {
-    "start": "node app.js",
-    "dev": "npx ts-node app.ts"
+    "serve": "npx ts-node app.ts",
+    "dev": "pm2 start --only picaServerDev --env development",
+    "start": "pm2 start --only picaServerProd --env production",
+    "stop:dev": "pm2 delete picaServerDev",
+    "stop": "pm2 delete picaServerProd"
   },
   "author": "拆家大主教",
   "license": "MIT",

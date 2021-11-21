@@ -19,7 +19,11 @@ const port: number = config.port
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-app.use('/', express.static('../pica-client'))
+if (process.env.NODE_ENV === 'production') {
+  app.use('/', express.static('../pica-client'))
+} else if (process.env.NODE_ENV === 'development') {
+  app.use('/', express.static('../pica-client/dist'))
+}
 app.use('/static', express.static('./static'))
 app.use('/api', apiRouter)
 
@@ -29,7 +33,7 @@ app.use(apiProxyErrorHandler)
 // start server.
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`)
-  log.info('process', { process: 'start', port })
+  log.info('process', { process: 'start', port, env: process.env.NODE_ENV })
 })
 
 // catch uncaught error.
