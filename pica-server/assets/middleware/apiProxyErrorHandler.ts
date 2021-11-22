@@ -5,12 +5,13 @@ import { NextFunction, Request, Response } from "express"
 import log from "../ts/log"
 
 export default (err: Error, req: Request, res: Response, next: NextFunction) => {
+  try { JSON.parse(err.message) } catch { return next(err) }
   const errJson: any = JSON.parse(err.message)
   const errType: string = errJson.errType
   const errObj: any = errJson.errObj
   const errApiUrl: string = errJson.errApiUrl
   // judge err type.
-  if (errType !== 'apiProxy') { next(err) }
+  if (errType !== 'apiProxy') { return next(err) }
   // log.
   log.error('apiProxy', {
     code: errObj.code,

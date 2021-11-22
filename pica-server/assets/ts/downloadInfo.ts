@@ -5,6 +5,9 @@ type downloadInfo = {
 }
 
 export default async function (): Promise<downloadInfo> {
+  // if unexist download dir.
+  if (!fs.existsSync('./static/download')) { return {} }
+  // else
   const comicIdList = fs.readdirSync('./static/download')
   const downloadInfo: downloadInfo = {}
   comicIdList.forEach(comicId => {
@@ -16,6 +19,7 @@ export default async function (): Promise<downloadInfo> {
       const dirPath = `./static/download/${comicId}/${eps}`
       if (fs.lstatSync(dirPath).isFile()) { return }
       if (!fs.existsSync(`${dirPath}/FLAG`)) { return }
+      if (fs.readFileSync(`${dirPath}/FLAG`).toString() !== 'completed') { return }
       tmpComicEpsList.push(eps)
     })
     tmpComicEpsList.length && (downloadInfo[comicId] = tmpComicEpsList)
