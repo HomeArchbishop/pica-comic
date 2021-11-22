@@ -37,10 +37,9 @@ export default {
   border-radius: @card-radius-default;
   overflow: hidden;
   cursor: pointer;
-  &:hover {
-    .img-div img {
-      height: 150px
-    }
+  transition: 200ms;
+  &:hover img {
+    transform: scale(1.06);
   }
   .img-div {
     display: flex;

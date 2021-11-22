@@ -3,7 +3,9 @@
     <div class="main">
       <div class="display-card">
         <div class="title">小程序</div>
-        <LoadingRow v-if="!appList.length && !webList.length"/>
+        <div class="program-area" v-if="!appList.length && !webList.length">
+          <LoadingItemSmall v-for="i in 5" :key="i"/>
+        </div>
         <div class="program-area">
           <ItemSmall v-for="item in webList" :key="item._id + item.title" :item="item"
             :link="{ name: 'LinkView', params: {link: item.link} }"/>
@@ -13,7 +15,9 @@
       </div>
       <div class="display-card">
         <div class="title">分类</div>
-        <LoadingRow v-if="!cateList.length"/>
+        <div class="program-area" v-if="!cateList.length">
+          <LoadingItemSmall v-for="i in 10" :key="i"/>
+        </div>
         <div class="list-area">
           <ItemSmall v-for="item in cateList" :key="item._id + item.title" :item="item"
             :link="`/category/${item.title}`"/>
@@ -24,8 +28,12 @@
 </template>
 
 <script>
+import LoadingItemSmall from '@/components/LoadingItemSmall'
 export default {
   name: 'CategoryView',
+  components: {
+    LoadingItemSmall
+  },
   data () {
     return {
       token: localStorage.token,
