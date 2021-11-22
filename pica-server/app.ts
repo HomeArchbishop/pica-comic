@@ -4,8 +4,6 @@ import express from 'express'
 import cors from 'cors'
 import apiRouter from './route/apiRouter'
 
-import config from './config/default.json'
-
 import log from './assets/ts/log'
 
 import apiProxyErrorHandler from './assets/middleware/apiProxyErrorHandler'
@@ -13,7 +11,7 @@ import apiProxyErrorHandler from './assets/middleware/apiProxyErrorHandler'
 const app = express()
 app.use(cors())
 
-const port: number = config.port
+const port: number = 1210
 
 // 中间件解析请求主体
 app.use(express.urlencoded({ extended: false }))

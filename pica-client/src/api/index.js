@@ -1,10 +1,9 @@
 import axios from 'axios'
 
-import serverConfig from '../../../pica-server/config/default'
 import { config as reqConfig, error as reqError } from './middleware/request'
 import { response as resResponse, error as resError } from './middleware/response'
 
-const baseUrl = `//localhost:${serverConfig.port}/api/`
+const baseUrl = `//localhost:1210/api/`
 
 axios.interceptors.request.use(reqConfig, reqError)
 axios.interceptors.response.use(resResponse, resError)
