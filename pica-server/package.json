@@ -12,10 +12,12 @@
   "author": "拆家大主教",
   "license": "MIT",
   "dependencies": {
+    "@stdlib/assert-is-json": "^0.0.7",
     "axios": "^0.24.0",
     "cors": "^2.8.5",
     "download": "^8.0.0",
     "express": "^4.17.1",
+    "jszip": "^3.7.1",
     "node-fetch": "^2.6.1",
     "request": "^2.88.2",
     "uuid": "^8.3.2"

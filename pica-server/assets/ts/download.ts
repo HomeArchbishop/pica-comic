@@ -13,7 +13,7 @@ let totalPictureNumber: number = 0
 let downloadedNumber: number = 0
 
 const downloadPicture = async function (pictureUrl: string, savePath: string, filename: string,
-  comicId: string, episodesOrder: string | number) {
+  comicId: string, episodesOrder: string) {
   download(pictureUrl, savePath, { filename })
     .then(() => {
       downloadedNumber++

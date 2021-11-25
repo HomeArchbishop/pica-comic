@@ -45,9 +45,12 @@
           <div class="download-btn" @click.stop="toggleDownload()">
             <i class="gg-arrow-down"></i>
           </div>
+          <div class="pack-zip-btn" @click.stop="togglePack()" v-if="episodesDownloadedList.length">
+            <i class="gg-shopping-bag"></i>
+          </div>
         </div>
       </div>
-      <div class="episodes-area" v-if="!isRequestingDetail && !isChoosingDownLoad">
+      <div class="episodes-area" v-if="!isRequestingDetail && !isChoosingDownLoad && !isChoosingPackZip">
         <div class="title">章节列表</div>
         <div class="episodes-list">
           <router-link class="episodes-item" v-for="item in episodesList" :key="item.order" tag="div"
@@ -74,6 +77,21 @@
             }">下载</div>
         </div>
       </div>
+      <div class="pack-episodes-area" v-if="!isRequestingDetail && isChoosingPackZip">
+        <div class="tip">请选择要打包的章节</div>
+        <div class="tip sub">（仅支持已下载的章节）</div>
+        <div class="tip sub" v-if="!episodesDownloadedList.length">（当前没有已下载的章节供打包）</div>
+        <div class="pack-episodes-list" v-if="episodesDownloadedList.length">
+          <div class="pack-episodes-item" v-for="item in episodesList" :key="item.order"
+            :class="{
+              disable: !episodesDownloadedList.includes(String(item.order))
+            }"
+            @click.stop="packZip(item.order)">{{ item.title }}</div>
+        </div>
+        <div class="btn-div">
+          <div class="btn" @click.stop="togglePack()">取消</div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -88,12 +106,14 @@ export default {
       episodesList: [],
       episodesDownloadChosenList: [],
       episodesDownloadedList: [],
+      episodesPackChosenList: [],
       isFavourite: false,
       isLiked: false,
       isRequestingDetail: true,
       isRequestingFavourite: false,
       isRequestingLike: false,
       isChoosingDownLoad: false,
+      isChoosingPackZip: false,
       isDescriptionPreview: false
     }
   },
@@ -154,6 +174,7 @@ export default {
       this.$set(this, 'isRequestingLike', false)
     },
     toggleDownload: async function () {
+      this.isChoosingPackZip && await this.togglePack()
       this.$set(this, 'isChoosingDownLoad', !this.isChoosingDownLoad)
     },
     toggleDownloadChosenList: async function (orderNum) {
@@ -165,6 +186,10 @@ export default {
         : chosenSet.add(order)
       this.$set(this, 'episodesDownloadChosenList', Array.from(chosenSet))
     },
+    togglePack: async function () {
+      this.isChoosingDownLoad && await this.toggleDownload()
+      this.$set(this, 'isChoosingPackZip', !this.isChoosingPackZip)
+    },
     download: async function () {
       this.toggleDownload()
       this.episodesDownloadChosenList.forEach(episodesOrder => {
@@ -174,6 +199,11 @@ export default {
             this.getDownloadedList()
           })
       })
+    },
+    packZip: async function (episodesOrder) {
+      if (episodesOrder === undefined) { return }
+      const downloadZipUrl = await this.$api.downloadZipUrl(this.comicId, episodesOrder)
+      window.open(downloadZipUrl)
     },
     getDownloadedList: async function () {
       const downloadInfo = await this.$api.downloadInfo()
@@ -306,7 +336,8 @@ export default {
     margin-left: 20px;
     .favourite-btn,
     .like-btn,
-    .download-btn {
+    .download-btn,
+    .pack-zip-btn {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -443,6 +474,78 @@ export default {
           right: -4px;
           bottom: -4px;
         }
+      }
+    }
+  }
+  .btn-div {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    margin-top: 10px;
+    .btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      height: 26px;
+      border: 1px solid @color-theme;
+      cursor: pointer;
+      margin-right: 10px;
+      &:last-child {
+        margin-right: 0;
+      }
+      &.disable {
+        border-color: @color-theme-sub;
+        color: @color-theme-sub;
+      }
+    }
+  }
+}
+.pack-episodes-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  box-shadow: 0 0 10px 0 @color-anti-theme-sub;
+  border-radius: @card-radius-default;
+  padding: 10px;
+  margin-top: 20px;
+  *::selection {
+    text-decoration: none;
+  }
+  .tip {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    cursor: default;
+    &.sub {
+      color: @color-theme-sub;
+    }
+  }
+  .pack-episodes-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    .pack-episodes-item {
+      display: flex;
+      border: 1px solid @color-anti-theme-sub;
+      margin-right: 5px;
+      margin-top: 10px;
+      padding: 5px;
+      height: 26px;
+      font-size: 16px;
+      line-height: 16px;
+      color: @color-theme-sub;
+      position: relative;
+      cursor: pointer;
+      &:last-child {
+        margin-right: 0;
+      }
+      &.disabled {
+        display: none;
       }
     }
   }

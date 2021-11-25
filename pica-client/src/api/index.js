@@ -247,6 +247,11 @@ const downloadInfo = async function () {
   return downloadInfo
 }
 
+const downloadZipUrl = async function (comicId, episodesOrder) {
+  const downloadZipUrl = `${baseUrl}downloadZip?comicId=${comicId}&episodesOrder=${episodesOrder}`
+  return downloadZipUrl
+}
+
 const knightRank = async function (token) {
   const knightRank = (await axios.get(`${baseUrl}knightRank`, {
     params: {
@@ -352,7 +357,7 @@ export {
   checkConnect, authorize, checkToken, categories, categoriesSearch, search,
   keyword, info, episodes, picture, myFavourite, like, favourite, collections,
   comments, personInfo, myComments, punch, register, getDiversionUrlList,
-  tagSearch, commentLike, randomComic, download, downloadInfo, knightRank,
-  recommend, rank, gameList, gameInfo, gameLike, gameComments, chatRoomList,
-  sendComments, childrenComments
+  tagSearch, commentLike, randomComic, download, downloadInfo, downloadZipUrl,
+  knightRank, recommend, rank, gameList, gameInfo, gameLike, gameComments,
+  chatRoomList, sendComments, childrenComments
 }

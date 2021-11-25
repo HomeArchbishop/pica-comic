@@ -1,9 +1,7 @@
-import serverConfig from '../../../../pica-server/config/default.json'
-
 export default {
   formatImgUrl: function (fileServer = '', path = '') {
     return fileServer.slice(0, 1) === '@'
-      ? `//localhost:${serverConfig.port}/static/${path}`
+      ? `//localhost:1210/static/${path}`
       : `https://storage1.picacomic.com/static/${path}`
     /*
     if (!fileServer || !path) {

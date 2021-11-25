@@ -7,4 +7,5 @@
 production/
 
 pica-server/static/download/*
+pica-server/static/tmp
 pica-server/log/

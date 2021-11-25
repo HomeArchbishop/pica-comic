@@ -36,7 +36,7 @@ export default {
       const newArray = []
       for (let index = 0; index < length; index++) {
         newArray[index] = {
-          _id: Math.random().toString(),
+          _id: askedIdList[askedIdList.length - index - 1],
           thumb: {
             fileServer: '#',
             originalName: '#',

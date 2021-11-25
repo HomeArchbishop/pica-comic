@@ -8,6 +8,7 @@ import * as api from '../api/pica'
 import { Sorts, Tt } from '../assets/util/transform'
 import download from '../assets/ts/download'
 import downloadInfo from '../assets/ts/downloadInfo'
+import { downloadZip } from '../assets/ts/downloadPack'
 import log from '../assets/ts/log'
 import LightDb from '../assets/lightDb'
 
@@ -345,12 +346,24 @@ router
       res.end(resp)
     } catch (err) { next(err) }
   })
-  // /downloadInfo?token={_}&comicId={_}&episodesOrder={_}
+  // /downloadInfo
   // data: downloadInfo
   .get('/downloadInfo', async function (req, res, next) {
     try {
       const resp = await downloadInfo()
       res.json(resp)
+    } catch (err) { next(err) }
+  })
+  // /downloadZip?comicId={_}&episodesOrder={_}
+  // data: Buffer
+  .get('/downloadZip', async function (req, res, next) {
+    const args = {
+      comicId: String(req.query.comicId),
+      episodesOrder: String(req.query.episodesOrder || 1)
+    }
+    try {
+      const savePath = await downloadZip(args.comicId, args.episodesOrder)
+      res.download(savePath, e => {fs.rmSync(savePath)})
     } catch (err) { next(err) }
   })
   // /knightRank?token={_}
