@@ -4,10 +4,9 @@
   "description": "A simple node proxy server for pica",
   "scripts": {
     "serve": "npx ts-node app.ts",
-    "dev": "pm2 start --only picaServerDev --env development",
-    "start": "pm2 start --only picaServerProd --env production",
-    "stop:dev": "pm2 delete picaServerDev",
-    "stop": "pm2 delete picaServerProd"
+    "dev": "npx nodemon --exec \"npm run\" serve --config nodemon.config.json",
+    "start": "npx pm2 start --only picaServerProd --env production",
+    "stop": "npx pm2 delete picaServerProd"
   },
   "author": "拆家大主教",
   "license": "MIT",
@@ -30,6 +29,8 @@
     "@types/levelup": "^4.3.3",
     "@types/node-fetch": "^2.5.7",
     "@types/uuid": "^8.3.1",
+    "nodemon": "^2.0.15",
+    "pm2": "^5.1.2",
     "ts-node": "^10.4.0",
     "typescript": "^4.4.4"
   }
