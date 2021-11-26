@@ -18,7 +18,7 @@
         <div class="user-setting-area">
           <div class="sub-title">用户设置</div>
           <div class="row">
-            <div class="btn" @click.stop="clearCashes()">退出登录</div>
+            <div class="btn" @click.stop="logout()">退出登录</div>
           </div>
         </div>
         <div class="other-setting-area">
@@ -74,6 +74,10 @@ export default {
           _this.$router.push({ path: '/' })
         }
       })
+    },
+    logout: async function () {
+      localStorage.token = ''
+      this.$router.push({ name: 'LoginView' })
     }
   }
 }

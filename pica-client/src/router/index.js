@@ -29,7 +29,6 @@ import GameCommentsView from '@/views/GameCommentsView'
 import CoffeeView from '@/views/CoffeeView'
 
 import auth from './middleware/auth'
-import historyState from './middleware/historyState'
 import setTitle from './middleware/setTitle'
 import checkConnect from './middleware/checkConnect'
 
@@ -194,7 +193,9 @@ const router = new Router({
       component: HideView,
       meta: {
         title: '墨子-古诗文',
-        keepAlive: true
+        keepAlive: true,
+        authExclude: true,
+        connectExclude: true
       }
     },
     {
@@ -202,7 +203,8 @@ const router = new Router({
       name: 'SettingView',
       component: SettingView,
       meta: {
-        title: '设置'
+        title: '设置',
+        connectExclude: true
       }
     },
     {
@@ -220,7 +222,9 @@ const router = new Router({
       component: AboutView,
       meta: {
         title: '关于',
-        keepAlive: true
+        keepAlive: true,
+        authExclude: true,
+        connectExclude: true
       }
     },
     {
@@ -272,7 +276,9 @@ const router = new Router({
       component: CoffeeView,
       meta: {
         title: '升级',
-        keepAlive: true
+        keepAlive: true,
+        authExclude: true,
+        connectExclude: true
       }
     }
   ]
@@ -297,7 +303,6 @@ router.afterEach((to, from) => {
     from
   }
   checkConnect({ ...context })
-  historyState({ ...context })
   setTitle({ ...context })
 })
 

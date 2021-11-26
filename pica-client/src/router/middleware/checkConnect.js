@@ -2,6 +2,7 @@ import { checkConnect } from '../../api/index'
 import dialog from '../../assets/js/dialog'
 
 export default async function checkConnection ({ to }) {
+  if (to.meta.connectExclude) { return }
   checkConnect()
     .then(res => {
       console.log(res)
