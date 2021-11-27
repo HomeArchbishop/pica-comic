@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap" id="app">
+  <div class="wrap" id="app" @keydown="shiftToHideView">
     <SideBar/>
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive"></router-view>
@@ -24,6 +24,10 @@ export default {
       if (!['ua', 'da', 'dd', 'ld', 'vd'].includes(localStorage.sort)) {
         localStorage.sort = 'ua'
       }
+    },
+    shiftToHideView: async function (e) {
+      console.log(3)
+      this.$router.push({ name: 'HideView' })
     }
   },
   created () {
@@ -62,6 +66,7 @@ body {
   height: 100vh;
   padding: 0;
   margin: 0;
+  background-color: @color-background;
 }
 .darkmode-layer, .darkmode-toggle {
   z-index: 500;
