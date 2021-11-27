@@ -4,6 +4,8 @@
 **/db/user/
 **/db/static/*.log
 
+assets/chore
+
 production/
 
 pica-server/static/download/*

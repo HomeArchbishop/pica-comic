@@ -3,7 +3,12 @@
   "version": "0.1.0-alpha",
   "description": "",
   "scripts": {
-    "build:web": "sh script/web/pack.sh"
+    "install:all": "sh script/web/install.sh",
+    "install:web": "npm run install:all",
+    "build:web": "sh script/web/build.sh",
+    "start": "sh script/web/start.sh",
+    "start:web": "npm start",
+    "stop:web": "sh script/web/stop.sh"
   },
   "author": "拆家大主教",
   "license": "MIT",

@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap" id="app" @keydown="shiftToHideView">
+  <div class="wrap" id="app">
     <SideBar/>
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive"></router-view>
