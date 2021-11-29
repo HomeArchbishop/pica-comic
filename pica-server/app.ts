@@ -17,9 +17,9 @@ const port: number = 1210
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'development') {
   app.use('/', express.static('../pica-client/dist'))
-} else if (process.env.NODE_ENV === 'development') {
+} else {
   app.use('/', express.static('../pica-client/dist'))
 }
 app.use('/static', express.static('./static'))

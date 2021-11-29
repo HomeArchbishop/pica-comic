@@ -6,8 +6,8 @@
 
 assets/chore
 
-production/
-
 pica-server/static/download/*
 pica-server/static/tmp
 pica-server/log/
+
+pica-client/electron

@@ -2,7 +2,7 @@ module.exports = {
   apps : [
     {
       name: 'picaServerDev',
-      script: 'npm run serve',
+      script: '"npm run serve"',
       watch: '.',
       ignore_watch: [
         'test',
@@ -17,7 +17,7 @@ module.exports = {
     },
     {
       name: 'picaServerProd',
-      script: 'npm run serve',
+      script: '"npm run serve"',
       watch: false,
       env_production: {
         NODE_ENV: "production"

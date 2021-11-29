@@ -3,12 +3,12 @@
   "version": "0.1.0-alpha",
   "description": "",
   "scripts": {
-    "install:all": "sh script/web/install.sh",
+    "install:all": "cd pica-server;npm install;cd ../;cd pica-client;npm install;cd ../",
     "install:web": "npm run install:all",
-    "build:web": "sh script/web/build.sh",
-    "start": "sh script/web/start.sh",
+    "build:web": "cd pica-client;npm run build;cd ../",
+    "start": "cd pica-server;npm start;cd ../",
     "start:web": "npm start",
-    "stop:web": "sh script/web/stop.sh"
+    "stop:web": "cd pica-server;npm run stop;cd ../"
   },
   "author": "拆家大主教",
   "license": "MIT",
