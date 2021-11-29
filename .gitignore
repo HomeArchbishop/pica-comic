@@ -5,9 +5,8 @@
 **/db/static/*.log
 
 assets/chore
+electron
 
 pica-server/static/download/*
 pica-server/static/tmp
 pica-server/log/
-
-pica-client/electron

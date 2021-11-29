@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "npx ts-node app.ts",
     "dev": "npx nodemon --exec \"npm run\" serve --config nodemon.config.json",
-    "start": "npx pm2 start --only picaServerProd --env production",
+    "start": "npx pm2 start npm --name picaServerProd --env production -- run serve",
     "stop": "npx pm2 delete picaServerProd"
   },
   "author": "拆家大主教",
