@@ -1,12 +1,10 @@
 <template>
-  <div>
-    <div class="weui-switch" :class="{'weui-switch-on': isChecked}" :isChecked="isChecked">
-      <div class="on" v-if="isChecked && direction.length">
-        {{ direction[0] }}
-      </div>
-      <div class="off" v-if="!isChecked && direction.length">
-        {{ direction[1] }}
-      </div>
+  <div class="weui-switch" :class="{'weui-switch-on': isChecked}" :isChecked="isChecked">
+    <div class="on" v-if="isChecked && direction.length">
+      {{ direction[0] }}
+    </div>
+    <div class="off" v-if="!isChecked && direction.length">
+      {{ direction[1] }}
     </div>
   </div>
 </template>

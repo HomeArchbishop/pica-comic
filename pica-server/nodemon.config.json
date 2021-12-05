@@ -4,10 +4,12 @@
   "ignore": [
     "test",
     "log",
+    "db/user",
     "static/download",
     "static/tmp",
     "node_modules"
   ],
+  "ext": "js,json,mjs,ts",
   "env": {
     "NODE_ENV": "development"
   }

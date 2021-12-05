@@ -9,6 +9,9 @@ import { Sorts, Tt } from '../assets/util/transform'
 import download from '../assets/ts/download'
 import downloadInfo from '../assets/ts/downloadInfo'
 import { downloadZip } from '../assets/ts/downloadPack'
+import { favouriteAuthor, favouriteAuthorList } from '../assets/ts/favouriteAuthor'
+import { favouriteChinese, favouriteChineseList } from '../assets/ts/favouriteChinese'
+
 import log from '../assets/ts/log'
 import LightDb from '../assets/lightDb'
 
@@ -507,6 +510,44 @@ router
     try {
       const apiData = await api.childrenComments(args.diversionUrl, args.token, args.commentId, args.page)
       res.json(apiData)
+    } catch (err) { next(err) }
+  })
+  // /favouriteAuthor?author={_}
+  // data: 'favourite' | 'un_favourite'
+  .get('/favouriteAuthor', async function (req, res, next) {
+    const args = {
+      author: String(req.query.author)
+    }
+    try {
+      const stat = await favouriteAuthor(args.author)
+      res.json(stat)
+    } catch (err) { next(err) }
+  })
+  // /favouriteAuthorList
+  // data: string[]
+  .get('/favouriteAuthorList', async function (req, res, next) {
+    try {
+      const list = await favouriteAuthorList()
+      res.json(list)
+    } catch (err) { next(err) }
+  })
+  // /favouriteChinese?chinese={_}
+  // data: 'favourite' | 'un_favourite'
+  .get('/favouriteChinese', async function (req, res, next) {
+    const args = {
+      author: String(req.query.author)
+    }
+    try {
+      const stat = await favouriteChinese(args.author)
+      res.json(stat)
+    } catch (err) { next(err) }
+  })
+  // /favouriteChineseList
+  // data: string[]
+  .get('/favouriteChineseList', async function (req, res, next) {
+    try {
+      const list = await favouriteChineseList()
+      res.json(list)
     } catch (err) { next(err) }
   })
 

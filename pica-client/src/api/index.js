@@ -353,11 +353,40 @@ const childrenComments = async function (token, commentId, page) {
   return comment
 }
 
+const favouriteAuthor = async function (author) {
+  const state = (await axios.get(`${baseUrl}favouriteAuthor`, {
+    params: {
+      author
+    }
+  })).data
+  return state // 'favourite' | 'un_favourite'
+}
+
+const favouriteAuthorList = async function () {
+  const list = (await axios.get(`${baseUrl}favouriteAuthorList`)).data
+  return list
+}
+
+const favouriteChinese = async function (author) {
+  const state = (await axios.get(`${baseUrl}favouriteChinese`, {
+    params: {
+      author
+    }
+  })).data
+  return state // 'favourite' | 'un_favourite'
+}
+
+const favouriteChineseList = async function () {
+  const list = (await axios.get(`${baseUrl}favouriteChineseList`)).data
+  return list
+}
+
 export {
   checkConnect, authorize, checkToken, categories, categoriesSearch, search,
   keyword, info, episodes, picture, myFavourite, like, favourite, collections,
   comments, personInfo, myComments, punch, register, getDiversionUrlList,
   tagSearch, commentLike, randomComic, download, downloadInfo, downloadZipUrl,
   knightRank, recommend, rank, gameList, gameInfo, gameLike, gameComments,
-  chatRoomList, sendComments, childrenComments
+  chatRoomList, sendComments, childrenComments, favouriteAuthor, favouriteAuthorList,
+  favouriteChinese, favouriteChineseList
 }

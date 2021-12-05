@@ -19,9 +19,11 @@
             </u>
           </div>
           <router-link class="author" tag="div"
-            :to="{ name: 'SearchView', params: {kw: comicDetailObject.author} }">作者：{{ comicDetailObject.author }}</router-link>
+            :to="{ name: 'SearchView', params: {kw: comicDetailObject.author || '未知'} }">
+            作者：{{ comicDetailObject.author || '未知' }}
+          </router-link>
           <router-link class="chineseTeam" tag="div"
-            :to="{ name: 'SearchView', params: {kw: comicDetailObject.chineseTeam} }">汉化：{{ comicDetailObject.chineseTeam }}</router-link>
+            :to="{ name: 'SearchView', params: {kw: comicDetailObject.chineseTeam || '未知'} }">汉化：{{ comicDetailObject.chineseTeam || '未知' }}</router-link>
           <div class="tag-div">
             <router-link :to="{ name: 'TagSearchView', params: {t: tagName} }" class="tag" tag="div"
               v-for="tagName in comicDetailObject.tags" :key="tagName">{{ tagName }}</router-link>
@@ -92,13 +94,27 @@
           <div class="btn" @click.stop="togglePack()">取消</div>
         </div>
       </div>
+      <div class="action-area" v-if="!isRequestingDetail">
+        <div class="action-btn" v-if="comicDetailObject.author">
+          <label>收藏作者</label>
+          <Toggle :isChecked="favouriteAuthorList.includes(comicDetailObject.author)" @click.native.stop="toggleFavouriteAuthor()"/>
+        </div>
+        <div class="action-btn" v-if="comicDetailObject.chineseTeam">
+          <label>收藏汉化组</label>
+          <Toggle :isChecked="favouriteChineseList.includes(comicDetailObject.chineseTeam)" @click.native.stop="toggleFavouriteChinese()"/>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Toggle from '../components/Toggle.vue'
 export default {
   name: 'ComicDetailView',
+  components: {
+    Toggle
+  },
   data () {
     return {
       token: localStorage.token,
@@ -107,6 +123,8 @@ export default {
       episodesDownloadChosenList: [],
       episodesDownloadedList: [],
       episodesPackChosenList: [],
+      favouriteAuthorList: [],
+      favouriteChineseList: [],
       isFavourite: false,
       isLiked: false,
       isRequestingDetail: true,
@@ -213,11 +231,35 @@ export default {
     },
     toggleDescriptionPreview: async function () {
       this.$set(this, 'isDescriptionPreview', !this.isDescriptionPreview)
+    },
+    toggleFavouriteAuthor: async function () {
+      const authorName = this.comicDetailObject.author
+      if (!authorName) { return }
+      const state = await this.$api.favouriteAuthor(authorName)
+      console.log(state)
+      await this.getFavouriteAuthorList()
+    },
+    getFavouriteAuthorList: async function () {
+      const list = await this.$api.favouriteAuthorList()
+      this.$set(this, 'favouriteAuthorList', list)
+    },
+    toggleFavouriteChinese: async function () {
+      const chineseName = this.comicDetailObject.chineseTeam
+      if (!chineseName) { return }
+      const state = await this.$api.favouriteChinese(chineseName)
+      console.log(state)
+      await this.getFavouriteChineseList()
+    },
+    getFavouriteChineseList: async function () {
+      const list = await this.$api.favouriteChineseList()
+      this.$set(this, 'favouriteChineseList', list)
     }
   },
   created () {
     this.getComicDetail()
     this.getEpisodesList()
+    this.getFavouriteAuthorList()
+    this.getFavouriteChineseList()
     this.getDownloadedList()
   }
 }
@@ -281,6 +323,8 @@ export default {
       }
     }
     .author, .chineseTeam {
+      display: flex;
+      flex-direction: row;
       font-weight: bolder;
       color: @color-theme-sub;
       cursor: pointer;
@@ -570,6 +614,30 @@ export default {
         border-color: @color-theme-sub;
         color: @color-theme-sub;
       }
+    }
+  }
+}
+.action-area {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 16px;
+  color: @color-theme-sub;
+  .action-btn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    &:not(:nth-child(1)) {
+      margin-left: 6px;
+      &::before {
+        content: '|';
+        margin-right: 6px;
+        cursor: default;
+      }
+    }
+    .weui-switch {
+      transform: scale(.7);
     }
   }
 }
