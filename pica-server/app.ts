@@ -38,3 +38,5 @@ app.listen(port, () => {
 process.on('uncaughtException', err => {
   console.log('uncaughtException', err)
 })
+
+export default app

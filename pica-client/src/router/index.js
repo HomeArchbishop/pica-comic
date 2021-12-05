@@ -32,7 +32,8 @@ import auth from './middleware/auth'
 import setTitle from './middleware/setTitle'
 import checkConnect from './middleware/checkConnect'
 
-import { checkToken } from '../api/index'
+import { checkToken as checkTokenWeb } from '../api/index'
+import { checkToken as checkTokenElectron } from '../api/api-electron'
 
 Vue.use(Router)
 
@@ -49,7 +50,8 @@ const router = new Router({
         authExclude: true
       },
       beforeEnter (to, from, next) {
-        checkToken(localStorage.token)
+        (process.env.ELECTRON
+          ? checkTokenElectron : checkTokenWeb)(localStorage.token)
           .then(res => {
             res
               ? next({ name: 'HomeView' })
@@ -302,7 +304,9 @@ router.afterEach((to, from) => {
     to,
     from
   }
-  checkConnect({ ...context })
+  if (!process.env.ELECTRON) {
+    checkConnect({ ...context })
+  }
   setTitle({ ...context })
 })
 

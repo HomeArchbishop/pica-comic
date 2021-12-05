@@ -262,7 +262,7 @@ const knightRank = async function (token) {
 }
 
 const recommend = async function (token, comicId) { // 「大家都在看」数组
-  const recommend = (await axios.get(`${baseUrl}knightRank`, {
+  const recommend = (await axios.get(`${baseUrl}recommend`, {
     params: {
       token,
       comicId

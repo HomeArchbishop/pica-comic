@@ -1,5 +1,6 @@
 import Header from './header'
 import fetch from 'node-fetch'
+import chinesize from './util/chinesize'
 
 type method = 'POST' | 'GET' | 'PUT'
 
@@ -23,7 +24,7 @@ const sendRequest = async function (diversionUrl: string, subUrl: string, method
     const errJson = {
       errType: 'apiProxy',
       errApiUrl: url,
-      errObj: await resp.json()
+      errObj: await chinesize(await resp.json(), resp.status)
     }
     const errStr = JSON.stringify(errJson)
     throw new Error(errStr)

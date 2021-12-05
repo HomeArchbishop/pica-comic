@@ -1,9 +1,10 @@
 {
   "name": "webserver",
   "version": "1.0.0",
-  "description": "A simple node proxy server for pica",
+  "description": "A simple node proxy server for pica.",
+  "private": true,
   "scripts": {
-    "serve": "npx ts-node app.ts",
+    "serve": "echo \"please wait for seconds...\n\";npx ts-node app.ts",
     "dev": "npx nodemon --exec \"npm run\" serve --config nodemon.config.json",
     "start": "npx pm2 start npm --name picaServerProd --env production -- run serve",
     "stop": "npx pm2 delete picaServerProd"

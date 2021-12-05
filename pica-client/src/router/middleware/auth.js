@@ -1,4 +1,8 @@
-import { checkToken } from '../../api/index'
+import { checkToken as checkTokenWeb } from '../../api/index'
+import { checkToken as checkTokenElectron } from '../../api/api-electron'
+
+const checkToken = process.env.ELECTRON
+  ? checkTokenElectron : checkTokenWeb
 
 export default function auth ({ to, next }) {
   if (to.meta.authExclude) {

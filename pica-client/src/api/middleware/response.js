@@ -11,7 +11,7 @@ export const error = err => {
     console.log('ERROR', resp)
     dialog({
       title: `错误：${resp.status}`,
-      content: resp.detail || resp.message
+      content: resp.data.chineseDetail
     })
   }
   return Promise.reject(err)

@@ -4,16 +4,15 @@
   "description": "A pica client.",
   "author": "拆家大主教",
   "private": true,
-  "main": "electron.js",
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "dev:electron": "webpack-dev-server --inline --progress --config build/webpack.dev-electron.conf.js",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
     "build": "node build/build.js",
-    "electron": "chmod 777 node_modules/.bin/electron && npx electron electron/main.js",
-    "build:electron": "npx electron-forge start"
+    "build:electron": "node build/build-electron.js"
   },
   "dependencies": {
     "axios": "^0.22.0",

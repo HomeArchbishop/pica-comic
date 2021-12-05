@@ -1,6 +1,7 @@
 // this error mw is for those request to pica
 // official api sever - picaapi.picacomic.com.
 
+import isJSON from "@stdlib/assert-is-json"
 import { NextFunction, Request, Response } from "express"
 import log from "../ts/log"
 
@@ -19,6 +20,11 @@ export default (err: Error, req: Request, res: Response, next: NextFunction) => 
     resData: errObj
   })
   // handle err.
-  res.status(errObj.code).json(errObj)
+  console.log(errObj, typeof errObj)
+  if (typeof errObj === 'object') {
+    res.status(errObj.code).json(errObj)
+  } else {
+    res.status(errObj.code).end(errObj) 
+  }
   next(err)
 }

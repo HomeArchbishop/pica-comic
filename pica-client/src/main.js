@@ -3,6 +3,7 @@ import less from 'less'
 import router from './router'
 import store from './store'
 import * as $api from './api/index'
+import * as $apiElectron from './api/api-electron'
 import $util from './assets/util/util'
 import $dialog from './assets/js/dialog'
 import Darkmode from 'darkmode-js'
@@ -27,12 +28,14 @@ Vue.component('Comment', Comment)
 Vue.component('LoadingRow', LoadingRow)
 Vue.component('TipRow', TipRow)
 Vue.component('TipRowBtn', TipRowBtn)
-Vue.prototype.$api = $api
 Vue.prototype.$util = $util
 Vue.prototype.$dialog = $dialog
 Vue.prototype.$darkmode = new Darkmode()
+Vue.prototype.$api = process.env.ELECTRON
+  ? $apiElectron
+  : $api
 
-// $darkmode.showWidget()
+console.log(process.env.NODE_ENV, process.env.ELECTRON)
 
 new Vue({
   router,

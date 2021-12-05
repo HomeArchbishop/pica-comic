@@ -4,8 +4,8 @@ import { join } from 'path'
 const writeMsg = async function writeMsg (message: string) {
   const date =
     new Date().getFullYear().toString() +
-    new Date().getMonth().toString() +
-    new Date().getDate().toString()
+    (new Date().getMonth() + 1).toString() +
+    ('0' + new Date().getDate().toString()).slice(-2)
   const fileName = `${date}.log`
   const logDirPath = join(__dirname, '../../log/', date)
   const filePath = join(logDirPath, fileName)

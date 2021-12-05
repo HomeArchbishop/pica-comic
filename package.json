@@ -8,12 +8,17 @@
     "build:web": "cd pica-client;npm run build;cd ../",
     "start": "cd pica-server;npm start;cd ../",
     "start:web": "npm start",
-    "stop:web": "cd pica-server;npm run stop;cd ../"
+    "stop:web": "cd pica-server;npm run stop;cd ../",
+    "test:electron": "electron electron/main.js"
   },
   "author": "拆家大主教",
   "license": "MIT",
   "engines": {
     "node": ">= 6.0.0",
     "npm": ">= 3.0.0"
+  },
+  "devDependencies": {
+    "electron": "^16.0.2",
+    "express": "^4.17.1"
   }
 }

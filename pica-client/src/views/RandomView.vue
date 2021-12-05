@@ -67,7 +67,7 @@ export default {
   .title {
     font-weight: 800;
     font-size: 25px;
-    border-top: 1px solid @color-theme;
+    border-bottom: 1px solid @color-theme;
   }
   .list-area {
     display: flex;
