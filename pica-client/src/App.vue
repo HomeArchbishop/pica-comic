@@ -25,14 +25,22 @@ export default {
         localStorage.sort = 'ua'
       }
     },
-    shiftToHideView: async function (e) {
-      console.log(3)
+    shiftToHideView: async function () {
       this.$router.push({ name: 'HideView' })
     }
   },
   created () {
     this.getDiversionUrlList()
     this.initLocalStorage()
+    // listening.
+    document.onkeydown = (e) => {
+      if (
+        e.shiftKey && (e.metaKey || e.ctrlKey) && e.key === 'x' &&
+        this.$route.name !== 'HideView'
+      ) {
+        this.shiftToHideView()
+      }
+    }
   }
 }
 </script>
