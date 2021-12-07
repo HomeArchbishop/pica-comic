@@ -3,14 +3,26 @@
     <div class="main">
       <div class="display-card">
         <div class="title">关于</div>
-        <div class="sub-title">作者的话</div>
+        <div align="center"><img width="120" src="../../static/img/pica-comic-logo.png" alt="Pica-comic logo"></div>
+        <h1 align="center">Picable哔咔漫画客户端</h1>
         <div class="para">
-          大约一阵子前，哔咔的ios端官方签名不给用了，需要自签，比较麻烦。再加之早就想用PC端看漫画了，就写了这个桌面端应用。
-          本来是给自己用的，但感觉还不错，就发出来了。
+          Picable是哔咔漫画<b><u>非官方</u></b>的客户端，旨在让PC（电脑）与移动端（手机）访问哔咔更加便捷，功能更加灵活人性化，为绅士淑女们提供极致的享受。
         </div>
         <div class="para">
-          核心功能都实现了，还有一些边角功能没有完工。近期会逐步更新。另外，如果使用者是开发者那最好不过，因为当前版本不算稳定，
-          开发者会手动处理一些异常。不会处理的人也没有关系，稳定版稍后更新。（稍后有可能就是几天后，因为就是正在开发。）
+          目前实现了官方的<b>绝大部分</b>功能，还添加了一些个性化功能，满足各位的日常需要绰绰有余😏。
+        </div>
+        <div class="sub-title">为什么要开发这个</div>
+        <div class="para">
+          大约一阵子前，由于懂得都懂的原因，哔咔的ios端官方签名不给用了，需要自签，比较麻烦。再加之早就想用PC端看漫画了（因为屏幕大啊），就写了这个应用。
+        </div>
+        <div class="sub-title">开发者碎碎念</div>
+        <div class="para">
+          <b><u>感谢大家看到这里</u></b>。作为一个刚起步的开发者，想做点练手的东西，于是LSP的本性驱使我尝试这个idea。才开始项目名就叫pica-comic，非常的朴实，也是为了方便搜索。
+          后来想想换个新名，那就叫Picable好了。<code>Picable = Pica + able</code>，也就是希望让这个项目变得越来越able。[那么至于为什么不叫<code>Picapable</code>呢，因为Picapable这个名字太长，会让人觉得不知所云（笑）。]
+        </div>
+        <div class="para">
+          我把这个项目发出来，希望大家能够喜欢。不足之处万望赐教。<b><u>如果Star一下当然更好啦，一个Star能够让我兴奋好久😚</u></b>。
+          <a href="https://github.com/HomeArchbishop/pica-comic">GitHub地址></a>
         </div>
         <div class="sub-title">声明</div>
         <div class="para">
@@ -64,7 +76,10 @@ export default {
   .title {
     font-weight: 800;
     font-size: 25px;
-    border-bottom: 1px solid @color-theme;
+    color: @color-anti-theme-sub;
+  }
+  h1 {
+    margin: 10px 0;
   }
   .sub-title {
     display: flex;
@@ -84,8 +99,9 @@ export default {
   .para {
     display: block;
     margin-top: 10px;
+    line-height: 1.8em;
     font-size: 18px;
-    text-indent:2em;
+    text-indent: 2em;
     * {
       display: inline;
     }
