@@ -11,7 +11,8 @@ import { sendGet, sendPost, sendPut } from './util/request'
 
 const diversionUrl = process.env.NODE_ENV === 'development' // && process.env.ELECTRON
   ? '/apiProxy/'
-  : 'https://picaapi.picacomic.com/' // JSON.parse(localStorage.diversionUrlList || '[]')[+localStorage.diversionIndex || 0] ||
+  : 'http://picaapi.picacomic.com/'
+  // JSON.parse(localStorage.diversionUrlList || '[]')[+localStorage.diversionIndex || 0] ||
 
 async function getDiversionUrlList () {
   const requestUrl = process.env.NODE_ENV === 'development' ? '/diversionUrlProxy/' : 'http://68.183.234.72/'

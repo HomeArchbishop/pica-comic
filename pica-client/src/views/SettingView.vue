@@ -47,7 +47,7 @@ export default {
   data () {
     return {
       isDarkMode: localStorage.darkmode === 'true',
-      diversionIndex: Number(localStorage.diversionIndex) || 2 // 2 refers to diversion_3
+      diversionIndex: Number(localStorage.diversionIndex) // 2 refers to diversion_3
     }
   },
   methods: {
@@ -57,9 +57,6 @@ export default {
     },
     setDiversion: async function (newVal) {
       const _newVal = +newVal
-      if (!_newVal) {
-        return
-      }
       localStorage.diversionIndex = _newVal
       this.$set(this, 'diversionIndex', _newVal)
     },

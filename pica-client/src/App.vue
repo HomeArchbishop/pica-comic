@@ -20,6 +20,9 @@ export default {
       this.$store.commit('global/updateDiversionUrlList', { newDiversionUrlList: fullList })
     },
     initLocalStorage: async function () {
+      if (!Number(localStorage.diversionIndex + 1)) {
+        localStorage.diversionIndex = 2
+      }
       localStorage.sort = localStorage.sort || 'ua' // 默认
       if (!['ua', 'da', 'dd', 'ld', 'vd'].includes(localStorage.sort)) {
         localStorage.sort = 'ua'
@@ -29,8 +32,8 @@ export default {
       this.$router.push({ name: 'HideView' })
     }
   },
-  created () {
-    this.getDiversionUrlList()
+  created: async function () {
+    await this.getDiversionUrlList()
     this.initLocalStorage()
     // listening.
     document.onkeydown = (e) => {
