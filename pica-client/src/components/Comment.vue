@@ -6,7 +6,7 @@
         <div class="tag-word">置顶</div>
       </div>
       <div class="name-div">
-        <img :src="avatarImg" @click.prevent>
+        <img :src="avatarImg" @click.prevent @click="$util.showBigImg(avatarImg)">
         <div class="info-div">
           <div class="name">
             {{ item._user.name.substr(0, 20) + (item._user.name.slice(20) ? '...' : '') }}

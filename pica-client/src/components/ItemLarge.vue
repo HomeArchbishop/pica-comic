@@ -1,6 +1,6 @@
 <template>
   <router-link class="recommend-item" :to="link" tag="div">
-    <div class="img-div">
+    <div class="img-div" @click.stop="$util.showBigImg($util.formatImgUrl(item.thumb.fileServer, item.thumb.path))">
       <img :src="$util.formatImgUrl(item.thumb.fileServer, item.thumb.path)" @click.prevent alt="加载失败">
     </div>
     <div class="content-div">

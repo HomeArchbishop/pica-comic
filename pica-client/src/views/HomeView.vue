@@ -19,7 +19,7 @@
           <ItemSmall v-for="item in moTuiJianList" :item="item" :key="item._id" :link="{ name: 'ComicDetailView', params: {id: item._id} }"/>
         </div>
       </div>
-      <div class="tips" v-if="shenTuiJianList.concat(moTuiJianList).length !== 8 && !isRequesting">※个别推荐不满四个，这是哔咔官方算法问题，与客户端无关</div>
+      <div class="tips" v-if="shenTuiJianList.concat(moTuiJianList).length !== 8 && !isRequesting">※个别推荐不满四个，这是哔咔官方问题，与客户端无关</div>
     </div>
   </div>
 </template>

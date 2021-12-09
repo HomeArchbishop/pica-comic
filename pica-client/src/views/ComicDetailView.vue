@@ -2,7 +2,7 @@
   <div class="detail-container">
     <div class="main">
       <div class="comic-card" v-if="!isRequestingDetail">
-        <div class="img-div">
+        <div class="img-div" @click.stop="$util.showBigImg($util.formatImgUrl(thumb.fileServer, thumb.path))">
           <img :src="$util.formatImgUrl(thumb.fileServer, thumb.path)" alt="加载失败">
         </div>
         <div class="content-div">

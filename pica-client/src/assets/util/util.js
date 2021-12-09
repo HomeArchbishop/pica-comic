@@ -3,18 +3,6 @@ export default {
     return fileServer.slice(0, 1) === '@'
       ? `//localhost:1210/static/${path}`
       : `https://storage1.picacomic.com/static/${path}`
-    /*
-    if (!fileServer || !path) {
-      return null
-    }
-    if (fileServer.slice(-7) === 'static/') {
-      return `${fileServer}${path}`
-    }
-    if (fileServer.slice(-7) === 'static') {
-      return `${fileServer}/${path}`
-    }
-    return `${fileServer}/static/${path}`
-    */
   },
   formatTime: function (timeStr = '') {
     // timeStr: 2021-10-16T04:10:10.947Z
@@ -69,5 +57,9 @@ export default {
     const formerTime = new Date(timeStr)
     const todayTimeLeft = 3600 * (24 - 8) * 1000 - nowTime.getTime() % (3600 * 24 * 1000)
     return ~~((nowTime.getTime() - formerTime.getTime() + todayTimeLeft) / (24 * 3600 * 1000))
+  },
+  showBigImg: function (src) {
+    window.open(src, '_blank',
+      'height=400, width=400, top=150, left=100, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, status=no, titlebar=no')
   }
 }

@@ -10,7 +10,7 @@ import { sendGet, sendPost, sendPut } from './util/request'
  */
 
 const diversionUrl = process.env.NODE_ENV === 'development' // && process.env.ELECTRON
-  ? '/apiProxy/'
+  ? 'http://picaapi.picacomic.com/' // '/apiProxy/'
   : 'http://picaapi.picacomic.com/'
   // JSON.parse(localStorage.diversionUrlList || '[]')[+localStorage.diversionIndex || 0] ||
 
