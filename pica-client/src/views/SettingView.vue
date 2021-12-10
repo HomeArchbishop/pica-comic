@@ -10,6 +10,10 @@
             <Toggle :isChecked="isDarkMode" @click.native="toggleDarkMode()"/>
           </div>
           <div class="row">
+            <label>失焦隐藏</label>
+            <Toggle :isChecked="isBlurOutOfFocus" @click.native="toggleBlurOutOfFocus()"/>
+          </div>
+          <div class="row">
             <label>分流</label>
             <CheckRadio valueStr="0|1|2" textStr="分流一(需要VPN)|分流二|分流三" :checkedValue="String(diversionIndex)"
               @checkChange="setDiversion" style="width: 400px; font-size: 1em"/>
@@ -47,6 +51,7 @@ export default {
   data () {
     return {
       isDarkMode: localStorage.darkmode === 'true',
+      isBlurOutOfFocus: localStorage.blurOutOfFocus !== 'off', // 'off' | 'on'
       diversionIndex: Number(localStorage.diversionIndex) // 2 refers to diversion_3
     }
   },
@@ -54,6 +59,10 @@ export default {
     toggleDarkMode: async function () {
       this.$darkmode.toggle()
       this.$set(this, 'isDarkMode', !this.isDarkMode)
+    },
+    toggleBlurOutOfFocus: async function () {
+      localStorage.blurOutOfFocus = this.isBlurOutOfFocus ? 'off' : 'on'
+      this.$set(this, 'isBlurOutOfFocus', !this.isBlurOutOfFocus)
     },
     setDiversion: async function (newVal) {
       const _newVal = +newVal

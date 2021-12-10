@@ -197,7 +197,8 @@ const router = new Router({
         title: '墨子-古诗文',
         keepAlive: true,
         authExclude: true,
-        connectExclude: true
+        connectExclude: true,
+        blurExclude: true
       }
     },
     {

@@ -30,20 +30,32 @@ export default {
     },
     shiftToHideView: async function () {
       this.$router.push({ name: 'HideView' })
+    },
+    addListener: async function () {
+      window.onblur = () => {
+        if (!this.$route.meta.blurExclude && localStorage.blurOutOfFocus !== 'off') {
+          document.body.classList.add('blur')
+        }
+        document.title = '兼爱-古诗文网'
+      }
+      window.onfocus = () => {
+        document.body.classList.remove('blur')
+        document.title = this.$route.meta.title || '百度一下'
+      }
+      document.onkeydown = (e) => {
+        if (
+          e.shiftKey && (e.metaKey || e.ctrlKey) && e.key === 'x' &&
+          this.$route.name !== 'HideView'
+        ) {
+          this.shiftToHideView()
+        }
+      }
     }
   },
   created: async function () {
-    await this.getDiversionUrlList()
     this.initLocalStorage()
-    // listening.
-    document.onkeydown = (e) => {
-      if (
-        e.shiftKey && (e.metaKey || e.ctrlKey) && e.key === 'x' &&
-        this.$route.name !== 'HideView'
-      ) {
-        this.shiftToHideView()
-      }
-    }
+    this.addListener()
+    await this.getDiversionUrlList()
   }
 }
 </script>
@@ -64,6 +76,9 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  &.blur {
+    filter: blur(30px);
+  }
   &, * {
     font-family: ZillaSlab, juZhenJF, Apple Color Emoji, Segoe UI Emoji, system-ui, sans-serif;
     box-sizing: border-box!important;
