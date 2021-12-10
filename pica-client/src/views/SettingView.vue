@@ -51,7 +51,7 @@ export default {
   data () {
     return {
       isDarkMode: localStorage.darkmode === 'true',
-      isBlurOutOfFocus: localStorage.blurOutOfFocus !== 'off', // 'off' | 'on'
+      isBlurOutOfFocus: localStorage.blurOutOfFocus === 'on', // 'off' | 'on'
       diversionIndex: Number(localStorage.diversionIndex) // 2 refers to diversion_3
     }
   },

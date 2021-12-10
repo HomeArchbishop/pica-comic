@@ -20,9 +20,14 @@ export default {
       this.$store.commit('global/updateDiversionUrlList', { newDiversionUrlList: fullList })
     },
     initLocalStorage: async function () {
+      if (localStorage.blurOutOfFocus !== 'on' && localStorage.blurOutOfFocus !== 'off') {
+        localStorage.blurOutOfFocus = 'on'
+      }
+      // diversionIndex
       if (!Number(localStorage.diversionIndex + 1)) {
         localStorage.diversionIndex = 2
       }
+      // sort
       localStorage.sort = localStorage.sort || 'ua' // 默认
       if (!['ua', 'da', 'dd', 'ld', 'vd'].includes(localStorage.sort)) {
         localStorage.sort = 'ua'
@@ -33,7 +38,7 @@ export default {
     },
     addListener: async function () {
       window.onblur = () => {
-        if (!this.$route.meta.blurExclude && localStorage.blurOutOfFocus !== 'off') {
+        if (!this.$route.meta.blurExclude && localStorage.blurOutOfFocus === 'on') {
           document.body.classList.add('blur')
         }
         document.title = '兼爱-古诗文网'
