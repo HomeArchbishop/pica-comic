@@ -2,7 +2,7 @@
   <div class="link-container">
     <div class="main">
       <div class="iframe-div">
-        <iframe :src="link" frameborder="0"></iframe>
+        <iframe :src="validLink" frameborder="0"></iframe>
       </div>
     </div>
   </div>
@@ -14,6 +14,20 @@ export default {
   data () {
     return {
       link: this.$route.params.link
+    }
+  },
+  computed: {
+    validLink () {
+      let validLink
+      if (/^(https|http):\/\//.test(this.link)) {
+        validLink = this.link
+      } else if (/^\/\//.test(this.link)) {
+        validLink = `https:${this.link}`
+      } else {
+        validLink = `https://${this.link}`
+      }
+      console.log(validLink)
+      return validLink
     }
   }
 }
