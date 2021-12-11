@@ -3,11 +3,9 @@
     <div class="main">
       <div class="title">升级</div>
       <div class="content">
-        <div class="sub-title">升级为我带来什么？</div>
-        <p><u><b>升级并不能给您带来任何东西</b></u>，却可以为开发者带来一瓶可乐╮(￣▽￣"")╭</p>
+        <p><b>升级并不能给您带来任何东西</b>，却可以为开发者带来一瓶可乐╮(￣▽￣"")╭</p>
       </div>
       <div class="content">
-        <div class="sub-title">升级方案</div>
         <p>我们推出了三种方案，您可以进行选择。（当然，我们推荐您最多只买一份）</p>
       </div>
       <table class="coffee-table" cellspacing="0" cellpadding="0">
@@ -48,12 +46,12 @@
             <td v-for="i in 3" :key="i"><TickIcon/></td>
           </tr>
           <tr class="row">
-            <td class="table-title">钱包少五块钱</td>
+            <td class="table-title">钱包少五块钱<sup>（*）</sup></td>
             <td></td>
             <td v-for="i in 2" :key="i"><TickIcon/></td>
           </tr>
           <tr class="row">
-            <td class="table-title">钱包少十块钱</td>
+            <td class="table-title">钱包少十块钱<sup>（*）</sup></td>
             <td v-for="i in 2" :key="i"></td>
             <td><TickIcon/></td>
           </tr>
@@ -63,10 +61,10 @@
               <div class="detail-card"></div>
             </td>
             <td>
-              <div class="detail-card">您的好意我心领了。</div>
+              <div class="detail-card">--等我开发完了再鼓励我吧--</div>
             </td>
             <td>
-              <div class="detail-card">万分感谢！</div>
+              <div class="detail-card"></div>
             </td>
           </tr>
         </tbody>
@@ -109,19 +107,19 @@ export default {
 .title {
   font-weight: 800;
   font-size: 25px;
-  border-bottom: 1px solid @color-theme;
+  color: @color-anti-theme-sub;
   margin-top: 20px;
 }
 .content {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
   &:nth-last-child(1) {
     margin-bottom: 20px;
   }
   p {
     font-size: 18px;
     margin: 20px 0 0 0;
+    text-indent: 2em;
   }
   .sub-title {
     display: flex;
@@ -129,6 +127,7 @@ export default {
     min-width: 4em;
     font-size: 20px;
     font-weight: 900;
+    margin-top: 20px;
     margin-bottom: -4px;
     border-bottom: 3px solid @color-anti-theme-sub;
     &::before {
@@ -151,18 +150,14 @@ export default {
     border-radius: @card-radius-default;
     tr {
       text-align: center;
-      &:nth-child(2n) {
-        background-color: @color-theme-sub;
-      }
-      &:nth-child(2n+1) {
-        background-color: @color-theme-sub-dark;
-      }
+      background-color: @color-anti-theme;
+      overflow: hidden;
       td:nth-child(2), th:nth-child(2) {
-        box-shadow: -8px 0 4px -4px @color-theme;
+        border-left: 1px dashed @color-anti-theme-sub;
       }
       &.head {
         th {
-          color: @color-theme-sub;
+          color: @color-theme;
           &.empty {
             background-color: transparent;
           }
@@ -172,8 +167,7 @@ export default {
             justify-content: center;
             align-content: center;
             padding: 10px;
-            background-color: @color-theme-sub-dark;
-            color: @color-anti-theme-sub;
+            color: @color-theme;
             .cate-name {
               font-size: 24px;
               padding: 4px 0;
@@ -190,25 +184,24 @@ export default {
       }
       &.row {
         height: 40px;
+        box-shadow: -8px -3px 8px -4px @color-anti-theme-sub;
         td {
           width: 200px;
           padding: 10px;
           &.table-title {
-            width: 300px;
+            width: 200px;
             text-align: left;
-            background-color: @color-theme-sub-dark;
-            box-shadow: -8px -3px 8px 0 @color-anti-theme-sub;
             flex: 1;
+            color: @color-theme;
           }
-        }
-        &:not(:nth-child(2)) td.table-title {
-          border-top: 1px solid @color-anti-theme-sub;
         }
       }
       &.foot {
         height: 200px;
+        box-shadow: -8px -3px 8px -4px @color-anti-theme-sub;
         td {
           box-shadow: none;
+          color: @color-theme;
           &.empty {
             background-color: transparent;
           }
