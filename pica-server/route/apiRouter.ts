@@ -179,8 +179,8 @@ router
     // (1) has downloaded.
     try {
       const downloadFlagPath = `./static/download/${args.comicId}/${args.episodesOrder}/FLAG`
-      console.log(downloadFlagPath, fs.existsSync(downloadFlagPath))
-      if (fs.existsSync(downloadFlagPath)) {
+      console.log(downloadFlagPath, fs.existsSync(downloadFlagPath), fs.readFileSync(downloadFlagPath).toString() !== 'completed')
+      if (fs.existsSync(downloadFlagPath) && fs.readFileSync(downloadFlagPath).toString() === 'completed') {
         console.log('downloaded')
         const downloadIndexPath = `./static/download/${args.comicId}/${args.episodesOrder}/info.json`
         const apiData = JSON.parse(fs.readFileSync(downloadIndexPath).toString())

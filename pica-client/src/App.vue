@@ -98,6 +98,7 @@ body {
   padding: 0;
   margin: 0;
   background-color: @color-background;
+  /*
   &::before {
     content: "";
     // background-image: url('../static/img/pica-comic-logo.png');
@@ -111,11 +112,12 @@ body {
   * {
     z-index: 2;
   }
+  */
 }
 .darkmode-layer, .darkmode-toggle {
   z-index: 500;
 }
 img {
-  z-index: 501;
+  z-index: 501 !important;
 }
 </style>
