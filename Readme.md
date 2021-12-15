@@ -80,16 +80,16 @@ npm config set registry https://registry.npm.taobao.org
 
 **开始部署：**
 
-1.克隆（或下载）本项目
+1.克隆（或下载）本项目。（以下任选一种，推荐第四种——用浏览器打开网址）
 
 ```sh
-# 标准的克隆方式
+# 标准的克隆方式（命令行）
 git clone https://github.com/HomeArchbishop/pica-comic.git
-# 快速的克隆方式（镜像）
+# 快速的克隆方式（镜像）（命令行）
 git clone https://hub.fastgit.org/HomeArchbishop/pica-comic.git
-# 标准链接下载
+# 标准链接下载（浏览器打开以下链接）
 https://github.com/HomeArchbishop/pica-comic/archive/refs/heads/main.zip
-# 快速的链接下载（镜像）
+# 快速的链接下载（镜像）（浏览器打开以下链接）
 https://hub.fastgit.org/HomeArchbishop/pica-comic/archive/refs/heads/main.zip
 ```
 
@@ -99,19 +99,25 @@ https://hub.fastgit.org/HomeArchbishop/pica-comic/archive/refs/heads/main.zip
 cd path/to/pica-comic # 将此命令cd后的路径改成下载的文件夹的路径
 ```
 
-3.安装依赖
+3.安装构建工具依赖
+
+```sh
+npm run install:tool
+```
+
+4.安装依赖
 
 ```sh
 npm run install:web
 ```
 
-4.构建客户端（这一步请稍等一两分钟，多点耐心，感谢）
+5.构建客户端（这一步请稍等一两分钟，多点耐心，感谢）
 
 ```sh
 npm run build:web
 ```
 
-5.最后一步，启动！
+6.最后一步，启动！
 
 ```sh
 npm run start:web
@@ -125,9 +131,17 @@ npm run start:web
 npm run stop:web
 ```
 
+**如果以上第6步不成功，请尝试替换为如下命令**
+
+```sh
+npm run serve
+```
+
+替换后如果想要停止服务，请直接关闭powershell即可。
+
 <h3 align="center">桌面版（软件）</h3>
 
-- 待发布...
+- 调试中，待发布...
 
 
 

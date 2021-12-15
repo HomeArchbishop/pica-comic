@@ -3,12 +3,12 @@
   "version": "0.1.0-alpha",
   "description": "",
   "scripts": {
-    "install:all": "cd \"pica-server\"; npm install;cd \"../pica-client\";npm install;cd \"../\"",
-    "install:web": "npm run install:all",
-    "build:web": "cd \"pica-client\";npm run build;cd \"../\"",
-    "start": "cd \"pica-server\";npm start;cd \"../\"",
-    "start:web": "npm start",
-    "stop:web": "cd \"pica-server\";npm run stop;cd \"../\"",
+    "install:tool": "npm i --production",
+    "install:web": "node script/install-web",
+    "build:web": "node script/build-web",
+    "start:web": "node script/start-web",
+    "stop:web": "node script/stop-web",
+    "serve": "node script/serve",
     "test:electron": "electron electron/main.js"
   },
   "author": "拆家大主教",
@@ -20,5 +20,9 @@
   "devDependencies": {
     "electron": "^16.0.2",
     "express": "^4.17.1"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "shelljs": "^0.8.4"
   }
 }
