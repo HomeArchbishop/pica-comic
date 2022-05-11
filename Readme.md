@@ -8,6 +8,8 @@
   <a href="."><img src="https://img.shields.io/badge/LANG-JS/TS-gold" alt="lang:ts/js"></a><a href="."><img src="https://img.shields.io/badge/Vue-2.5.2-brightgreen" alt="Vue2"></a>
 </p>
 
+<h1 align="center">注意⚠️：本项目已废弃。请前往<a href="https://github.com/HomeArchbishop/picable">新项目&gt;</a></h1>
+
 * Picable是哔咔漫画的客户端，旨在让PC（电脑）与移动端（手机）访问哔咔更加便捷，功能更加灵活人性化，为绅士淑女们提供极致的享受。
   
 * 目前实现了官方的**绝大部分**功能，还添加了一些**个性化**功能，满足各位的日常需要绰绰有余😏。[功能列表>](#功能列表)
